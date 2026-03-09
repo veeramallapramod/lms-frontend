@@ -198,7 +198,7 @@ export default function Landing() {
           <div style={{ position:'relative' }}>
             {/* Ambient glow behind shelf */}
             <div style={{ position:'absolute', inset:'-20px', background:'radial-gradient(ellipse, rgba(245,158,11,0.08) 0%, transparent 70%)', filter:'blur(20px)' }}/>
-            <div style={{ position:'relative', background:'rgba(10,7,3,0.6)', border:'1px solid rgba(245,158,11,0.1)', borderRadius:'16px', padding:'32px 24px 16px', backdropFilter:'blur(10px)' }}>
+            <div style={{ position:'relative', background:'rgba(10,7,3,0.92)', border:'1px solid rgba(245,158,11,0.15)', borderRadius:'16px', padding:'32px 24px 16px' }}>
               {/* Library label */}
               <div style={{ textAlign:'center', marginBottom:'24px' }}>
                 <p style={{ fontSize:'11px', color:'rgba(245,158,11,0.5)', letterSpacing:'0.2em', textTransform:'uppercase' }}>Featured Collection</p>

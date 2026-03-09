@@ -16,12 +16,11 @@ API.interceptors.request.use((req) => {
 API.interceptors.response.use(
   (res) => res,
   (err) => {
-    // Handle both 401 (unauthorized) and 403 (forbidden/expired token)
-    // BUT only redirect for non-login endpoints to avoid infinite loop
     const url = err.config?.url || '';
     const isAuthEndpoint = url.includes('/auth/login') || url.includes('/auth/register');
-    
-    if (!isAuthEndpoint && (err.response?.status === 401 || err.response?.status === 403)) {
+
+    // Only logout on 401 (token expired/invalid) — NOT on 403 (just no permission)
+    if (!isAuthEndpoint && err.response?.status === 401) {
       localStorage.removeItem('lms-auth');
       window.location.href = '/';
     }

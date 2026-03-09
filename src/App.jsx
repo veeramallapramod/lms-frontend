@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import useAuthStore from './store/authStore';
 
+import Notifications from './components/Notifications';
+import AdminAlerts from './components/AdminAlerts';
 import Landing from './components/Landing';
 import Login from './components/Login';
 import { Register, VerifyOtp, ForgotPassword, ProtectedRoute } from './components/AuthPages';
@@ -26,31 +28,35 @@ function AppRoutes() {
   return (
     <Routes>
       {/* Public */}
-      <Route path="/" element={token ? <Navigate to="/dashboard" /> : <Landing />} />
-      <Route path="/login" element={token ? <Navigate to="/dashboard" /> : <Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/verify-otp" element={<VerifyOtp />} />
+      <Route path="/"               element={token ? <Navigate to="/dashboard" /> : <Landing />} />
+      <Route path="/login"          element={token ? <Navigate to="/dashboard" /> : <Login />} />
+      <Route path="/register"       element={<Register />} />
+      <Route path="/verify-otp"     element={<VerifyOtp />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
 
       {/* All authenticated roles */}
-      <Route path="/dashboard"    element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-      <Route path="/books"        element={<ProtectedRoute><Books /></ProtectedRoute>} />
-      <Route path="/bookshelf"    element={<ProtectedRoute><BookShelf /></ProtectedRoute>} />
-      <Route path="/reservations" element={<ProtectedRoute><Reservations /></ProtectedRoute>} />
-      <Route path="/profile"      element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-      <Route path="/my-borrows"   element={<ProtectedRoute roles={['MEMBER']}><MyBorrows /></ProtectedRoute>} />
-      <Route path="/plans"        element={<ProtectedRoute roles={['MEMBER']}><MemberPlans /></ProtectedRoute>} />
+      <Route path="/dashboard"      element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+      <Route path="/books"          element={<ProtectedRoute><Books /></ProtectedRoute>} />
+      <Route path="/bookshelf"      element={<ProtectedRoute><BookShelf /></ProtectedRoute>} />
+      <Route path="/reservations"   element={<ProtectedRoute><Reservations /></ProtectedRoute>} />
+      <Route path="/profile"        element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+      <Route path="/notifications"  element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
+
+      {/* Member only */}
+      <Route path="/my-borrows"     element={<ProtectedRoute><MyBorrows /></ProtectedRoute>} />
+      <Route path="/plans"          element={<ProtectedRoute><MemberPlans /></ProtectedRoute>} />
 
       {/* Admin + Librarian */}
-      <Route path="/add-book"     element={<ProtectedRoute roles={['ADMIN','LIBRARIAN']}><AddBook /></ProtectedRoute>} />
-      <Route path="/edit-book/:id" element={<ProtectedRoute roles={['ADMIN','LIBRARIAN']}><AddBook /></ProtectedRoute>} />
-      <Route path="/borrow"       element={<ProtectedRoute roles={['ADMIN','LIBRARIAN']}><BorrowManagement /></ProtectedRoute>} />
-      <Route path="/users"        element={<ProtectedRoute roles={['ADMIN','LIBRARIAN']}><Users /></ProtectedRoute>} />
-      <Route path="/approvals"    element={<ProtectedRoute roles={['ADMIN','LIBRARIAN']}><Approvals /></ProtectedRoute>} />
+      <Route path="/add-book"       element={<ProtectedRoute><AddBook /></ProtectedRoute>} />
+      <Route path="/edit-book/:id"  element={<ProtectedRoute><AddBook /></ProtectedRoute>} />
+      <Route path="/borrow"         element={<ProtectedRoute><BorrowManagement /></ProtectedRoute>} />
+      <Route path="/users"          element={<ProtectedRoute><Users /></ProtectedRoute>} />
+      <Route path="/approvals"      element={<ProtectedRoute><Approvals /></ProtectedRoute>} />
+      <Route path="/admin-alerts"   element={<ProtectedRoute><AdminAlerts /></ProtectedRoute>} />
 
       {/* Admin only */}
-      <Route path="/add-staff" element={<ProtectedRoute roles={['ADMIN']}><AddStaff /></ProtectedRoute>} />
-      <Route path="/subscriptions"  element={<ProtectedRoute roles={['ADMIN']}><Subscriptions /></ProtectedRoute>} />
+      <Route path="/add-staff"      element={<ProtectedRoute><AddStaff /></ProtectedRoute>} />
+      <Route path="/subscriptions"  element={<ProtectedRoute><Subscriptions /></ProtectedRoute>} />
 
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>

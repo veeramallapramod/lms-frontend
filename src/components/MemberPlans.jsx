@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Layout from './Layout';
 import useAuthStore from '../store/authStore';
 import API from '../api/axiosInstance';
+import RazorpayModal from './RazorpayModal';
 
 const PLANS = [
   { id:'FREE',     name:'Free',     price:'₹0',   period:'forever',   color:'#94a3b8', books:2,  duration:14, features:['2 books at a time','14-day borrow period','Basic catalog access','Email notifications'] },
@@ -15,25 +16,63 @@ export default function MemberPlans() {
   const currentPlan = user?.subscriptionPlan || 'FREE';
   const [loading, setLoading] = useState('');
   const [msg, setMsg] = useState({ text:'', type:'' });
+  const [razorpayPlan, setRazorpayPlan] = useState(null); // plan object to pay for
 
   const handleSubscribe = async (plan) => {
     if (plan.id === currentPlan) return;
+    // FREE plan downgrade: direct, no payment needed
+    if (plan.id === 'FREE') {
+      setLoading(plan.id);
+      try {
+        const res = await API.post('/auth/subscribe', { email: user.email, plan: plan.id });
+        setMsg({ text: res.data, type:'success' });
+        updateUser({ subscriptionPlan: plan.id, maxBorrowLimit: plan.books });
+      } catch (err) {
+        setMsg({ text: err.response?.data || 'Subscription failed', type:'error' });
+      } finally {
+        setLoading('');
+        setTimeout(() => setMsg({ text:'', type:'' }), 4000);
+      }
+      return;
+    }
+    // Paid plan: open Razorpay modal
+    setRazorpayPlan(plan);
+  };
+
+  const handlePaymentSuccess = async (plan) => {
+    setRazorpayPlan(null);
     setLoading(plan.id);
     try {
       const res = await API.post('/auth/subscribe', { email: user.email, plan: plan.id });
-      setMsg({ text: res.data, type:'success' });
-      // Update local user state with new plan
+      setMsg({ text: `✓ ${res.data}`, type:'success' });
       updateUser({ subscriptionPlan: plan.id, maxBorrowLimit: plan.books });
     } catch (err) {
       setMsg({ text: err.response?.data || 'Subscription failed', type:'error' });
     } finally {
       setLoading('');
-      setTimeout(() => setMsg({ text:'', type:'' }), 4000);
+      setTimeout(() => setMsg({ text:'', type:'' }), 5000);
     }
   };
 
   return (
     <Layout title="Subscription Plans" subtitle="Upgrade your plan to borrow more books at once">
+
+      {/* Razorpay Subscription Payment Modal */}
+      {razorpayPlan && (
+        <RazorpayModal
+          mode="subscription"
+          planData={{
+            planId: razorpayPlan.id,
+            planName: razorpayPlan.name,
+            price: parseInt(razorpayPlan.price.replace('₹','')),
+            books: razorpayPlan.books,
+            email: user?.email,
+            name: user?.name,
+          }}
+          onClose={() => setRazorpayPlan(null)}
+          onSuccess={() => handlePaymentSuccess(razorpayPlan)}
+        />
+      )}
 
       {msg.text && <div className={`alert alert-${msg.type}`}>{msg.text}</div>}
 
@@ -101,7 +140,7 @@ export default function MemberPlans() {
                   transition:'all 0.15s',
                 }}
               >
-                {loading === plan.id ? 'Subscribing...' : isActive ? '✓ Current Plan' : plan.id === 'FREE' ? 'Downgrade to Free' : `Subscribe`}
+                {loading === plan.id ? 'Processing...' : isActive ? '✓ Current Plan' : plan.id === 'FREE' ? 'Downgrade to Free' : `Pay & Subscribe`}
               </button>
             </div>
           );

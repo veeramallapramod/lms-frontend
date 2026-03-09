@@ -92,7 +92,7 @@ function AvailBar({ label, value, total, color }) {
   const [width, setWidth] = useState(0);
   useEffect(() => { const t = setTimeout(() => setWidth(pct), 200); return () => clearTimeout(t); }, [pct]);
   return (
-    <div style={{ padding:'14px 18px', borderRadius:'12px', background:`${color}12`, border:`1px solid ${color}28`, flex:1, minWidth:'120px' }}>
+    <div style={{ padding:'14px 18px', borderRadius:'12px', background:'var(--bg-card)', border:'1px solid var(--border)', borderLeft:`4px solid ${color}`, flex:1, minWidth:'120px' }}>
       <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-end', marginBottom:'8px' }}>
         <span style={{ fontSize:'12px', color, fontWeight:'700' }}>{label}</span>
         <span style={{ fontSize:'26px', fontWeight:'800', color, fontFamily:'Instrument Serif, serif', lineHeight:1 }}>{value}</span>

@@ -1,7 +1,8 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import useAuthStore from '../store/authStore';
 import useUserStore from '../store/userStore';
-import { useEffect } from 'react';
+import API from '../api/axiosInstance';
 
 export default function Sidebar() {
   const location  = useLocation();
@@ -10,40 +11,76 @@ export default function Sidebar() {
   const { pendingUsers, fetchPendingUsers }   = useUserStore();
   const role = user?.role;
 
+  const [unreadCount, setUnreadCount] = useState(0);
+
   useEffect(() => {
     if (role === 'ADMIN' || role === 'LIBRARIAN') fetchPendingUsers();
   }, [role]);
 
+  useEffect(() => {
+  if (!user?.id || !user?.role) return;
+  
+  let active = true;
+  
+  const fetchCount = async () => {
+    try {
+      const res = await API.get(`/notifications/${user.id}/unread-count`);
+      if (active) setUnreadCount(res.data?.count || 0);
+    } catch (err) {
+      // If 403, just silently stop — don't crash, don't redirect
+      if (err.response?.status === 403) return;
+    }
+  };
+
+  fetchCount();
+  const interval = setInterval(fetchCount, 60000);
+  return () => { active = false; clearInterval(interval); };
+}, [user?.id, user?.role]); // ← only re-run when id or role changes, not entire user object
+
   const isActive     = (path) => location.pathname === path;
   const handleLogout = () => { logout(); navigate('/'); };
 
-  const NavLink = ({ to, icon, label, badge }) => (
+  const NavLink = ({ to, icon, label, badge, notifBadge }) => (
     <Link to={to}
-      style={{ padding:'10px 14px', borderRadius:'9px', marginBottom:'2px', display:'flex', alignItems:'center', gap:'11px', textDecoration:'none',
+      style={{
+        padding:'10px 14px', borderRadius:'9px', marginBottom:'2px',
+        display:'flex', alignItems:'center', gap:'11px', textDecoration:'none',
         color: isActive(to) ? 'var(--accent)' : 'var(--text-2)',
         background: isActive(to) ? 'var(--accent-muted)' : 'transparent',
         fontWeight: isActive(to) ? '600' : '400',
         fontSize:'13.5px', transition:'all 0.15s',
         border: isActive(to) ? '1px solid var(--border-accent)' : '1px solid transparent',
       }}>
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink:0, opacity: isActive(to) ? 1 : 0.7 }}>
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"
+        style={{ flexShrink:0, opacity: isActive(to) ? 1 : 0.7 }}>
         <path d={icon}/>
       </svg>
       <span style={{ flex:1, fontSize:'13.5px' }}>{label}</span>
       {badge > 0 && (
-        <span style={{ background:'var(--red)', color:'white', fontSize:'9px', fontWeight:'800', padding:'2px 6px', borderRadius:'10px', minWidth:'18px', textAlign:'center' }}>{badge}</span>
+        <span style={{ background:'var(--red)', color:'white', fontSize:'9px', fontWeight:'800', padding:'2px 6px', borderRadius:'10px', minWidth:'18px', textAlign:'center' }}>
+          {badge}
+        </span>
+      )}
+      {notifBadge > 0 && (
+        <span style={{ background:'var(--red)', color:'white', fontSize:'9px', fontWeight:'800', padding:'2px 6px', borderRadius:'10px', minWidth:'18px', textAlign:'center' }}>
+          {notifBadge > 99 ? '99+' : notifBadge}
+        </span>
       )}
     </Link>
   );
 
   const SectionLabel = ({ children }) => (
-    <p style={{ fontSize:'9px', fontWeight:'700', color:'var(--text-3)', letterSpacing:'0.12em', textTransform:'uppercase', padding:'14px 14px 5px', marginTop:'4px' }}>{children}</p>
+    <p style={{ fontSize:'9px', fontWeight:'700', color:'var(--text-3)', letterSpacing:'0.12em', textTransform:'uppercase', padding:'14px 14px 5px', marginTop:'4px' }}>
+      {children}
+    </p>
   );
 
   const initials = user?.name?.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2) || 'U';
 
   return (
     <div className="sidebar" style={{ display:'flex', flexDirection:'column' }}>
+      {/* Logo */}
       <div style={{ padding:'18px 16px 14px', borderBottom:'1px solid var(--border)' }}>
         <div style={{ display:'flex', alignItems:'center', gap:'11px' }}>
           <div style={{ width:'36px', height:'36px', background:'linear-gradient(135deg, #f59e0b, #d97706)', borderRadius:'10px', display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0, boxShadow:'0 3px 10px rgba(245,158,11,0.35)' }}>
@@ -58,6 +95,7 @@ export default function Sidebar() {
         </div>
       </div>
 
+      {/* Nav */}
       <nav style={{ flex:1, overflowY:'auto', padding:'6px 8px 10px', scrollbarWidth:'none' }}>
         <SectionLabel>Main</SectionLabel>
         <NavLink to="/dashboard" icon="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" label="Dashboard"/>
@@ -73,6 +111,7 @@ export default function Sidebar() {
           <NavLink to="/users"         icon="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" label="Users"/>
           <NavLink to="/approvals"     icon="M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4 12 14.01l-3-3" label="Approvals" badge={pendingUsers.length}/>
           <NavLink to="/subscriptions" icon="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" label="Subscriptions"/>
+          <NavLink to="/admin-alerts"  icon="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0zM12 9v4M12 17h.01" label="Admin Alerts 🚨"/>
         </>)}
 
         {role === 'LIBRARIAN' && (<>
@@ -82,6 +121,7 @@ export default function Sidebar() {
           <NavLink to="/reservations" icon="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8zM6 1v3M10 1v3M14 1v3" label="Reservations"/>
           <NavLink to="/users"        icon="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" label="Members"/>
           <NavLink to="/approvals"    icon="M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4 12 14.01l-3-3" label="Approvals" badge={pendingUsers.length}/>
+          <NavLink to="/admin-alerts" icon="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0zM12 9v4M12 17h.01" label="Alerts 🚨"/>
         </>)}
 
         {role === 'MEMBER' && (<>
@@ -92,9 +132,11 @@ export default function Sidebar() {
         </>)}
 
         <SectionLabel>Account</SectionLabel>
-        <NavLink to="/profile" icon="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8" label="My Profile"/>
+        <NavLink to="/profile"       icon="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8" label="My Profile"/>
+        <NavLink to="/notifications" icon="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0" label="Notifications" notifBadge={unreadCount}/>
       </nav>
 
+      {/* Bottom */}
       <div style={{ padding:'10px 8px 12px', borderTop:'1px solid var(--border)' }}>
         <button onClick={toggleTheme}
           style={{ width:'100%', display:'flex', alignItems:'center', gap:'11px', padding:'10px 14px', borderRadius:'9px', background:'transparent', border:'1px solid transparent', cursor:'pointer', color:'var(--text-2)', fontSize:'13px', marginBottom:'6px', transition:'all 0.15s', fontFamily:'Plus Jakarta Sans, sans-serif' }}

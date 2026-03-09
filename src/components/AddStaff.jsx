@@ -5,14 +5,14 @@ import API from '../api/axiosInstance';
 const ROLE_INFO = {
   LIBRARIAN: {
     color: 'var(--purple)',
-    bg: 'var(--purple-muted)',
+    bg: 'var(--bg-card)',
     border: 'rgba(139,92,246,0.3)',
     perms: ['Add, edit, delete books','Issue & return books','Add new members','Approve user registrations','View all borrow records','Manage reservations'],
     desc: 'Can manage books, issue/return, handle members. Cannot manage subscriptions or create staff.',
   },
   ADMIN: {
     color: 'var(--gold)',
-    bg: 'var(--gold-muted)',
+    bg: 'var(--bg-card)',
     border: 'rgba(245,158,11,0.3)',
     perms: ['Full system access','Manage all users & staff','Add/delete books','Manage subscriptions','Approve registrations','Create Admin & Librarian accounts'],
     desc: 'Has complete system access including creating other admins and librarians.',
@@ -124,7 +124,7 @@ export default function AddStaff() {
 
         {/* Right — permissions preview */}
         <div style={{ display:'flex', flexDirection:'column', gap:'16px' }}>
-          <div className="card" style={{ padding:'24px', border:`1px solid ${config.border}`, background:config.bg }}>
+          <div className="card" style={{ padding:'24px', borderTop:`3px solid ${config.color}` }}>
             <p style={{ fontSize:'11px', fontWeight:'700', color:config.color, textTransform:'uppercase', letterSpacing:'0.1em', marginBottom:'6px' }}>{form.role}</p>
             <p style={{ fontSize:'13px', color:'var(--text-2)', lineHeight:1.6, marginBottom:'16px' }}>{config.desc}</p>
             <div style={{ display:'flex', flexDirection:'column', gap:'9px' }}>
@@ -139,7 +139,7 @@ export default function AddStaff() {
 
           {/* Warning for Admin creation */}
           {form.role === 'ADMIN' && (
-            <div style={{ background:'var(--red-muted)', border:'1px solid rgba(239,68,68,0.2)', borderRadius:'10px', padding:'14px 16px' }}>
+            <div style={{ background:'var(--bg-card)', border:'1px solid var(--red)', borderRadius:'10px', padding:'14px 16px' }}>
               <p style={{ fontSize:'12px', color:'var(--red)', fontWeight:'600', marginBottom:'4px' }}>⚠️ Admin privileges</p>
               <p style={{ fontSize:'12px', color:'var(--text-2)', lineHeight:1.6 }}>
                 This person will have full access including creating other admins. Only create admin accounts for trusted personnel.
