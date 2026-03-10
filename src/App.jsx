@@ -20,6 +20,7 @@ import Profile from './components/Profile';
 import Subscriptions from './components/Subscriptions';
 import MyBorrows from './components/MyBorrows';
 import MemberPlans from './components/MemberPlans';
+import AddMember from './components/AddMember';
 
 function AppRoutes() {
   const { token, theme } = useAuthStore();
@@ -56,6 +57,7 @@ function AppRoutes() {
 
       {/* Admin only */}
       <Route path="/add-staff"      element={<ProtectedRoute><AddStaff /></ProtectedRoute>} />
+      <Route path="/add-member"     element={<ProtectedRoute><AddMember /></ProtectedRoute>} />
       <Route path="/subscriptions"  element={<ProtectedRoute><Subscriptions /></ProtectedRoute>} />
 
       <Route path="*" element={<Navigate to="/" />} />

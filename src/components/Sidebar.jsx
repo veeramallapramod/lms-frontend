@@ -106,6 +106,7 @@ export default function Sidebar() {
           <SectionLabel>Admin</SectionLabel>
           <NavLink to="/add-book"      icon="M12 5v14M5 12h14" label="Add Book"/>
           <NavLink to="/add-staff"     icon="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 7a4 4 0 1 0 0-8 4 4 0 0 0 0 8M19 8v6M22 11h-6" label="Add Staff"/>
+          <NavLink to="/add-member"    icon="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 7a4 4 0 1 0 0-8 4 4 0 0 0 0 8M20 8v6M23 11h-6M17 14v6" label="Add Member 🧑‍💼"/>
           <NavLink to="/borrow"        icon="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" label="Borrow Management"/>
           <NavLink to="/reservations"  icon="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8zM6 1v3M10 1v3M14 1v3" label="Reservations"/>
           <NavLink to="/users"         icon="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" label="Users"/>
@@ -117,6 +118,7 @@ export default function Sidebar() {
         {role === 'LIBRARIAN' && (<>
           <SectionLabel>Librarian</SectionLabel>
           <NavLink to="/add-book"     icon="M12 5v14M5 12h14" label="Add Book"/>
+          <NavLink to="/add-member"   icon="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 7a4 4 0 1 0 0-8 4 4 0 0 0 0 8M20 8v6M23 11h-6M17 14v6" label="Add Member 🧑‍💼"/>
           <NavLink to="/borrow"       icon="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" label="Borrow Management"/>
           <NavLink to="/reservations" icon="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8zM6 1v3M10 1v3M14 1v3" label="Reservations"/>
           <NavLink to="/users"        icon="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" label="Members"/>
