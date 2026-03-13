@@ -122,7 +122,7 @@ export default function RazorpayModal({ mode, fineData, planData, onClose, onSuc
           </div>
 
           {/* Title */}
-          <h2 style={{ fontSize:'20px', fontWeight:'700', color:'#fff', lineHeight:1.3, marginBottom:'8px', fontFamily:'Georgia, serif' }}>
+          <h2 style={{ fontSize:'20px', fontWeight:'700', color:'#fff', lineHeight:1.3, marginBottom:'8px', fontFamily:"'Georgia',serif" }}>
             {title}
           </h2>
           <p style={{ fontSize:'12px', color:'rgba(255,255,255,0.55)', marginBottom:'32px', lineHeight:1.6 }}>
@@ -138,7 +138,7 @@ export default function RazorpayModal({ mode, fineData, planData, onClose, onSuc
             marginBottom: '28px',
           }}>
             <p style={{ fontSize:'11px', color:'rgba(255,255,255,0.5)', textTransform:'uppercase', letterSpacing:'0.1em', marginBottom:'6px' }}>Amount to Pay</p>
-            <p style={{ fontSize:'38px', fontWeight:'800', color:'#fff', lineHeight:1, fontFamily:'Georgia, serif' }}>
+            <p style={{ fontSize:'38px', fontWeight:'800', color:'#fff', lineHeight:1, fontFamily:"'Georgia',serif" }}>
               ₹{amount?.toLocaleString('en-IN')}<span style={{ fontSize:'16px', fontWeight:'400', color:'rgba(255,255,255,0.5)' }}>.00</span>
             </p>
           </div>
@@ -185,7 +185,7 @@ export default function RazorpayModal({ mode, fineData, planData, onClose, onSuc
               {/* Amount display */}
               <div style={{ background:'#f8fafc', border:'1px solid #e2e8f0', borderRadius:'10px', padding:'14px 18px', marginBottom:'24px', display:'flex', justifyContent:'space-between', alignItems:'center' }}>
                 <span style={{ fontSize:'13px', color:'#64748b', fontWeight:'500' }}>Amount</span>
-                <span style={{ fontSize:'20px', fontWeight:'800', color:'#0f172a', fontFamily:'Georgia, serif' }}>₹{amount?.toLocaleString('en-IN')}.00</span>
+                <span style={{ fontSize:'20px', fontWeight:'800', color:'#0f172a', fontFamily:"'Georgia',serif" }}>₹{amount?.toLocaleString('en-IN')}.00</span>
               </div>
 
               {/* Form fields */}
@@ -217,7 +217,7 @@ export default function RazorpayModal({ mode, fineData, planData, onClose, onSuc
                   width:'100%', padding:'15px', borderRadius:'12px', border:'none',
                   background:'linear-gradient(135deg, #2563eb, #7c3aed)',
                   color:'#fff', fontSize:'15px', fontWeight:'800', cursor:'pointer',
-                  fontFamily:'Plus Jakarta Sans, sans-serif', letterSpacing:'0.02em',
+                  fontFamily:"'DM Sans',sans-serif", letterSpacing:'0.02em',
                   transition:'all 0.2s', boxShadow:'0 4px 20px rgba(99,102,241,0.35)',
                 }}
                 onMouseEnter={e => { e.currentTarget.style.transform='translateY(-1px)'; e.currentTarget.style.boxShadow='0 8px 28px rgba(99,102,241,0.45)'; }}
@@ -263,7 +263,7 @@ export default function RazorpayModal({ mode, fineData, planData, onClose, onSuc
                 </svg>
               </div>
               <div style={{ textAlign:'center' }}>
-                <p style={{ fontSize:'22px', fontWeight:'800', color:'#0f172a', marginBottom:'6px', fontFamily:'Georgia, serif' }}>Payment Successful!</p>
+                <p style={{ fontSize:'22px', fontWeight:'800', color:'#0f172a', marginBottom:'6px', fontFamily:"'Georgia',serif" }}>Payment Successful!</p>
                 <p style={{ fontSize:'13px', color:'#64748b', lineHeight:1.6 }}>
                   ₹{amount?.toLocaleString('en-IN')} paid successfully.<br/>
                   A confirmation has been sent to {form.email}
@@ -309,7 +309,7 @@ function FormField({ label, value, error, placeholder, onChange, type = 'text', 
           fontSize: '13px', color: '#0f172a',
           background: readOnly ? '#f8fafc' : '#fff',
           outline: 'none', transition: 'border-color 0.15s',
-          fontFamily: 'Plus Jakarta Sans, sans-serif',
+          fontFamily:"'DM Sans',sans-serif",
         }}
         onFocus={e => { if (!readOnly) e.target.style.borderColor = '#3b82f6'; }}
         onBlur={e => { e.target.style.borderColor = error ? '#ef4444' : '#e2e8f0'; }}

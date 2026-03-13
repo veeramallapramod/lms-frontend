@@ -34,7 +34,7 @@ const DAMAGE_LEVELS = [
     desc: 'Scuffs, light marks, minor wear',
     icon: '🟡',
     fine: 100,
-    color: '#f59e0b',
+    color: '#c8a55a',
     bg: 'rgba(245,158,11,0.08)',
     border: 'rgba(245,158,11,0.3)',
   },
@@ -158,7 +158,7 @@ function DamagedModal({ record, reporterId, onClose, onSuccess }) {
 
                   {/* Fine amount */}
                   <div style={{ textAlign:'right', flexShrink:0 }}>
-                    <p style={{ fontSize:'16px', fontWeight:'800', color: isSelected ? dl.color : 'var(--text-2)', margin:0, fontFamily:'Instrument Serif, serif' }}>
+                    <p style={{ fontSize:'16px', fontWeight:'800', color: isSelected ? dl.color : 'var(--text-2)', margin:0, fontFamily:"'Playfair Display',serif" }}>
                       ₹{dl.fine}
                     </p>
                     <p style={{ fontSize:'10px', color:'var(--text-3)', margin:0 }}>damage fine</p>
@@ -205,7 +205,7 @@ function DamagedModal({ record, reporterId, onClose, onSuccess }) {
               background: selectedLevel ? 'var(--purple)' : 'var(--purple-muted)',
               color: selectedLevel ? 'white' : 'var(--purple)',
               fontSize:'13px', fontWeight:'700', cursor: selectedLevel ? 'pointer' : 'not-allowed',
-              fontFamily:'Plus Jakarta Sans, sans-serif', transition:'all 0.2s',
+              fontFamily:"'DM Sans',sans-serif", transition:'all 0.2s',
               opacity: submitting ? 0.6 : 1,
             }}>
             {submitting ? 'Submitting...' : selectedLevel ? `🔧 Submit · Charge ₹${selectedLevel.fine}` : '🔧 Submit Report'}
@@ -427,7 +427,7 @@ export default function BorrowManagement() {
             {returnResult.fine > 0 ? (
               <div style={{ background:'var(--red-muted)', borderRadius:'10px', padding:'16px', margin:'16px 0' }}>
                 <p style={{ fontSize:'13px', color:'var(--text-2)' }}>Days Late: <strong style={{ color:'var(--red)' }}>{returnResult.daysLate}</strong></p>
-                <p style={{ fontSize:'28px', fontWeight:'700', color:'var(--red)', fontFamily:'Instrument Serif, serif', marginTop:'4px' }}>₹{returnResult.fine} Fine</p>
+                <p style={{ fontSize:'28px', fontWeight:'700', color:'var(--red)', fontFamily:"'Playfair Display',serif", marginTop:'4px' }}>₹{returnResult.fine} Fine</p>
               </div>
             ) : (
               <p style={{ color:'var(--green)', marginBottom:'16px' }}>Returned on time — no fine! 🎉</p>
@@ -446,7 +446,7 @@ export default function BorrowManagement() {
           ['all',      'All Records'],
         ].map(([key,label]) => (
           <button key={key} onClick={() => setTab(key)}
-            style={{ padding:'7px 16px', borderRadius:'7px', border:'none', cursor:'pointer', fontSize:'12px', fontWeight:'500', fontFamily:'Plus Jakarta Sans, sans-serif',
+            style={{ padding:'7px 16px', borderRadius:'7px', border:'none', cursor:'pointer', fontSize:'12px', fontWeight:'500', fontFamily:"'DM Sans',sans-serif",
               background: tab===key ? (key==='requests'&&pendingRequests.length>0 ? 'var(--red)' : 'var(--accent)') : 'transparent',
               color: tab===key ? 'white' : 'var(--text-2)', transition:'all 0.15s', whiteSpace:'nowrap' }}>
             {label}
@@ -609,7 +609,7 @@ function BorrowRow({ r, isOverdue, daysLate, handleReturn, submitting, onMarkDam
                   fontSize:'12px', whiteSpace:'nowrap', padding:'8px 12px',
                   borderRadius:'9px', border:'1px solid var(--purple)',
                   background:'var(--purple-muted)', color:'var(--purple)',
-                  cursor:'pointer', fontFamily:'Plus Jakarta Sans, sans-serif',
+                  cursor:'pointer', fontFamily:"'DM Sans',sans-serif",
                   fontWeight:'600', transition:'all 0.2s',
                 }}
                 onMouseEnter={e => { e.currentTarget.style.background='var(--purple)'; e.currentTarget.style.color='white'; }}

@@ -19,7 +19,7 @@ const CustomTooltip = ({ active, payload, label }) => {
     return (
       <div style={{ background:'var(--bg-card)', border:'1px solid var(--border)', borderRadius:'10px', padding:'10px 14px', boxShadow:'var(--shadow-md)' }}>
         <p style={{ fontSize:'11px', color:'var(--text-3)', marginBottom:'4px', textTransform:'uppercase', letterSpacing:'0.06em' }}>{label}</p>
-        <p style={{ fontSize:'18px', fontWeight:'700', color:'var(--accent)', fontFamily:'Instrument Serif, serif' }}>
+        <p style={{ fontSize:'18px', fontWeight:'700', color:'var(--accent)', fontFamily:"'Playfair Display',serif" }}>
           {payload[0].value} borrows
         </p>
       </div>
@@ -37,7 +37,7 @@ const STAT_CONFIGS = [
   { key:'borrow',  cls:'stat-borrow',  iconColor:'#f97316', iconBg:'rgba(249,115,22,0.15)'  },
   { key:'avail',   cls:'stat-avail',   iconColor:'#059669', iconBg:'rgba(5,150,105,0.15)'   },
   { key:'overdue', cls:'stat-overdue', iconColor:'#dc2626', iconBg:'rgba(220,38,38,0.15)'   },
-  { key:'pending', cls:'stat-pending', iconColor:'#d97706', iconBg:'rgba(217,119,6,0.15)'   },
+  { key:'pending', cls:'stat-pending', iconColor:'#8b6418', iconBg:'rgba(217,119,6,0.15)'   },
 ];
 
 function StatCard({ label, value, icon, cfgKey, link, sub, delay }) {
@@ -53,7 +53,7 @@ function StatCard({ label, value, icon, cfgKey, link, sub, delay }) {
           </svg>
         </div>
         <div style={{ flex:1 }}>
-          <p style={{ fontSize:'32px', fontWeight:'800', color:'var(--text-1)', fontFamily:'Instrument Serif, serif', lineHeight:1, animation:'countUp 0.5s ease forwards' }}>
+          <p style={{ fontSize:'32px', fontWeight:'800', color:'var(--text-1)', fontFamily:"'Playfair Display',serif", lineHeight:1, animation:'countUp 0.5s ease forwards' }}>
             {value ?? '—'}
           </p>
           <p style={{ fontSize:'12px', color:'var(--text-2)', marginTop:'3px', fontWeight:'500' }}>{label}</p>
@@ -95,7 +95,7 @@ function AvailBar({ label, value, total, color }) {
     <div style={{ padding:'14px 18px', borderRadius:'12px', background:'var(--bg-card)', border:'1px solid var(--border)', borderLeft:`4px solid ${color}`, flex:1, minWidth:'120px' }}>
       <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-end', marginBottom:'8px' }}>
         <span style={{ fontSize:'12px', color, fontWeight:'700' }}>{label}</span>
-        <span style={{ fontSize:'26px', fontWeight:'800', color, fontFamily:'Instrument Serif, serif', lineHeight:1 }}>{value}</span>
+        <span style={{ fontSize:'26px', fontWeight:'800', color, fontFamily:"'Playfair Display',serif", lineHeight:1 }}>{value}</span>
       </div>
       <div style={{ height:'5px', background:`${color}20`, borderRadius:'3px', overflow:'hidden' }}>
         <div style={{ height:'100%', width:`${width}%`, background: `linear-gradient(90deg, ${color}, ${color}bb)`, borderRadius:'3px', transition:'width 0.8s cubic-bezier(0.34,1.56,0.64,1)' }}/>
@@ -200,7 +200,7 @@ export default function Dashboard() {
       {books.length > 0 && (
         <div style={{ display:'flex', gap:'12px', marginBottom:'26px', flexWrap:'wrap', animation:'fadeUp 0.5s ease 0.35s both' }}>
           <AvailBar label="🟢 Available"    value={available}  total={books.length} color="#059669"/>
-          <AvailBar label="🟡 Few Left"     value={fewLeft}    total={books.length} color="#d97706"/>
+          <AvailBar label="🟡 Few Left"     value={fewLeft}    total={books.length} color="#8b6418"/>
           <AvailBar label="🔴 Out of Stock" value={outOfStock} total={books.length} color="#dc2626"/>
         </div>
       )}
@@ -255,11 +255,11 @@ export default function Dashboard() {
                 </div>
                 <div style={{ display:'flex', gap:'20px' }}>
                   <div style={{ textAlign:'right' }}>
-                    <p style={{ fontSize:'20px', fontWeight:'800', color:'var(--accent)', fontFamily:'Instrument Serif, serif', lineHeight:1 }}>{chartData[chartData.length-1].borrows}</p>
+                    <p style={{ fontSize:'20px', fontWeight:'800', color:'var(--accent)', fontFamily:"'Playfair Display',serif", lineHeight:1 }}>{chartData[chartData.length-1].borrows}</p>
                     <p style={{ fontSize:'11px', color:'var(--text-3)' }}>This month</p>
                   </div>
                   <div style={{ textAlign:'right' }}>
-                    <p style={{ fontSize:'20px', fontWeight:'800', color:'var(--green)', fontFamily:'Instrument Serif, serif', lineHeight:1 }}>↑ 12%</p>
+                    <p style={{ fontSize:'20px', fontWeight:'800', color:'var(--green)', fontFamily:"'Playfair Display',serif", lineHeight:1 }}>↑ 12%</p>
                     <p style={{ fontSize:'11px', color:'var(--text-3)' }}>vs last month</p>
                   </div>
                 </div>
@@ -346,7 +346,7 @@ export default function Dashboard() {
                       </div>
                     )}
                     <div style={{ position:'absolute', top:'8px', right:'8px' }}>
-                      <span className={`badge badge-${status}`} style={{ fontSize:'9px', background: status==='available'?'#059669': status==='few_left'?'#d97706':'#dc2626', color:'white', border:'none' }}>{statusLabel}</span>
+                      <span className={`badge badge-${status}`} style={{ fontSize:'9px', background: status==='available'?'#059669': status==='few_left'?'#8b6418':'#dc2626', color:'white', border:'none' }}>{statusLabel}</span>
                     </div>
                     {book.category && (
                       <div style={{ position:'absolute', bottom:'8px', left:'8px' }}>

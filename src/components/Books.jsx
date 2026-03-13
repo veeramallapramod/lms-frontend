@@ -107,12 +107,12 @@ export default function Books() {
         </div>
         <input className="input" placeholder="Filter by author..." value={authorFilter} onChange={e => setAuthorFilter(e.target.value)} style={{ flex:1, minWidth:'140px' }}/>
         <select value={selectedCategory} onChange={e => setSelectedCategory(e.target.value)}
-          style={{ background:'var(--bg-input)', border:'1px solid var(--border)', borderRadius:'8px', padding:'10px 14px', color: selectedCategory ? 'var(--text-1)' : 'var(--text-3)', fontFamily:'Plus Jakarta Sans, sans-serif', fontSize:'14px', outline:'none', minWidth:'150px' }}>
+          style={{ background:'var(--bg-input)', border:'1px solid var(--border)', borderRadius:'8px', padding:'10px 14px', color: selectedCategory ? 'var(--text-1)' : 'var(--text-3)', fontFamily:"'DM Sans',sans-serif", fontSize:'14px', outline:'none', minWidth:'150px' }}>
           <option value="">All Categories</option>
           {categories.map(c => <option key={c} value={c}>{c}</option>)}
         </select>
         <select value={sortOrder} onChange={e => setSortOrder(e.target.value)}
-          style={{ background:'var(--bg-input)', border:'1px solid var(--border)', borderRadius:'8px', padding:'10px 14px', color:'var(--text-1)', fontFamily:'Plus Jakarta Sans, sans-serif', fontSize:'14px', outline:'none' }}>
+          style={{ background:'var(--bg-input)', border:'1px solid var(--border)', borderRadius:'8px', padding:'10px 14px', color:'var(--text-1)', fontFamily:"'DM Sans',sans-serif", fontSize:'14px', outline:'none' }}>
           <option value="newest">Latest Added</option>
           <option value="title">Title A–Z</option>
         </select>
@@ -227,18 +227,18 @@ export default function Books() {
 
             <div style={{ padding:'24px' }}>
               <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', marginBottom:'6px' }}>
-                <h2 style={{ fontSize:'22px', fontWeight:'700', color:'var(--text-1)', fontFamily:'Instrument Serif, serif', lineHeight:1.25, flex:1, paddingRight:'12px' }}>{selectedBook.title}</h2>
+                <h2 style={{ fontSize:'22px', fontWeight:'700', color:'var(--text-1)', fontFamily:"'Playfair Display',serif", lineHeight:1.25, flex:1, paddingRight:'12px' }}>{selectedBook.title}</h2>
                 <span className={`badge ${AVAIL[getAvail(selectedBook)]?.cls}`}>{AVAIL[getAvail(selectedBook)]?.label}</span>
               </div>
               <p style={{ fontSize:'14px', color:'var(--text-2)', marginBottom:'18px' }}>by <strong>{selectedBook.author}</strong></p>
 
               {/* Shelf location */}
               <div style={{ display:'flex', alignItems:'center', gap:'10px', background:'#fef3c7', border:'1px solid #fde68a', borderRadius:'10px', padding:'12px 16px', marginBottom:'16px' }}>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d97706" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8b6418" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
                 </svg>
                 <div>
-                  <p style={{ fontSize:'11px', color:'#d97706', fontWeight:'700', letterSpacing:'0.05em', textTransform:'uppercase' }}>Shelf Location</p>
+                  <p style={{ fontSize:'11px', color:'#8b6418', fontWeight:'700', letterSpacing:'0.05em', textTransform:'uppercase' }}>Shelf Location</p>
                   <p style={{ fontSize:'16px', fontWeight:'800', color:'#92400e' }}>{selectedBook.shelfNumber ? `Shelf ${selectedBook.shelfNumber}` : 'Not assigned'}</p>
                 </div>
               </div>

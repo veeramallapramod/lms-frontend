@@ -50,11 +50,11 @@ export default function Login() {
         <div style={{ position: 'absolute', top: '40px', left: '40px', right: '40px', zIndex: 3 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '32px' }}>
             <div style={{ width: '36px', height: '36px', background: 'rgba(245,158,11,0.2)', border: '1px solid rgba(245,158,11,0.3)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c8a55a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
               </svg>
             </div>
-            <span style={{ fontFamily: 'Instrument Serif, serif', fontSize: '20px', color: '#f0e6d0', letterSpacing: '0.02em' }}>Librario</span>
+            <span style={{ fontFamily:"'Playfair Display',serif", fontSize: '20px', color: '#f0e6d0', letterSpacing: '0.02em' }}>Librario</span>
           </div>
         </div>
 
@@ -66,7 +66,7 @@ export default function Login() {
         {/* Bottom quote */}
         <div className="auth-left-content">
           <div style={{ width: '40px', height: '2px', background: 'rgba(245,158,11,0.6)', borderRadius: '2px', marginBottom: '16px' }} />
-          <p style={{ fontFamily: 'Instrument Serif, serif', fontSize: '22px', color: '#f0e0c0', lineHeight: 1.5, marginBottom: '10px', fontStyle: 'italic' }}>
+          <p style={{ fontFamily:"'Playfair Display',serif", fontSize: '22px', color: '#f0e0c0', lineHeight: 1.5, marginBottom: '10px', fontStyle: 'italic' }}>
             "A library is not a luxury but one of the necessities of life."
           </p>
           <p style={{ fontSize: '13px', color: 'rgba(240,224,192,0.5)', letterSpacing: '0.05em' }}>— Henry Ward Beecher</p>
@@ -89,7 +89,7 @@ export default function Login() {
 
         <div className="auth-form-wrap">
           <div style={{ marginBottom: '28px' }}>
-            <h1 style={{ fontSize: '28px', fontWeight: '700', color: 'var(--text-1)', marginBottom: '6px', fontFamily: 'Instrument Serif, serif' }}>Welcome back</h1>
+            <h1 style={{ fontSize: '28px', fontWeight: '700', color: 'var(--text-1)', marginBottom: '6px', fontFamily:"'Playfair Display',serif" }}>Welcome back</h1>
             <p style={{ color: 'var(--text-2)', fontSize: '14px' }}>Sign in to your library account</p>
           </div>
 

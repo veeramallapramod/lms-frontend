@@ -7,7 +7,7 @@ const useAuthStore = create(
     (set, get) => ({
       token: null,
       user: null,
-      theme: 'dark',
+      theme: 'light',
 
       setToken: (token, userData) => {
         try {

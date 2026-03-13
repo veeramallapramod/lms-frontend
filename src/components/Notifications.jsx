@@ -82,7 +82,7 @@ export default function Notifications() {
             style={{
               padding: '7px 16px', borderRadius: '8px', fontSize: '13px',
               fontWeight: '600', cursor: 'pointer', border: '1px solid',
-              fontFamily: 'Plus Jakarta Sans, sans-serif',
+              fontFamily:"'DM Sans',sans-serif",
               background:   filter === t.key ? 'var(--accent)' : 'var(--bg-card)',
               color:        filter === t.key ? 'white'         : 'var(--text-2)',
               borderColor:  filter === t.key ? 'var(--accent)' : 'var(--border)',

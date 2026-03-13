@@ -175,7 +175,7 @@ export default function AdminAlerts() {
                     </span>
                   )}
                 </div>
-                <p style={{ fontSize: '22px', fontWeight: '800', color: s.color, margin: '8px 0 2px', fontFamily: 'Instrument Serif, serif' }}>
+                <p style={{ fontSize: '22px', fontWeight: '800', color: s.color, margin: '8px 0 2px', fontFamily:"'Playfair Display',serif" }}>
                   {s.count}
                 </p>
                 <p style={{ fontSize: '12px', color: 'var(--text-2)', fontWeight: '600' }}>{s.label}</p>
@@ -193,7 +193,7 @@ export default function AdminAlerts() {
                 style={{
                   padding: '7px 16px', borderRadius: '8px', fontSize: '13px',
                   fontWeight: '600', cursor: 'pointer', border: '1px solid',
-                  fontFamily: 'Plus Jakarta Sans, sans-serif',
+                  fontFamily:"'DM Sans',sans-serif",
                   background:  tab === t.key ? 'var(--accent)' : 'var(--bg-card)',
                   color:       tab === t.key ? 'white'         : 'var(--text-2)',
                   borderColor: tab === t.key ? 'var(--accent)' : 'var(--border)',

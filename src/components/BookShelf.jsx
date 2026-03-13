@@ -7,7 +7,7 @@ const CATEGORY_COLORS = {
   'Non-Fiction': { spine:'#10b981', label:'📝' },
   'Science':     { spine:'#06b6d4', label:'🔬' },
   'Technology':  { spine:'#8b5cf6', label:'💻' },
-  'History':     { spine:'#f59e0b', label:'🏛️' },
+  'History':     { spine:'#c8a55a', label:'🏛️' },
   'Biography':   { spine:'#f97316', label:'👤' },
   'Philosophy':  { spine:'#6366f1', label:'🧠' },
   'Arts':        { spine:'#ec4899', label:'🎨' },
@@ -38,7 +38,7 @@ function BookSpine({ book, index, spineColor, onSelect }) {
       <div style={{ position:'absolute', top:'5px', right:'4px', width:'6px', height:'6px', borderRadius:'50%', background: book.available ? '#10b981' : '#ef4444', boxShadow:`0 0 4px ${book.available ? '#10b981' : '#ef4444'}` }}/>
       {!book.coverImage && (
         <div style={{ position:'absolute', inset:0, display:'flex', alignItems:'center', justifyContent:'center', padding:'6px 4px 6px 9px' }}>
-          <p style={{ fontSize:'9px', color:'rgba(255,255,255,0.85)', writingMode:'vertical-rl', textOrientation:'mixed', lineHeight:1.2, fontWeight:'700', overflow:'hidden', maxHeight:'100%', fontFamily:'Plus Jakarta Sans, sans-serif' }}>
+          <p style={{ fontSize:'9px', color:'rgba(255,255,255,0.85)', writingMode:'vertical-rl', textOrientation:'mixed', lineHeight:1.2, fontWeight:'700', overflow:'hidden', maxHeight:'100%', fontFamily:"'DM Sans',sans-serif" }}>
             {book.title}
           </p>
         </div>
@@ -62,7 +62,7 @@ function ShelfUnit({ category, books, onSelect, shelfId }) {
           {config.label}
         </div>
         <div>
-          <h3 style={{ fontSize:'16px', fontWeight:'700', color:'var(--text-1)', fontFamily:'Instrument Serif, serif', lineHeight:1 }}>{category}</h3>
+          <h3 style={{ fontSize:'16px', fontWeight:'700', color:'var(--text-1)', fontFamily:"'Playfair Display',serif", lineHeight:1 }}>{category}</h3>
           <p style={{ fontSize:'11px', color:'var(--text-3)', marginTop:'2px' }}>{books.length} book{books.length !== 1 ? 's' : ''}</p>
         </div>
 
@@ -144,7 +144,7 @@ export default function BookShelf() {
           <div key={s.label} style={{ background:'var(--bg-card)', border:'1px solid var(--border)', borderRadius:'10px', padding:'12px 20px', display:'flex', alignItems:'center', gap:'12px' }}>
             <div style={{ width:'8px', height:'32px', borderRadius:'4px', background:s.color }}/>
             <div>
-              <p style={{ fontFamily:'Instrument Serif, serif', fontSize:'24px', color:'var(--text-1)', lineHeight:1 }}>{s.value}</p>
+              <p style={{ fontFamily:"'Playfair Display',serif", fontSize:'24px', color:'var(--text-1)', lineHeight:1 }}>{s.value}</p>
               <p style={{ fontSize:'11px', color:'var(--text-3)', marginTop:'1px' }}>{s.label}</p>
             </div>
           </div>
@@ -214,14 +214,14 @@ export default function BookShelf() {
                 : <span style={{ fontSize:'32px' }}>{(CATEGORY_COLORS[selected.category]||DEFAULT_COLOR).label}</span>}
             </div>
             <div style={{ flex:1 }}>
-              <h2 style={{ fontSize:'18px', fontWeight:'700', color:'var(--text-1)', marginBottom:'3px', fontFamily:'Instrument Serif, serif', lineHeight:1.2 }}>{selected.title}</h2>
+              <h2 style={{ fontSize:'18px', fontWeight:'700', color:'var(--text-1)', marginBottom:'3px', fontFamily:"'Playfair Display',serif", lineHeight:1.2 }}>{selected.title}</h2>
               <p style={{ fontSize:'13px', color:'var(--text-2)', marginBottom:'12px' }}>by {selected.author}</p>
 
               {/* Shelf location */}
               {selected.shelfNumber && (
                 <div style={{ display:'flex', alignItems:'center', gap:'7px', background:'rgba(245,158,11,0.12)', border:'1px solid rgba(245,158,11,0.3)', borderRadius:'8px', padding:'8px 12px', marginBottom:'12px' }}>
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                  <span style={{ fontSize:'12px', fontWeight:'700', color:'#f59e0b' }}>Shelf {selected.shelfNumber}</span>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#c8a55a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  <span style={{ fontSize:'12px', fontWeight:'700', color:'#c8a55a' }}>Shelf {selected.shelfNumber}</span>
                 </div>
               )}
 

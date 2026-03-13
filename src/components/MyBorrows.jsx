@@ -104,7 +104,7 @@ export default function MyBorrows() {
           <div key={s.label} className="stat-card">
             <div style={{ width:'10px', height:'40px', borderRadius:'5px', background:s.color, flexShrink:0 }}/>
             <div>
-              <p style={{ fontFamily:'Instrument Serif, serif', fontSize:'32px', color:'var(--text-1)', lineHeight:1 }}>{s.value}</p>
+              <p style={{ fontFamily:"'Playfair Display',serif", fontSize:'32px', color:'var(--text-1)', lineHeight:1 }}>{s.value}</p>
               <p style={{ fontSize:'12px', color:'var(--text-2)', marginTop:'2px' }}>{s.label}</p>
             </div>
           </div>
@@ -115,7 +115,7 @@ export default function MyBorrows() {
       <div style={{ display:'flex', gap:'4px', marginBottom:'18px', background:'var(--bg-card)', padding:'4px', borderRadius:'10px', border:'1px solid var(--border)', width:'fit-content' }}>
         {[['active',`Active (${active.length})`],['history',`History (${history.length})`]].map(([key,label]) => (
           <button key={key} onClick={() => setTab(key)}
-            style={{ padding:'8px 20px', borderRadius:'7px', border:'none', cursor:'pointer', fontSize:'13px', fontWeight:'500', fontFamily:'Plus Jakarta Sans, sans-serif',
+            style={{ padding:'8px 20px', borderRadius:'7px', border:'none', cursor:'pointer', fontSize:'13px', fontWeight:'500', fontFamily:"'DM Sans',sans-serif",
               background: tab===key ? 'var(--accent)' : 'transparent', color: tab===key ? 'white' : 'var(--text-2)', transition:'all 0.15s' }}>
             {label}
           </button>
@@ -195,7 +195,7 @@ export default function MyBorrows() {
                               fontSize:'10px', fontWeight:'700', padding:'2px 8px',
                               borderRadius:'5px', border:'1px solid var(--red)',
                               background:'var(--red-muted)', color:'var(--red)',
-                              cursor:'pointer', fontFamily:'Plus Jakarta Sans, sans-serif',
+                              cursor:'pointer', fontFamily:"'DM Sans',sans-serif",
                               transition:'all 0.15s',
                             }}
                             onMouseEnter={e => { e.currentTarget.style.background='var(--red)'; e.currentTarget.style.color='white'; }}
@@ -239,12 +239,12 @@ export default function MyBorrows() {
                     <div style={{ background:urgency.bg, borderRadius:'10px', padding:'10px 16px', textAlign:'center', minWidth:'100px', border:`1px solid ${urgency.color}25` }}>
                       {overdue ? (
                         <>
-                          <p style={{ fontSize:'18px', fontWeight:'800', color:urgency.color, fontFamily:'Instrument Serif, serif', lineHeight:1 }}>{Math.abs(days)}d</p>
+                          <p style={{ fontSize:'18px', fontWeight:'800', color:urgency.color, fontFamily:"'Playfair Display',serif", lineHeight:1 }}>{Math.abs(days)}d</p>
                           <p style={{ fontSize:'10px', color:urgency.color, fontWeight:'600', marginTop:'2px' }}>OVERDUE</p>
                         </>
                       ) : (
                         <>
-                          <p style={{ fontSize:'18px', fontWeight:'800', color:urgency.color, fontFamily:'Instrument Serif, serif', lineHeight:1 }}>{days}d</p>
+                          <p style={{ fontSize:'18px', fontWeight:'800', color:urgency.color, fontFamily:"'Playfair Display',serif", lineHeight:1 }}>{days}d</p>
                           <p style={{ fontSize:'10px', color:urgency.color, fontWeight:'600', marginTop:'2px' }}>LEFT</p>
                         </>
                       )}
@@ -278,7 +278,7 @@ export default function MyBorrows() {
                           padding: '7px 16px', borderRadius: '8px', fontSize: '12px',
                           fontWeight: '700', cursor: 'pointer', border: '1px solid var(--red)',
                           background: 'var(--red-muted)', color: 'var(--red)',
-                          fontFamily: 'Plus Jakarta Sans, sans-serif', transition: 'all 0.2s',
+                          fontFamily:"'DM Sans',sans-serif", transition: 'all 0.2s',
                           minWidth: '100px',
                         }}
                         onMouseEnter={e => { e.currentTarget.style.background='var(--red)'; e.currentTarget.style.color='white'; }}
@@ -294,7 +294,7 @@ export default function MyBorrows() {
                           padding: '7px 16px', borderRadius: '8px', fontSize: '12px',
                           fontWeight: '700', cursor: 'pointer', border: '1px solid var(--accent)',
                           background: 'var(--accent-muted)', color: 'var(--accent)',
-                          fontFamily: 'Plus Jakarta Sans, sans-serif', transition: 'all 0.2s',
+                          fontFamily:"'DM Sans',sans-serif", transition: 'all 0.2s',
                           opacity: renewingId === borrow.id ? 0.6 : 1, minWidth: '100px',
                         }}
                         onMouseEnter={e => { e.currentTarget.style.background = 'var(--accent)'; e.currentTarget.style.color = 'white'; }}
@@ -327,4 +327,4 @@ export default function MyBorrows() {
       )}
     </Layout>
   );
-}
+}   

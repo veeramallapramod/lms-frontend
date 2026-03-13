@@ -4,7 +4,7 @@ import useUserStore from '../store/userStore';
 import useAuthStore from '../store/authStore';
 import API from '../api/axiosInstance';
 
-const PLAN_COLORS = { FREE:'#94a3b8', BASIC:'#3b82f6', STANDARD:'#8b5cf6', PREMIUM:'#f59e0b' };
+const PLAN_COLORS = { FREE:'#94a3b8', BASIC:'#3b82f6', STANDARD:'#8b5cf6', PREMIUM:'#c8a55a' };
 
 export default function Users() {
   const { users, fetchAllUsers, loading } = useUserStore();
@@ -114,7 +114,7 @@ export default function Users() {
           {tabs.map(tab => (
             <button key={tab} onClick={() => setFilter(tab)} style={{
               padding:'7px 14px', borderRadius:'7px', border:'none', cursor:'pointer',
-              fontSize:'12px', fontWeight:'500', fontFamily:'Plus Jakarta Sans, sans-serif',
+              fontSize:'12px', fontWeight:'500', fontFamily:"'DM Sans',sans-serif",
               background: filter===tab ? 'var(--accent)' : 'transparent',
               color: filter===tab ? 'white' : 'var(--text-2)', transition:'all 0.15s', whiteSpace:'nowrap',
             }}>
@@ -139,7 +139,7 @@ export default function Users() {
           <div key={s.label} className="card" style={{ padding:'14px 18px', display:'flex', gap:'12px', alignItems:'center' }}>
             <div style={{ width:'8px', height:'36px', borderRadius:'4px', background:s.color, flexShrink:0 }}/>
             <div>
-              <p style={{ fontSize:'22px', fontWeight:'800', color:'var(--text-1)', fontFamily:'Instrument Serif, serif', lineHeight:1 }}>{s.value}</p>
+              <p style={{ fontSize:'22px', fontWeight:'800', color:'var(--text-1)', fontFamily:"'Playfair Display',serif", lineHeight:1 }}>{s.value}</p>
               <p style={{ fontSize:'11px', color:'var(--text-2)', marginTop:'2px' }}>{s.label}</p>
             </div>
           </div>
@@ -292,7 +292,7 @@ export default function Users() {
                   <label style={{ fontSize:'12px', fontWeight:'600', color:'var(--text-2)', display:'block', marginBottom:'5px' }}>Subscription Plan</label>
                   <select value={editForm.subscriptionPlan}
                     onChange={e => setEditForm({ ...editForm, subscriptionPlan: e.target.value })}
-                    style={{ width:'100%', background:'var(--bg-input)', border:'1px solid var(--border)', borderRadius:'8px', padding:'10px 14px', color:'var(--text-1)', fontFamily:'Plus Jakarta Sans, sans-serif', fontSize:'14px', outline:'none' }}>
+                    style={{ width:'100%', background:'var(--bg-input)', border:'1px solid var(--border)', borderRadius:'8px', padding:'10px 14px', color:'var(--text-1)', fontFamily:"'DM Sans',sans-serif", fontSize:'14px', outline:'none' }}>
                     <option value="FREE">Free — 2 books max</option>
                     <option value="BASIC">Basic — 5 books max</option>
                     <option value="STANDARD">Standard — 10 books max</option>

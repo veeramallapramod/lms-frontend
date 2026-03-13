@@ -14,16 +14,16 @@ function AuthLayout({ children, quote, author }) {
       <div className="auth-left">
         <div style={{ position: 'absolute', top: '40px', left: '40px', zIndex: 3, display: 'flex', alignItems: 'center', gap: '10px' }}>
           <div style={{ width: '32px', height: '32px', background: 'rgba(245,158,11,0.2)', border: '1px solid rgba(245,158,11,0.3)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c8a55a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
           </div>
-          <span style={{ fontFamily: 'Instrument Serif, serif', fontSize: '18px', color: '#f0e6d0' }}>Librario</span>
+          <span style={{ fontFamily:"'Playfair Display',serif", fontSize: '18px', color: '#f0e6d0' }}>Librario</span>
         </div>
         <div style={{ position: 'absolute', inset: 0, zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '80px 20px 160px' }}>
           <LibraryIllustration />
         </div>
         <div className="auth-left-content">
           <div style={{ width: '36px', height: '2px', background: 'rgba(245,158,11,0.6)', borderRadius: '2px', marginBottom: '14px' }} />
-          <p style={{ fontFamily: 'Instrument Serif, serif', fontSize: '19px', color: '#f0e0c0', lineHeight: 1.5, fontStyle: 'italic', marginBottom: '8px' }}>"{quote}"</p>
+          <p style={{ fontFamily:"'Playfair Display',serif", fontSize: '19px', color: '#f0e0c0', lineHeight: 1.5, fontStyle: 'italic', marginBottom: '8px' }}>"{quote}"</p>
           <p style={{ fontSize: '12px', color: 'rgba(240,224,192,0.45)' }}>— {author}</p>
         </div>
       </div>
@@ -73,7 +73,7 @@ export function Register() {
   return (
     <AuthLayout quote="The more that you read, the more things you will know." author="Dr. Seuss">
       <div style={{ marginBottom: '24px' }}>
-        <h1 style={{ fontSize: '26px', fontWeight: '700', color: 'var(--text-1)', marginBottom: '4px', fontFamily: 'Instrument Serif, serif' }}>Create Account</h1>
+        <h1 style={{ fontSize: '26px', fontWeight: '700', color: 'var(--text-1)', marginBottom: '4px', fontFamily:"'Playfair Display',serif" }}>Create Account</h1>
         <p style={{ color: 'var(--text-2)', fontSize: '14px' }}>Join the library management system</p>
       </div>
       <div className="auth-card">
@@ -157,7 +157,7 @@ export function VerifyOtp() {
         <div style={{ width: '52px', height: '52px', background: 'var(--accent-muted)', border: '1px solid var(--border-accent)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 14px' }}>
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         </div>
-        <h1 style={{ fontSize: '24px', fontWeight: '700', color: 'var(--text-1)', fontFamily: 'Instrument Serif, serif' }}>Verify your email</h1>
+        <h1 style={{ fontSize: '24px', fontWeight: '700', color: 'var(--text-1)', fontFamily:"'Playfair Display',serif" }}>Verify your email</h1>
         <p style={{ color: 'var(--text-2)', fontSize: '14px', marginTop: '4px' }}>OTP sent to <span style={{ color: 'var(--accent)', fontWeight: '600' }}>{email}</span></p>
       </div>
       <div className="auth-card">
@@ -223,7 +223,7 @@ export function ForgotPassword() {
   return (
     <AuthLayout quote="Reading is to the mind what exercise is to the body." author="Joseph Addison">
       <div style={{ marginBottom: '24px' }}>
-        <h1 style={{ fontSize: '26px', fontWeight: '700', color: 'var(--text-1)', fontFamily: 'Instrument Serif, serif' }}>{step === 1 ? 'Reset Password' : 'New Password'}</h1>
+        <h1 style={{ fontSize: '26px', fontWeight: '700', color: 'var(--text-1)', fontFamily:"'Playfair Display',serif" }}>{step === 1 ? 'Reset Password' : 'New Password'}</h1>
         <p style={{ color: 'var(--text-2)', fontSize: '14px', marginTop: '4px' }}>{step === 1 ? 'Enter your email to receive a reset OTP' : `OTP sent to ${email}`}</p>
       </div>
       <div className="auth-card">

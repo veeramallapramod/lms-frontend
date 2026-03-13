@@ -95,7 +95,7 @@ export default function Profile() {
           {/* Tab switcher */}
           <div style={{ display:'flex', gap:'4px', background:'var(--bg-card)', padding:'4px', borderRadius:'10px', border:'1px solid var(--border)', width:'fit-content' }}>
             {[['profile','Profile Info'],['password','Change Password'],['activity','Activity']].map(([key,label]) => (
-              <button key={key} onClick={() => setTab(key)} style={{ padding:'8px 20px', borderRadius:'7px', border:'none', cursor:'pointer', fontSize:'13px', fontWeight:'500', fontFamily:'Plus Jakarta Sans, sans-serif', background: tab===key ? 'var(--accent)' : 'transparent', color: tab===key ? 'white' : 'var(--text-2)', transition:'all 0.15s' }}>
+              <button key={key} onClick={() => setTab(key)} style={{ padding:'8px 20px', borderRadius:'7px', border:'none', cursor:'pointer', fontSize:'13px', fontWeight:'500', fontFamily:"'DM Sans',sans-serif", background: tab===key ? 'var(--accent)' : 'transparent', color: tab===key ? 'white' : 'var(--text-2)', transition:'all 0.15s' }}>
                 {label}
               </button>
             ))}

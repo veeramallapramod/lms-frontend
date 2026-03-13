@@ -12,7 +12,7 @@ export default function Layout({ title, subtitle, actions, children }) {
       <div className="main-content">
         <div className="topbar">
           <div>
-            {title && <h1 style={{ fontSize:'19px', fontWeight:'700', color:'var(--text-1)', fontFamily:'Instrument Serif, serif' }}>{title}</h1>}
+            {title && <h1 style={{ fontSize:'19px', fontWeight:'700', color:'var(--text-1)', fontFamily:"'Playfair Display',serif" }}>{title}</h1>}
             {subtitle && <p style={{ fontSize:'12px', color:'var(--text-2)', marginTop:'1px' }}>{subtitle}</p>}
           </div>
           {actions && <div style={{ display:'flex', gap:'10px', alignItems:'center' }}>{actions}</div>}

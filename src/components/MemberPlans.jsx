@@ -8,7 +8,7 @@ const PLANS = [
   { id:'FREE',     name:'Free',     price:'₹0',   period:'forever',   color:'#94a3b8', books:2,  duration:14, features:['2 books at a time','14-day borrow period','Basic catalog access','Email notifications'] },
   { id:'BASIC',    name:'Basic',    price:'₹99',  period:'per month', color:'#3b82f6', books:5,  duration:30, features:['5 books at a time','30-day borrow period','Email notifications','Basic support'] },
   { id:'STANDARD', name:'Standard', price:'₹199', period:'per month', color:'#8b5cf6', books:10, duration:30, popular:true, features:['10 books at a time','30-day borrow period','Priority reservations','Email notifications','Standard support'] },
-  { id:'PREMIUM',  name:'Premium',  price:'₹399', period:'per month', color:'#f59e0b', books:20, duration:60, features:['20 books at a time','60-day borrow period','Unlimited reservations','Email + SMS alerts','Premium support','Fine waiver (1/year)'] },
+  { id:'PREMIUM',  name:'Premium',  price:'₹399', period:'per month', color:'#c8a55a', books:20, duration:60, features:['20 books at a time','60-day borrow period','Unlimited reservations','Email + SMS alerts','Premium support','Fine waiver (1/year)'] },
 ];
 
 export default function MemberPlans() {
@@ -109,7 +109,7 @@ export default function MemberPlans() {
               <div style={{ marginBottom:'16px' }}>
                 <p style={{ fontSize:'11px', fontWeight:'700', color:plan.color, textTransform:'uppercase', letterSpacing:'0.1em', marginBottom:'8px' }}>{plan.name}</p>
                 <div style={{ display:'flex', alignItems:'baseline', gap:'3px', marginBottom:'4px' }}>
-                  <span style={{ fontFamily:'Instrument Serif, serif', fontSize:'32px', color:'var(--text-1)', lineHeight:1 }}>{plan.price}</span>
+                  <span style={{ fontFamily:"'Playfair Display',serif", fontSize:'32px', color:'var(--text-1)', lineHeight:1 }}>{plan.price}</span>
                   <span style={{ fontSize:'11px', color:'var(--text-3)' }}>{plan.period}</span>
                 </div>
                 <p style={{ fontSize:'11px', color:'var(--text-3)' }}>{plan.books} books · {plan.duration} days</p>
@@ -132,7 +132,7 @@ export default function MemberPlans() {
                 style={{
                   width:'100%', padding:'10px', borderRadius:'8px', border:'none',
                   cursor: isActive ? 'default' : 'pointer',
-                  fontSize:'12px', fontWeight:'700', fontFamily:'Plus Jakarta Sans, sans-serif',
+                  fontSize:'12px', fontWeight:'700', fontFamily:"'DM Sans',sans-serif",
                   background: isActive ? plan.color : 'var(--bg-2)',
                   color: isActive ? 'white' : 'var(--text-1)',
                   border: `1px solid ${isActive ? plan.color : 'var(--border)'}`,
@@ -158,7 +158,7 @@ export default function MemberPlans() {
                 <th style={{ color:'#94a3b8' }}>Free</th>
                 <th style={{ color:'#3b82f6' }}>Basic</th>
                 <th style={{ color:'#8b5cf6' }}>Standard</th>
-                <th style={{ color:'#f59e0b' }}>Premium</th>
+                <th style={{ color:'#c8a55a' }}>Premium</th>
               </tr>
             </thead>
             <tbody>

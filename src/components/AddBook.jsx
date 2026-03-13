@@ -144,7 +144,7 @@ export default function AddBook() {
             <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'16px' }}>
               <Field label="Category *" error={errors.category}>
                 <select name="category" value={form.category} onChange={handleChange}
-                  style={{ width:'100%', background:'var(--bg-input)', border:`1px solid ${errors.category ? 'var(--red)' : 'var(--border)'}`, borderRadius:'8px', padding:'10px 14px', color: form.category ? 'var(--text-1)' : 'var(--text-3)', fontFamily:'Plus Jakarta Sans, sans-serif', fontSize:'14px', outline:'none' }}>
+                  style={{ width:'100%', background:'var(--bg-input)', border:`1px solid ${errors.category ? 'var(--red)' : 'var(--border)'}`, borderRadius:'8px', padding:'10px 14px', color: form.category ? 'var(--text-1)' : 'var(--text-3)', fontFamily:"'DM Sans',sans-serif", fontSize:'14px', outline:'none' }}>
                   <option value="">Select category...</option>
                   {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
                 </select>
@@ -158,7 +158,7 @@ export default function AddBook() {
                 )}
                 <div style={{ display:'flex', gap:'8px' }}>
                   <select name="shelfNumber" value={form.shelfNumber} onChange={handleChange}
-                    style={{ flex:1, background:'var(--bg-input)', border:`1px solid ${errors.shelfNumber ? 'var(--red)' : 'var(--border)'}`, borderRadius:'8px', padding:'10px 14px', color: form.shelfNumber ? 'var(--text-1)' : 'var(--text-3)', fontFamily:'Plus Jakarta Sans, sans-serif', fontSize:'14px', outline:'none' }}>
+                    style={{ flex:1, background:'var(--bg-input)', border:`1px solid ${errors.shelfNumber ? 'var(--red)' : 'var(--border)'}`, borderRadius:'8px', padding:'10px 14px', color: form.shelfNumber ? 'var(--text-1)' : 'var(--text-3)', fontFamily:"'DM Sans',sans-serif", fontSize:'14px', outline:'none' }}>
                     <option value="">Pick shelf...</option>
                     {SHELF_ROWS.map(row =>
                       SHELF_NUMS.map(num => (

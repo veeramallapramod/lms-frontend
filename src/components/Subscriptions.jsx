@@ -33,7 +33,7 @@ export default function Subscriptions() {
       {/* Tabs */}
       <div style={{ display:'flex', gap:'4px', background:'var(--bg-card)', padding:'4px', borderRadius:'10px', border:'1px solid var(--border)', width:'fit-content', marginBottom:'24px' }}>
         {[['plans','Membership Plans'],['subscribers','Subscribers'],['revenue','Revenue']].map(([key,label]) => (
-          <button key={key} onClick={() => setTab(key)} style={{ padding:'8px 20px', borderRadius:'7px', border:'none', cursor:'pointer', fontSize:'13px', fontWeight:'500', fontFamily:'Plus Jakarta Sans, sans-serif', background: tab===key ? 'var(--accent)' : 'transparent', color: tab===key ? 'white' : 'var(--text-2)', transition:'all 0.15s' }}>
+          <button key={key} onClick={() => setTab(key)} style={{ padding:'8px 20px', borderRadius:'7px', border:'none', cursor:'pointer', fontSize:'13px', fontWeight:'500', fontFamily:"'DM Sans',sans-serif", background: tab===key ? 'var(--accent)' : 'transparent', color: tab===key ? 'white' : 'var(--text-2)', transition:'all 0.15s' }}>
             {label}
           </button>
         ))}
@@ -51,7 +51,7 @@ export default function Subscriptions() {
                 <div style={{ marginBottom:'20px' }}>
                   <span style={{ fontSize:'11px', fontWeight:'700', color:plan.color, textTransform:'uppercase', letterSpacing:'0.1em' }}>{plan.name}</span>
                   <div style={{ display:'flex', alignItems:'baseline', gap:'4px', margin:'8px 0' }}>
-                    <span style={{ fontFamily:'Instrument Serif, serif', fontSize:'36px', color:'var(--text-1)' }}>{plan.price}</span>
+                    <span style={{ fontFamily:"'Playfair Display',serif", fontSize:'36px', color:'var(--text-1)' }}>{plan.price}</span>
                     <span style={{ fontSize:'12px', color:'var(--text-3)' }}>{plan.period}</span>
                   </div>
                   <p style={{ fontSize:'12px', color:'var(--text-2)' }}>{plan.books} books · {plan.duration}-day borrow</p>
@@ -83,7 +83,7 @@ export default function Subscriptions() {
               { label:'Monthly Revenue', value:'₹797' },
             ].map(s => (
               <div key={s.label} style={{ background:'var(--bg-card)', padding:'16px 20px', textAlign:'center' }}>
-                <p style={{ fontFamily:'Instrument Serif, serif', fontSize:'26px', color:'var(--text-1)' }}>{s.value}</p>
+                <p style={{ fontFamily:"'Playfair Display',serif", fontSize:'26px', color:'var(--text-1)' }}>{s.value}</p>
                 <p style={{ fontSize:'11px', color:'var(--text-3)', marginTop:'2px' }}>{s.label}</p>
               </div>
             ))}
@@ -145,7 +145,7 @@ export default function Subscriptions() {
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={s.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d={s.icon}/></svg>
               </div>
               <div>
-                <p style={{ fontSize:'28px', fontWeight:'700', color:'var(--text-1)', fontFamily:'Instrument Serif, serif', lineHeight:1 }}>{s.value}</p>
+                <p style={{ fontSize:'28px', fontWeight:'700', color:'var(--text-1)', fontFamily:"'Playfair Display',serif", lineHeight:1 }}>{s.value}</p>
                 <p style={{ fontSize:'13px', color:'var(--text-2)', marginTop:'2px' }}>{s.label}</p>
                 <p style={{ fontSize:'11px', color:'var(--text-3)', marginTop:'1px' }}>{s.sub}</p>
               </div>
