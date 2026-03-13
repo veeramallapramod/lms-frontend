@@ -34,7 +34,7 @@ export default function LibraryIllustration() {
       <rect x="60" y="100" width="3" height="42" fill="#dc2626" opacity="0.7"/>
       {/* Book 3 - tilted amber */}
       <rect x="79" y="86" width="14" height="56" rx="1" fill="#4a2e00" transform="rotate(-4 79 142)"/>
-      <rect x="79" y="86" width="3" height="56" fill="#8b6418" opacity="0.6" transform="rotate(-4 79 142)"/>
+      <rect x="79" y="86" width="3" height="56" fill="#5448b8" opacity="0.6" transform="rotate(-4 79 142)"/>
       {/* Book 4 - tall green */}
       <rect x="96" y="75" width="20" height="67" rx="2" fill="#0f2e1a"/>
       <rect x="96" y="75" width="3" height="67" fill="#10b981" opacity="0.5"/>
@@ -44,7 +44,7 @@ export default function LibraryIllustration() {
       <rect x="119" y="90" width="3" height="52" fill="#8b5cf6" opacity="0.6"/>
       {/* Book 6 - ornate gold spine */}
       <rect x="140" y="72" width="24" height="70" rx="2" fill="#2a1a00"/>
-      <rect x="140" y="72" width="4" height="70" fill="#c8a55a" opacity="0.7"/>
+      <rect x="140" y="72" width="4" height="70" fill="#7c6fe0" opacity="0.7"/>
       <rect x="145" y="85" width="14" height="1.5" fill="rgba(245,158,11,0.5)" rx="1"/>
       <rect x="145" y="90" width="10" height="1.5" fill="rgba(245,158,11,0.3)" rx="1"/>
       <rect x="145" y="128" width="14" height="1.5" fill="rgba(245,158,11,0.5)" rx="1"/>
@@ -53,7 +53,7 @@ export default function LibraryIllustration() {
       <rect x="167" y="95" width="3" height="47" fill="#60a5fa" opacity="0.5"/>
       {/* Book 8 - fat dictionary */}
       <rect x="184" y="82" width="32" height="60" rx="2" fill="#1f1a0a"/>
-      <rect x="184" y="82" width="5" height="60" fill="#8b6418" opacity="0.4"/>
+      <rect x="184" y="82" width="5" height="60" fill="#5448b8" opacity="0.4"/>
       <rect x="190" y="95" width="20" height="1.5" fill="rgba(255,255,255,0.08)" rx="1"/>
       <rect x="190" y="100" width="16" height="1" fill="rgba(255,255,255,0.06)" rx="1"/>
       {/* Books 9-15 continuing */}
@@ -68,7 +68,7 @@ export default function LibraryIllustration() {
       <rect x="300" y="86" width="15" height="56" rx="1" fill="#1f1200"/>
       <rect x="300" y="86" width="3" height="56" fill="#fb923c" opacity="0.5"/>
       <rect x="318" y="74" width="26" height="68" rx="2" fill="#1a0d00"/>
-      <rect x="318" y="74" width="4" height="68" fill="#c8a55a" opacity="0.65"/>
+      <rect x="318" y="74" width="4" height="68" fill="#7c6fe0" opacity="0.65"/>
       <rect x="323" y="88" width="16" height="1.5" fill="rgba(245,158,11,0.4)" rx="1"/>
       <rect x="347" y="90" width="17" height="52" rx="2" fill="#0f2020"/>
       <rect x="347" y="90" width="3" height="52" fill="#2dd4bf" opacity="0.5"/>
@@ -77,7 +77,7 @@ export default function LibraryIllustration() {
       <rect x="384" y="76" width="22" height="66" rx="2" fill="#0a1628"/>
       <rect x="384" y="76" width="4" height="66" fill="#38bdf8" opacity="0.5"/>
       <rect x="409" y="88" width="15" height="54" rx="1" fill="#1e1000"/>
-      <rect x="409" y="88" width="3" height="54" fill="#c8a55a" opacity="0.5"/>
+      <rect x="409" y="88" width="3" height="54" fill="#7c6fe0" opacity="0.5"/>
       <rect x="427" y="80" width="18" height="62" rx="2" fill="#15100a"/>
       <rect x="427" y="80" width="3" height="62" fill="#a16207" opacity="0.6"/>
 
@@ -113,7 +113,7 @@ export default function LibraryIllustration() {
       <rect x="276" y="246" width="14" height="56" rx="1" fill="#1e0f1e"/>
       <rect x="276" y="246" width="3" height="56" fill="#d946ef" opacity="0.5"/>
       <rect x="293" y="238" width="26" height="64" rx="2" fill="#1a1200"/>
-      <rect x="293" y="238" width="5" height="64" fill="#c8a55a" opacity="0.55"/>
+      <rect x="293" y="238" width="5" height="64" fill="#7c6fe0" opacity="0.55"/>
       <rect x="322" y="248" width="16" height="54" rx="1" fill="#0f1515"/>
       <rect x="322" y="248" width="3" height="54" fill="#14b8a6" opacity="0.5"/>
       <rect x="341" y="242" width="19" height="60" rx="2" fill="#15101e"/>
@@ -164,7 +164,7 @@ export default function LibraryIllustration() {
         <line x1="0" y1="20" x2="-20" y2="5" stroke="#2d1507" strokeWidth="5" strokeLinecap="round"/>
         {/* Lamp shade */}
         <path d="M-35 5 L-5 5 L-10 -12 L-30 -12 Z" fill="#1a0f00"/>
-        <path d="M-35 5 L-5 5" stroke="#c8a55a" strokeWidth="1.5" opacity="0.6"/>
+        <path d="M-35 5 L-5 5" stroke="#7c6fe0" strokeWidth="1.5" opacity="0.6"/>
         {/* Light cone */}
         <path d="M-20 5 L-50 45 L10 45 Z" fill="rgba(251,191,36,0.08)"/>
         {/* Bulb glow */}

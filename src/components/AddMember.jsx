@@ -7,7 +7,7 @@ const PLAN_INFO = {
   FREE:     { label:'Free',     price:'₹0/mo',   books:2,  color:'#94a3b8' },
   BASIC:    { label:'Basic',    price:'₹99/mo',  books:5,  color:'#3b82f6' },
   STANDARD: { label:'Standard', price:'₹199/mo', books:10, color:'#8b5cf6' },
-  PREMIUM:  { label:'Premium',  price:'₹399/mo', books:20, color:'#c8a55a' },
+  PREMIUM:  { label:'Premium',  price:'₹399/mo', books:20, color:'#7c6fe0' },
 };
 
 export default function AddMember() {

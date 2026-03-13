@@ -4,7 +4,7 @@ import useUserStore from '../store/userStore';
 import useAuthStore from '../store/authStore';
 import API from '../api/axiosInstance';
 
-const PLAN_COLORS = { FREE:'#94a3b8', BASIC:'#3b82f6', STANDARD:'#8b5cf6', PREMIUM:'#c8a55a' };
+const PLAN_COLORS = { FREE:'#94a3b8', BASIC:'#3b82f6', STANDARD:'#8b5cf6', PREMIUM:'#7c6fe0' };
 
 export default function Users() {
   const { users, fetchAllUsers, loading } = useUserStore();

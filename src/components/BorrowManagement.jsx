@@ -34,7 +34,7 @@ const DAMAGE_LEVELS = [
     desc: 'Scuffs, light marks, minor wear',
     icon: '🟡',
     fine: 100,
-    color: '#c8a55a',
+    color: '#7c6fe0',
     bg: 'rgba(245,158,11,0.08)',
     border: 'rgba(245,158,11,0.3)',
   },

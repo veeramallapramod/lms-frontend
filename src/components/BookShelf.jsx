@@ -7,7 +7,7 @@ const CATEGORY_COLORS = {
   'Non-Fiction': { spine:'#10b981', label:'📝' },
   'Science':     { spine:'#06b6d4', label:'🔬' },
   'Technology':  { spine:'#8b5cf6', label:'💻' },
-  'History':     { spine:'#c8a55a', label:'🏛️' },
+  'History':     { spine:'#7c6fe0', label:'🏛️' },
   'Biography':   { spine:'#f97316', label:'👤' },
   'Philosophy':  { spine:'#6366f1', label:'🧠' },
   'Arts':        { spine:'#ec4899', label:'🎨' },
@@ -220,8 +220,8 @@ export default function BookShelf() {
               {/* Shelf location */}
               {selected.shelfNumber && (
                 <div style={{ display:'flex', alignItems:'center', gap:'7px', background:'rgba(245,158,11,0.12)', border:'1px solid rgba(245,158,11,0.3)', borderRadius:'8px', padding:'8px 12px', marginBottom:'12px' }}>
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#c8a55a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                  <span style={{ fontSize:'12px', fontWeight:'700', color:'#c8a55a' }}>Shelf {selected.shelfNumber}</span>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7c6fe0" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  <span style={{ fontSize:'12px', fontWeight:'700', color:'#7c6fe0' }}>Shelf {selected.shelfNumber}</span>
                 </div>
               )}
 

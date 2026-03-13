@@ -37,7 +37,7 @@ const STAT_CONFIGS = [
   { key:'borrow',  cls:'stat-borrow',  iconColor:'#f97316', iconBg:'rgba(249,115,22,0.15)'  },
   { key:'avail',   cls:'stat-avail',   iconColor:'#059669', iconBg:'rgba(5,150,105,0.15)'   },
   { key:'overdue', cls:'stat-overdue', iconColor:'#dc2626', iconBg:'rgba(220,38,38,0.15)'   },
-  { key:'pending', cls:'stat-pending', iconColor:'#8b6418', iconBg:'rgba(217,119,6,0.15)'   },
+  { key:'pending', cls:'stat-pending', iconColor:'#5448b8', iconBg:'rgba(217,119,6,0.15)'   },
 ];
 
 function StatCard({ label, value, icon, cfgKey, link, sub, delay }) {
@@ -200,7 +200,7 @@ export default function Dashboard() {
       {books.length > 0 && (
         <div style={{ display:'flex', gap:'12px', marginBottom:'26px', flexWrap:'wrap', animation:'fadeUp 0.5s ease 0.35s both' }}>
           <AvailBar label="🟢 Available"    value={available}  total={books.length} color="#059669"/>
-          <AvailBar label="🟡 Few Left"     value={fewLeft}    total={books.length} color="#8b6418"/>
+          <AvailBar label="🟡 Few Left"     value={fewLeft}    total={books.length} color="#5448b8"/>
           <AvailBar label="🔴 Out of Stock" value={outOfStock} total={books.length} color="#dc2626"/>
         </div>
       )}
@@ -346,7 +346,7 @@ export default function Dashboard() {
                       </div>
                     )}
                     <div style={{ position:'absolute', top:'8px', right:'8px' }}>
-                      <span className={`badge badge-${status}`} style={{ fontSize:'9px', background: status==='available'?'#059669': status==='few_left'?'#8b6418':'#dc2626', color:'white', border:'none' }}>{statusLabel}</span>
+                      <span className={`badge badge-${status}`} style={{ fontSize:'9px', background: status==='available'?'#059669': status==='few_left'?'#5448b8':'#dc2626', color:'white', border:'none' }}>{statusLabel}</span>
                     </div>
                     {book.category && (
                       <div style={{ position:'absolute', bottom:'8px', left:'8px' }}>

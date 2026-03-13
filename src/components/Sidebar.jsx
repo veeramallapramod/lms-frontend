@@ -83,7 +83,7 @@ export default function Sidebar() {
       {/* Logo */}
       <div style={{ padding:'18px 16px 14px', borderBottom:'1px solid var(--border)' }}>
         <div style={{ display:'flex', alignItems:'center', gap:'11px' }}>
-          <div style={{ width:'36px', height:'36px', background:'linear-gradient(135deg,#c8a55a,#8b6418)', borderRadius:'10px', display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0, boxShadow:'0 3px 10px rgba(245,158,11,0.35)' }}>
+          <div style={{ width:'36px', height:'36px', background:'linear-gradient(135deg,#7c6fe0,#5448b8)', borderRadius:'10px', display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0, boxShadow:'0 3px 10px rgba(245,158,11,0.35)' }}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
             </svg>
@@ -155,7 +155,7 @@ export default function Sidebar() {
           <div style={{ display:'flex', alignItems:'center', gap:'10px', padding:'10px 12px', borderRadius:'10px', background:'var(--accent-muted)', border:'1px solid var(--border-accent)', cursor:'pointer', transition:'all 0.15s' }}
             onMouseEnter={e => e.currentTarget.style.background='var(--bg-2)'}
             onMouseLeave={e => e.currentTarget.style.background='var(--accent-muted)'}>
-            <div style={{ width:'32px', height:'32px', borderRadius:'50%', background:'linear-gradient(135deg,#c8a55a,#8b6418)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:'12px', fontWeight:'800', color:'white', flexShrink:0 }}>
+            <div style={{ width:'32px', height:'32px', borderRadius:'50%', background:'linear-gradient(135deg,#7c6fe0,#5448b8)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:'12px', fontWeight:'800', color:'white', flexShrink:0 }}>
               {initials}
             </div>
             <div style={{ flex:1, minWidth:0 }}>

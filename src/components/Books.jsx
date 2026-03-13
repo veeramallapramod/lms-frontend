@@ -234,11 +234,11 @@ export default function Books() {
 
               {/* Shelf location */}
               <div style={{ display:'flex', alignItems:'center', gap:'10px', background:'#fef3c7', border:'1px solid #fde68a', borderRadius:'10px', padding:'12px 16px', marginBottom:'16px' }}>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8b6418" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5448b8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
                 </svg>
                 <div>
-                  <p style={{ fontSize:'11px', color:'#8b6418', fontWeight:'700', letterSpacing:'0.05em', textTransform:'uppercase' }}>Shelf Location</p>
+                  <p style={{ fontSize:'11px', color:'#5448b8', fontWeight:'700', letterSpacing:'0.05em', textTransform:'uppercase' }}>Shelf Location</p>
                   <p style={{ fontSize:'16px', fontWeight:'800', color:'#92400e' }}>{selectedBook.shelfNumber ? `Shelf ${selectedBook.shelfNumber}` : 'Not assigned'}</p>
                 </div>
               </div>

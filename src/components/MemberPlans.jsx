@@ -8,7 +8,7 @@ const PLANS = [
   { id:'FREE',     name:'Free',     price:'₹0',   period:'forever',   color:'#94a3b8', books:2,  duration:14, features:['2 books at a time','14-day borrow period','Basic catalog access','Email notifications'] },
   { id:'BASIC',    name:'Basic',    price:'₹99',  period:'per month', color:'#3b82f6', books:5,  duration:30, features:['5 books at a time','30-day borrow period','Email notifications','Basic support'] },
   { id:'STANDARD', name:'Standard', price:'₹199', period:'per month', color:'#8b5cf6', books:10, duration:30, popular:true, features:['10 books at a time','30-day borrow period','Priority reservations','Email notifications','Standard support'] },
-  { id:'PREMIUM',  name:'Premium',  price:'₹399', period:'per month', color:'#c8a55a', books:20, duration:60, features:['20 books at a time','60-day borrow period','Unlimited reservations','Email + SMS alerts','Premium support','Fine waiver (1/year)'] },
+  { id:'PREMIUM',  name:'Premium',  price:'₹399', period:'per month', color:'#7c6fe0', books:20, duration:60, features:['20 books at a time','60-day borrow period','Unlimited reservations','Email + SMS alerts','Premium support','Fine waiver (1/year)'] },
 ];
 
 export default function MemberPlans() {
@@ -158,7 +158,7 @@ export default function MemberPlans() {
                 <th style={{ color:'#94a3b8' }}>Free</th>
                 <th style={{ color:'#3b82f6' }}>Basic</th>
                 <th style={{ color:'#8b5cf6' }}>Standard</th>
-                <th style={{ color:'#c8a55a' }}>Premium</th>
+                <th style={{ color:'#7c6fe0' }}>Premium</th>
               </tr>
             </thead>
             <tbody>
