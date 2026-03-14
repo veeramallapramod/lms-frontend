@@ -21,6 +21,8 @@ import Subscriptions from './components/Subscriptions';
 import MyBorrows from './components/MyBorrows';
 import MemberPlans from './components/MemberPlans';
 import AddMember from './components/AddMember';
+import QRScanner from './components/QRScanner';
+import LibraryCard from './components/LibraryCard';
 
 function AppRoutes() {
   const { token, theme } = useAuthStore();
@@ -46,11 +48,13 @@ function AppRoutes() {
       {/* Member only */}
       <Route path="/my-borrows"     element={<ProtectedRoute><MyBorrows /></ProtectedRoute>} />
       <Route path="/plans"          element={<ProtectedRoute><MemberPlans /></ProtectedRoute>} />
+      <Route path="/library-card"   element={<ProtectedRoute><LibraryCard /></ProtectedRoute>} />
 
       {/* Admin + Librarian */}
       <Route path="/add-book"       element={<ProtectedRoute><AddBook /></ProtectedRoute>} />
       <Route path="/edit-book/:id"  element={<ProtectedRoute><AddBook /></ProtectedRoute>} />
       <Route path="/borrow"         element={<ProtectedRoute><BorrowManagement /></ProtectedRoute>} />
+      <Route path="/qr-scanner"     element={<ProtectedRoute><QRScanner /></ProtectedRoute>} />
       <Route path="/users"          element={<ProtectedRoute><Users /></ProtectedRoute>} />
       <Route path="/approvals"      element={<ProtectedRoute><Approvals /></ProtectedRoute>} />
       <Route path="/admin-alerts"   element={<ProtectedRoute><AdminAlerts /></ProtectedRoute>} />

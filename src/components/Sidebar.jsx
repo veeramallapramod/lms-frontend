@@ -83,7 +83,7 @@ export default function Sidebar() {
       {/* Logo */}
       <div style={{ padding:'18px 16px 14px', borderBottom:'1px solid var(--border)' }}>
         <div style={{ display:'flex', alignItems:'center', gap:'11px' }}>
-          <div style={{ width:'36px', height:'36px', background:'linear-gradient(135deg,#7c6fe0,#5448b8)', borderRadius:'10px', display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0, boxShadow:'0 3px 10px rgba(245,158,11,0.35)' }}>
+          <div style={{ width:'36px', height:'36px', background:'linear-gradient(135deg,#c8a55a,#8b6418)', borderRadius:'10px', display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0, boxShadow:'0 3px 10px rgba(245,158,11,0.35)' }}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
             </svg>
@@ -120,6 +120,7 @@ export default function Sidebar() {
           <NavLink to="/add-book"     icon="M12 5v14M5 12h14" label="Add Book"/>
           <NavLink to="/add-member"   icon="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 7a4 4 0 1 0 0-8 4 4 0 0 0 0 8M20 8v6M23 11h-6M17 14v6" label="Add Member 🧑‍💼"/>
           <NavLink to="/borrow"       icon="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" label="Borrow Management"/>
+          <NavLink to="/qr-scanner"   icon="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M8 12h.01M12 12h.01M16 12h.01" label="QR Scanner 📷"/>
           <NavLink to="/reservations" icon="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8zM6 1v3M10 1v3M14 1v3" label="Reservations"/>
           <NavLink to="/users"        icon="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" label="Members"/>
           <NavLink to="/approvals"    icon="M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4 12 14.01l-3-3" label="Approvals" badge={pendingUsers.length}/>
@@ -130,6 +131,7 @@ export default function Sidebar() {
           <SectionLabel>My Library</SectionLabel>
           <NavLink to="/my-borrows"   icon="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" label="My Borrowed Books"/>
           <NavLink to="/reservations" icon="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8zM6 1v3M10 1v3M14 1v3" label="My Reservations"/>
+          <NavLink to="/library-card" icon="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" label="My Library Card 🪪"/>
           <NavLink to="/plans"        icon="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" label="Subscription Plans ⭐"/>
         </>)}
 
@@ -155,7 +157,7 @@ export default function Sidebar() {
           <div style={{ display:'flex', alignItems:'center', gap:'10px', padding:'10px 12px', borderRadius:'10px', background:'var(--accent-muted)', border:'1px solid var(--border-accent)', cursor:'pointer', transition:'all 0.15s' }}
             onMouseEnter={e => e.currentTarget.style.background='var(--bg-2)'}
             onMouseLeave={e => e.currentTarget.style.background='var(--accent-muted)'}>
-            <div style={{ width:'32px', height:'32px', borderRadius:'50%', background:'linear-gradient(135deg,#7c6fe0,#5448b8)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:'12px', fontWeight:'800', color:'white', flexShrink:0 }}>
+            <div style={{ width:'32px', height:'32px', borderRadius:'50%', background:'linear-gradient(135deg,#c8a55a,#8b6418)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:'12px', fontWeight:'800', color:'white', flexShrink:0 }}>
               {initials}
             </div>
             <div style={{ flex:1, minWidth:0 }}>
