@@ -44,7 +44,7 @@ const CustomTooltip = ({ active, payload, label }) => {
     return (
       <div style={{ background:'var(--bg-card)', border:'1px solid var(--border)', borderRadius:'10px', padding:'10px 14px', boxShadow:'var(--shadow-md)' }}>
         <p style={{ fontSize:'11px', color:'var(--text-3)', marginBottom:'4px', textTransform:'uppercase', letterSpacing:'0.06em' }}>{label}</p>
-        <p style={{ fontSize:'18px', fontWeight:'700', color:'var(--accent)', fontFamily:"'Playfair Display',serif" }}>
+        <p style={{ fontSize:'18px', fontWeight:'700', color:'#7c6fe0', fontFamily:"'Playfair Display',serif" }}>
           {payload[0].value} borrows
         </p>
       </div>
@@ -62,7 +62,7 @@ const STAT_CONFIGS = [
   { key:'borrow',  cls:'stat-borrow',  iconColor:'#f97316', iconBg:'rgba(249,115,22,0.15)'  },
   { key:'avail',   cls:'stat-avail',   iconColor:'#059669', iconBg:'rgba(5,150,105,0.15)'   },
   { key:'overdue', cls:'stat-overdue', iconColor:'#dc2626', iconBg:'rgba(220,38,38,0.15)'   },
-  { key:'pending', cls:'stat-pending', iconColor:'#8b6418', iconBg:'rgba(217,119,6,0.15)'   },
+  { key:'pending', cls:'stat-pending', iconColor:'#d97706', iconBg:'rgba(217,119,6,0.13)'   },
 ];
 
 function StatCard({ label, value, icon, cfgKey, link, sub, delay }) {
@@ -289,7 +289,7 @@ export default function Dashboard() {
                 </div>
                 <div style={{ display:'flex', gap:'20px' }}>
                   <div style={{ textAlign:'right' }}>
-                    <p style={{ fontSize:'20px', fontWeight:'800', color:'var(--accent)', fontFamily:"'Playfair Display',serif", lineHeight:1 }}>{chartData[chartData.length-1].borrows}</p>
+                    <p style={{ fontSize:'20px', fontWeight:'800', color:'#7c6fe0', fontFamily:"'Playfair Display',serif", lineHeight:1 }}>{chartData[chartData.length-1].borrows}</p>
                     <p style={{ fontSize:'11px', color:'var(--text-3)' }}>This month</p>
                   </div>
                   <div style={{ textAlign:'right' }}>
