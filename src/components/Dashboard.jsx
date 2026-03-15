@@ -14,6 +14,31 @@ import {
   Tooltip, ResponsiveContainer
 } from 'recharts';
 
+/* ══ Animated Counter Hook — pure JS, no deps ═══════════════════ */
+function useCountUp(target, duration = 1400) {
+  const [count, setCount] = useState(0);
+  const prev = useRef(0);
+  useEffect(() => {
+    if (target === null || target === undefined || isNaN(target)) return;
+    const n = Number(target);
+    if (n === prev.current) return;
+    const start = prev.current;
+    prev.current = n;
+    const startTime = performance.now();
+    const step = (now) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // ease out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.round(start + (n - start) * eased));
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, [target, duration]);
+  return count;
+}
+/* ══════════════════════════════════════════════════════════════ */
+
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
@@ -37,15 +62,20 @@ const STAT_CONFIGS = [
   { key:'borrow',  cls:'stat-borrow',  iconColor:'#f97316', iconBg:'rgba(249,115,22,0.15)'  },
   { key:'avail',   cls:'stat-avail',   iconColor:'#059669', iconBg:'rgba(5,150,105,0.15)'   },
   { key:'overdue', cls:'stat-overdue', iconColor:'#dc2626', iconBg:'rgba(220,38,38,0.15)'   },
-  { key:'pending', cls:'stat-pending', iconColor:'#5448b8', iconBg:'rgba(217,119,6,0.15)'   },
+  { key:'pending', cls:'stat-pending', iconColor:'#8b6418', iconBg:'rgba(217,119,6,0.15)'   },
 ];
 
 function StatCard({ label, value, icon, cfgKey, link, sub, delay }) {
-  const cfg = STAT_CONFIGS.find(c => c.key === cfgKey) || STAT_CONFIGS[0];
+  const cfg      = STAT_CONFIGS.find(c => c.key === cfgKey) || STAT_CONFIGS[0];
+  const numericVal = typeof value === 'number' ? value : (isNaN(Number(value)) ? null : Number(value));
+  const animated   = useCountUp(numericVal, 1200);
+  const display    = numericVal !== null ? animated : value;
+
   return (
     <Link to={link || '#'} style={{ textDecoration:'none' }}>
-      <div className={`stat-card ${cfg.cls} stat-enter-${delay}`}>
-        {/* Colored icon */}
+      <div className={`stat-card ${cfg.cls} stat-enter-${delay}`}
+        style={{ cursor:'pointer' }}>
+        {/* Gradient icon circle */}
         <div className="stat-icon" style={{ background: cfg.iconBg }}>
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
             stroke={cfg.iconColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -53,14 +83,18 @@ function StatCard({ label, value, icon, cfgKey, link, sub, delay }) {
           </svg>
         </div>
         <div style={{ flex:1 }}>
-          <p style={{ fontSize:'32px', fontWeight:'800', color:'var(--text-1)', fontFamily:"'Playfair Display',serif", lineHeight:1, animation:'countUp 0.5s ease forwards' }}>
-            {value ?? '—'}
+          <p className="stat-number-animated"
+            style={{ fontSize:'32px', fontWeight:'800', color:'var(--text-1)',
+              fontFamily:"'Playfair Display',serif", lineHeight:1,
+              animationDelay:`${(delay-1)*0.08}s` }}>
+            {display ?? '—'}
           </p>
           <p style={{ fontSize:'12px', color:'var(--text-2)', marginTop:'3px', fontWeight:'500' }}>{label}</p>
           {sub && <p style={{ fontSize:'11px', color: cfg.iconColor, marginTop:'2px', fontWeight:'700' }}>{sub}</p>}
         </div>
-        {/* Accent border left */}
-        <div style={{ position:'absolute', left:0, top:'18%', bottom:'18%', width:'3px', borderRadius:'0 3px 3px 0', background: cfg.iconColor, opacity:0.7 }}/>
+        {/* Accent left bar */}
+        <div style={{ position:'absolute', left:0, top:'18%', bottom:'18%', width:'3px',
+          borderRadius:'0 3px 3px 0', background: cfg.iconColor, opacity:0.75 }}/>
       </div>
     </Link>
   );
@@ -200,7 +234,7 @@ export default function Dashboard() {
       {books.length > 0 && (
         <div style={{ display:'flex', gap:'12px', marginBottom:'26px', flexWrap:'wrap', animation:'fadeUp 0.5s ease 0.35s both' }}>
           <AvailBar label="🟢 Available"    value={available}  total={books.length} color="#059669"/>
-          <AvailBar label="🟡 Few Left"     value={fewLeft}    total={books.length} color="#5448b8"/>
+          <AvailBar label="🟡 Few Left"     value={fewLeft}    total={books.length} color="#8b6418"/>
           <AvailBar label="🔴 Out of Stock" value={outOfStock} total={books.length} color="#dc2626"/>
         </div>
       )}
@@ -325,13 +359,11 @@ export default function Dashboard() {
               const statusLabel = status==='available' ? '🟢 Available' : status==='few_left' ? '🟡 Few Left' : '🔴 Out of Stock';
               return (
                 <div key={book.id}
+                  className="book-card-3d"
                   style={{ borderRadius:'14px', overflow:'hidden', border:'1px solid var(--border)', cursor:'pointer',
-                    transition:'transform 0.25s ease, box-shadow 0.25s ease',
-                    animation:`fadeUp 0.4s ease ${0.05*i}s both`,
+                    animationDelay:`${0.05*i}s`,
                     background:'var(--bg-card)'
                   }}
-                  onMouseEnter={e => { e.currentTarget.style.transform='translateY(-5px)'; e.currentTarget.style.boxShadow='0 16px 40px rgba(0,0,0,0.18)'; e.currentTarget.style.borderColor='rgba(99,102,241,0.25)'; }}
-                  onMouseLeave={e => { e.currentTarget.style.transform=''; e.currentTarget.style.boxShadow=''; e.currentTarget.style.borderColor=''; }}
                 >
                   {/* Cover */}
                   <div style={{ width:'100%', height:'200px', position:'relative', overflow:'hidden', background:'var(--bg-2)' }}>
@@ -346,7 +378,7 @@ export default function Dashboard() {
                       </div>
                     )}
                     <div style={{ position:'absolute', top:'8px', right:'8px' }}>
-                      <span className={`badge badge-${status}`} style={{ fontSize:'9px', background: status==='available'?'#059669': status==='few_left'?'#5448b8':'#dc2626', color:'white', border:'none' }}>{statusLabel}</span>
+                      <span className={`badge badge-${status}`} style={{ fontSize:'9px', background: status==='available'?'#059669': status==='few_left'?'#8b6418':'#dc2626', color:'white', border:'none' }}>{statusLabel}</span>
                     </div>
                     {book.category && (
                       <div style={{ position:'absolute', bottom:'8px', left:'8px' }}>

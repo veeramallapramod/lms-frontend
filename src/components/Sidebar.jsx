@@ -40,35 +40,43 @@ export default function Sidebar() {
   const isActive     = (path) => location.pathname === path;
   const handleLogout = () => { logout(); navigate('/'); };
 
-  const NavLink = ({ to, icon, label, badge, notifBadge }) => (
-    <Link to={to}
+  const NavLink = ({ to, icon, label, badge, notifBadge }) => {
+    const active = isActive(to);
+    return (
+    <Link to={to} className={`nav-item${active ? ' active' : ''}`}
       style={{
         padding:'10px 14px', borderRadius:'9px', marginBottom:'2px',
         display:'flex', alignItems:'center', gap:'11px', textDecoration:'none',
-        color: isActive(to) ? 'var(--accent)' : 'var(--text-2)',
-        background: isActive(to) ? 'var(--accent-muted)' : 'transparent',
-        fontWeight: isActive(to) ? '600' : '400',
-        fontSize:'13.5px', transition:'all 0.15s',
-        border: isActive(to) ? '1px solid var(--border-accent)' : '1px solid transparent',
+        color: active ? 'var(--accent)' : 'var(--text-2)',
+        background: active ? 'var(--accent-muted)' : 'transparent',
+        fontWeight: active ? '600' : '400',
+        fontSize:'13.5px', transition:'all 0.18s ease',
+        border: active ? '1px solid var(--border-accent)' : '1px solid transparent',
       }}>
+      {/* SVG icon with route-based animation class */}
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none"
         stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"
-        style={{ flexShrink:0, opacity: isActive(to) ? 1 : 0.7 }}>
+        className={`nav-icon nav-icon-${to.replace(/\//g,'-').replace(/^-/,'')}`}
+        style={{ flexShrink:0, opacity: active ? 1 : 0.65 }}>
         <path d={icon}/>
       </svg>
       <span style={{ flex:1, fontSize:'13.5px' }}>{label}</span>
       {badge > 0 && (
-        <span style={{ background:'var(--red)', color:'white', fontSize:'9px', fontWeight:'800', padding:'2px 6px', borderRadius:'10px', minWidth:'18px', textAlign:'center' }}>
+        <span style={{ background:'var(--red)', color:'white', fontSize:'9px', fontWeight:'800',
+          padding:'2px 6px', borderRadius:'10px', minWidth:'18px', textAlign:'center',
+          animation:'pulse 2s infinite' }}>
           {badge}
         </span>
       )}
       {notifBadge > 0 && (
-        <span style={{ background:'var(--red)', color:'white', fontSize:'9px', fontWeight:'800', padding:'2px 6px', borderRadius:'10px', minWidth:'18px', textAlign:'center' }}>
+        <span style={{ background:'var(--red)', color:'white', fontSize:'9px', fontWeight:'800',
+          padding:'2px 6px', borderRadius:'10px', minWidth:'18px', textAlign:'center' }}>
           {notifBadge > 99 ? '99+' : notifBadge}
         </span>
       )}
     </Link>
-  );
+    );
+  };
 
   const SectionLabel = ({ children }) => (
     <p style={{ fontSize:'9px', fontWeight:'700', color:'var(--text-3)', letterSpacing:'0.12em', textTransform:'uppercase', padding:'14px 14px 5px', marginTop:'4px' }}>
