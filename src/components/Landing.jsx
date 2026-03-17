@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { PublicChatbot } from './AIChatbot';
 import { Link } from 'react-router-dom';
 
 const BOOKS = [
@@ -68,20 +69,14 @@ export default function Landing() {
   const refs = useRef({});
 
   useEffect(()=>{
-    const onScroll = ()=>{
-      const y = window.scrollY;
-      setScroll(y);
-      setNavSolid(y > 60);
-    };
+    const onScroll = ()=>{ const y=window.scrollY; setScroll(y); setNavSolid(y>60); };
     window.addEventListener('scroll', onScroll, { passive:true });
     return ()=> window.removeEventListener('scroll', onScroll);
   },[]);
 
   useEffect(()=>{
     const obs = new IntersectionObserver(
-      entries => entries.forEach(e => {
-        if(e.isIntersecting) setVis(v=>({...v,[e.target.dataset.s]:true}));
-      }),
+      entries => entries.forEach(e => { if(e.isIntersecting) setVis(v=>({...v,[e.target.dataset.s]:true})); }),
       { threshold:0.06 }
     );
     Object.values(refs.current).forEach(el => el && obs.observe(el));
@@ -105,96 +100,26 @@ export default function Landing() {
         html{scroll-behavior:smooth;}
         body{background:#f5f3ff;}
 
-        /*
-         ╔══════════════════════════════════════════╗
-         ║  THE EFFECT — exactly like the reference ║
-         ║                                          ║
-         ║  1. Library image: position:fixed        ║
-         ║     → stays 100% still, never moves      ║
-         ║                                          ║
-         ║  2. Hero section: transparent            ║
-         ║     → you see the library through it     ║
-         ║                                          ║
-         ║  3. .content-layer: solid parchment bg   ║
-         ║     → scrolls up OVER the frozen image   ║
-         ║     → creates the cinematic wipe moment  ║
-         ║                                          ║
-         ║  4. .parallax-strip: CSS background-     ║
-         ║     attachment:fixed on later sections   ║
-         ║     → library "windows" that peek thru   ║
-         ╚══════════════════════════════════════════╝
-        */
+        .lib-fixed-bg { position:fixed; top:0; left:0; width:100%; height:100vh; z-index:0; }
+        .lib-fixed-bg img { width:100%; height:100%; object-fit:cover; object-position:center 25%; filter:brightness(0.42) contrast(1.12) saturate(0.62) sepia(0.18); display:block; }
+        .lib-fixed-bg::after { content:''; position:absolute; inset:0; background: linear-gradient(108deg, rgba(10,8,26,0.80) 0%, rgba(10,8,26,0.48) 42%, rgba(10,8,26,0.18) 72%, rgba(10,8,26,0.08) 100%), linear-gradient(to bottom, rgba(10,8,26,0.10) 0%, transparent 28%, transparent 62%, rgba(10,8,26,0.65) 100%); }
 
-        .lib-fixed-bg {
-          position: fixed;
-          top:0; left:0; width:100%; height:100vh;
-          z-index: 0;
-        }
-        .lib-fixed-bg img {
-          width:100%; height:100%;
-          object-fit:cover; object-position:center 25%;
-          filter: brightness(0.42) contrast(1.12) saturate(0.62) sepia(0.18);
-          display:block;
-        }
-        .lib-fixed-bg::after {
-          content:'';
-          position:absolute; inset:0;
-          background:
-            linear-gradient(108deg,
-              rgba(10,8,26,0.80) 0%,
-              rgba(10,8,26,0.48) 42%,
-              rgba(10,8,26,0.18) 72%,
-              rgba(10,8,26,0.08) 100%),
-            linear-gradient(to bottom,
-              rgba(10,8,26,0.10) 0%,
-              transparent 28%,
-              transparent 62%,
-              rgba(10,8,26,0.65) 100%);
-        }
+        .hero-section { position:relative; z-index:10; min-height:100vh; display:flex; align-items:center; }
+        .content-layer { position:relative; z-index:20; background:#f5f3ff; }
 
-        .hero-section {
-          position:relative;
-          z-index:10;
-          min-height:100vh;
-          display:flex;
-          align-items:center;
-          /* transparent — library shows through completely */
-        }
-
-        /* Solid bg layer that wipes over the frozen library */
-        .content-layer {
-          position:relative;
-          z-index:20;
-          background:#f5f3ff;
-        }
-
-        /* CSS parallax strips — library "windows" inside content */
-        .parallax-strip {
-          position:relative; z-index:21;
-          background-image: url('/lib.jpg');
-          background-size: cover;
-          background-attachment: fixed;   /* ← this is what keeps it still */
-          background-position: center 25%;
-        }
-        .parallax-strip::before {
-          content:''; position:absolute; inset:0;
-          background: rgba(10,8,26,0.70);
-        }
+        .parallax-strip { position:relative; z-index:21; background-image:url('/lib.jpg'); background-size:cover; background-attachment:fixed; background-position:center 25%; }
+        .parallax-strip::before { content:''; position:absolute; inset:0; background:rgba(10,8,26,0.70); }
         .parallax-strip > .ps-inner { position:relative; z-index:1; }
 
-        /* ── ANIMATIONS ── */
-        @keyframes riseBook  { from{opacity:0;transform:translateY(32px);}  to{opacity:1;transform:translateY(0);} }
-        @keyframes fadeUp    { from{opacity:0;transform:translateY(26px);}  to{opacity:1;transform:translateY(0);} }
-        @keyframes float     { 0%,100%{transform:translateY(0);}  50%{transform:translateY(-11px);} }
-        @keyframes pulse     { 0%,100%{opacity:1;transform:scale(1);}  50%{opacity:.55;transform:scale(.93);} }
+        @keyframes riseBook  { from{opacity:0;transform:translateY(32px);} to{opacity:1;transform:translateY(0);} }
+        @keyframes fadeUp    { from{opacity:0;transform:translateY(26px);} to{opacity:1;transform:translateY(0);} }
+        @keyframes float     { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-11px);} }
+        @keyframes pulse     { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:.55;transform:scale(.93);} }
         @keyframes goldFlow  { 0%{background-position:-300% center;} 100%{background-position:300% center;} }
         @keyframes bounceY   { 0%,100%{transform:translateY(0);} 50%{transform:translateY(9px);} }
-        @keyframes shimmer   { 0%{transform:translateX(-100%);} 100%{transform:translateX(400%);} }
 
-        .s1{animation:fadeUp .70s ease .05s both;}
-        .s2{animation:fadeUp .70s ease .18s both;}
-        .s3{animation:fadeUp .70s ease .32s both;}
-        .s4{animation:fadeUp .70s ease .46s both;}
+        .s1{animation:fadeUp .70s ease .05s both;} .s2{animation:fadeUp .70s ease .18s both;}
+        .s3{animation:fadeUp .70s ease .32s both;} .s4{animation:fadeUp .70s ease .46s both;}
         .s5{animation:fadeUp .70s ease .60s both;}
         .cpop{animation:fadeUp .90s cubic-bezier(.22,1,.36,1) .28s both;}
         .floating{animation:float 5s ease-in-out infinite;}
@@ -202,63 +127,26 @@ export default function Landing() {
         .gold-shimmer {
           background:linear-gradient(120deg,#5a3800 0%,#7c6fe0 28%,#f5d98a 50%,#7c6fe0 72%,#5a3800 100%);
           background-size:300% auto;
-          -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-          background-clip:text;
+          -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
           animation:goldFlow 4.5s linear infinite;
         }
 
-        .reveal     { opacity:0; transform:translateY(28px); transition:opacity .75s ease,transform .75s ease; }
-        .reveal.in  { opacity:1; transform:none; }
-
-        .btn-gold {
-          background:linear-gradient(135deg,#7c6fe0,#5448b8);
-          color:#fff; border:none; font-weight:700;
-          font-family:'DM Sans',sans-serif; cursor:pointer;
-          transition:all .30s;
-          box-shadow:0 6px 28px rgba(84,72,184,.42);
-          position:relative; overflow:hidden;
-        }
-        .btn-gold::after {
-          content:''; position:absolute; top:0; left:-100%; width:50%; height:100%;
-          background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);
-          transition:left .5s;
-        }
+        .btn-gold { background:linear-gradient(135deg,#7c6fe0,#5448b8); color:#fff; border:none; font-weight:700; font-family:'DM Sans',sans-serif; cursor:pointer; transition:all .30s; box-shadow:0 6px 28px rgba(84,72,184,.42); position:relative; overflow:hidden; }
+        .btn-gold::after { content:''; position:absolute; top:0; left:-100%; width:50%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent); transition:left .5s; }
         .btn-gold:hover::after{left:200%;}
         .btn-gold:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(84,72,184,.54);}
 
-        .btn-ghost {
-          background:rgba(238,234,255,.10); border:1.5px solid rgba(238,234,255,.28);
-          color:#eeeaff; font-weight:600; font-family:'DM Sans',sans-serif;
-          cursor:pointer; transition:all .25s;
-        }
+        .btn-ghost { background:rgba(238,234,255,.10); border:1.5px solid rgba(238,234,255,.28); color:#eeeaff; font-weight:600; font-family:'DM Sans',sans-serif; cursor:pointer; transition:all .25s; }
         .btn-ghost:hover{background:rgba(238,234,255,.18);transform:translateY(-2px);}
 
-        .nav-link {
-          color:rgba(238,234,255,.52); text-decoration:none;
-          font-size:13.5px; font-weight:500; letter-spacing:.02em;
-          transition:color .2s; position:relative;
-        }
-        .nav-link::after{
-          content:''; position:absolute; bottom:-4px; left:0; right:0;
-          height:1px; background:#7c6fe0;
-          transform:scaleX(0); transform-origin:center; transition:transform .25s;
-        }
-        .nav-link:hover{color:#7c6fe0;}
-        .nav-link:hover::after{transform:scaleX(1);}
+        .nav-link { color:rgba(238,234,255,.52); text-decoration:none; font-size:13.5px; font-weight:500; letter-spacing:.02em; transition:color .2s; position:relative; }
+        .nav-link::after { content:''; position:absolute; bottom:-4px; left:0; right:0; height:1px; background:#7c6fe0; transform:scaleX(0); transform-origin:center; transition:transform .25s; }
+        .nav-link:hover{color:#7c6fe0;} .nav-link:hover::after{transform:scaleX(1);}
 
-        .stag {
-          display:inline-flex; align-items:center; gap:7px;
-          background:rgba(108,95,199,.11); border:1px solid rgba(108,95,199,.30);
-          border-radius:50px; padding:5px 16px;
-        }
+        .stag { display:inline-flex; align-items:center; gap:7px; background:rgba(108,95,199,.11); border:1px solid rgba(108,95,199,.30); border-radius:50px; padding:5px 16px; }
         .stag span { font-size:10.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#5448b8; }
 
-        .feat-row {
-          display:grid; grid-template-columns:56px 1fr; gap:18px;
-          padding:24px 16px; border-bottom:1px solid rgba(30,27,75,.07);
-          border-radius:10px; cursor:default;
-          transition:background .25s,transform .25s;
-        }
+        .feat-row { display:grid; grid-template-columns:56px 1fr; gap:18px; padding:24px 16px; border-bottom:1px solid rgba(30,27,75,.07); border-radius:10px; cursor:default; transition:background .25s,transform .25s; }
         .feat-row:hover{background:rgba(108,95,199,.06);transform:translateX(6px);}
         .feat-row:hover .fn{color:#7c6fe0!important;}
 
@@ -268,8 +156,7 @@ export default function Landing() {
         .role-card{transition:transform .28s,box-shadow .28s;}
         .role-card:hover{transform:translateY(-7px);box-shadow:0 20px 60px rgba(30,27,75,.12)!important;}
 
-        ::-webkit-scrollbar{width:5px;}
-        ::-webkit-scrollbar-track{background:#f5f3ff;}
+        ::-webkit-scrollbar{width:5px;} ::-webkit-scrollbar-track{background:#f5f3ff;}
         ::-webkit-scrollbar-thumb{background:rgba(108,95,199,.38);border-radius:4px;}
 
         .scroll-cue{animation:bounceY 1.9s ease-in-out infinite;}
@@ -277,26 +164,10 @@ export default function Landing() {
         .gold-rule{height:1px;background:linear-gradient(90deg,transparent,rgba(108,95,199,.45),transparent);}
       `}</style>
 
-      {/* ══════════════════════════════════════════
-          FIXED LIBRARY BG — position:fixed
-          This image NEVER moves. Zero.
-      ══════════════════════════════════════════ */}
-      <div className="lib-fixed-bg">
-        <img src="/lib.jpg" alt="" draggable="false"/>
-      </div>
+      <div className="lib-fixed-bg"><img src="/lib.jpg" alt="" draggable="false"/></div>
 
-      {/* ══════════════════════════════════════════
-          NAVBAR
-      ══════════════════════════════════════════ */}
-      <nav style={{
-        position:'fixed', top:0, left:0, right:0, zIndex:200,
-        height:'64px', display:'flex', alignItems:'center',
-        justifyContent:'space-between', padding:'0 60px',
-        background: navSolid ? 'rgba(10,8,26,0.92)' : 'transparent',
-        backdropFilter: navSolid ? 'blur(22px)' : 'none',
-        borderBottom: navSolid ? '1px solid rgba(108,95,199,0.15)' : 'none',
-        transition:'all .40s ease',
-      }}>
+      {/* NAVBAR */}
+      <nav style={{ position:'fixed', top:0, left:0, right:0, zIndex:200, height:'64px', display:'flex', alignItems:'center', justifyContent:'space-between', padding:'0 60px', background: navSolid ? 'rgba(10,8,26,0.92)' : 'transparent', backdropFilter: navSolid ? 'blur(22px)' : 'none', borderBottom: navSolid ? '1px solid rgba(108,95,199,0.15)' : 'none', transition:'all .40s ease' }}>
         <div style={{display:'flex',alignItems:'center',gap:'11px'}}>
           <div style={{width:'36px',height:'36px',background:'linear-gradient(135deg,#7c6fe0,#5448b8)',borderRadius:'9px',display:'flex',alignItems:'center',justifyContent:'center',boxShadow:'0 4px 16px rgba(84,72,184,.44)',flexShrink:0}}>
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
@@ -306,66 +177,33 @@ export default function Landing() {
             <p style={{fontSize:'8px',letterSpacing:'.16em',color:'rgba(238,234,255,.32)',fontWeight:'600',textTransform:'uppercase',marginTop:'1px'}}>Library System</p>
           </div>
         </div>
-
         <div style={{display:'flex',gap:'34px'}}>
-          {['Features','Collection','Roles','Plans'].map(l=>(
-            <a key={l} href={`#${l.toLowerCase()}`} className="nav-link">{l}</a>
-          ))}
+          {['Features','Collection','Roles','Plans'].map(l=>(<a key={l} href={`#${l.toLowerCase()}`} className="nav-link">{l}</a>))}
         </div>
-
         <div style={{display:'flex',gap:'10px',alignItems:'center'}}>
-          <Link to="/login" style={{textDecoration:'none'}}>
-            <button className="btn-ghost" style={{fontSize:'13px',padding:'8px 20px',borderRadius:'8px'}}>Sign In</button>
-          </Link>
-          <Link to="/register" style={{textDecoration:'none'}}>
-            <button className="btn-gold" style={{fontSize:'13px',padding:'9px 22px',borderRadius:'9px'}}>Get Started</button>
-          </Link>
+          <Link to="/login" style={{textDecoration:'none'}}><button className="btn-ghost" style={{fontSize:'13px',padding:'8px 20px',borderRadius:'8px'}}>Sign In</button></Link>
+          <Link to="/register" style={{textDecoration:'none'}}><button className="btn-gold" style={{fontSize:'13px',padding:'9px 22px',borderRadius:'9px'}}>Get Started</button></Link>
         </div>
       </nav>
 
-      {/* ══════════════════════════════════════════
-          HERO — transparent, sits on fixed library
-          Content drifts up & fades as you scroll
-      ══════════════════════════════════════════ */}
+      {/* HERO */}
       <section className="hero-section" style={{padding:'0 60px'}}>
-        <div style={{
-          maxWidth:'1260px', margin:'0 auto', width:'100%',
-          display:'grid', gridTemplateColumns:'1fr 1fr', gap:'80px', alignItems:'center',
-          transform:`translateY(${-heroShift}px)`,
-          opacity: heroOpacity,
-          transition:'opacity .06s linear',
-        }}>
-          {/* left */}
+        <div style={{ maxWidth:'1260px', margin:'0 auto', width:'100%', display:'grid', gridTemplateColumns:'1fr 1fr', gap:'80px', alignItems:'center', transform:`translateY(${-heroShift}px)`, opacity:heroOpacity, transition:'opacity .06s linear' }}>
           <div>
             <div className="stag s1" style={{marginBottom:'22px'}}>
               <div style={{width:'6px',height:'6px',borderRadius:'50%',background:'#7c6fe0',animation:'pulse 2s infinite'}}/>
               <span>Library Management System</span>
             </div>
-
-            <h1 className="s2" style={{
-              fontFamily:"'Playfair Display',serif",
-              fontSize:'clamp(50px,5.8vw,78px)', lineHeight:1.04,
-              fontWeight:'900', color:'#eeeaff', marginBottom:'22px',
-              letterSpacing:'-0.02em', textShadow:'0 4px 32px rgba(0,0,0,.55)',
-            }}>
-              Where Every<br/>
-              <em className="gold-shimmer" style={{fontStyle:'italic'}}>Story</em>&nbsp;Finds<br/>
-              Its Reader
+            <h1 className="s2" style={{ fontFamily:"'Playfair Display',serif", fontSize:'clamp(50px,5.8vw,78px)', lineHeight:1.04, fontWeight:'900', color:'#eeeaff', marginBottom:'22px', letterSpacing:'-0.02em', textShadow:'0 4px 32px rgba(0,0,0,.55)' }}>
+              Where Every<br/><em className="gold-shimmer" style={{fontStyle:'italic'}}>Story</em>&nbsp;Finds<br/>Its Reader
             </h1>
-
             <p className="s3" style={{fontSize:'17px',color:'rgba(238,234,255,.58)',lineHeight:1.88,maxWidth:'430px',marginBottom:'38px',fontWeight:'300',textShadow:'0 2px 14px rgba(0,0,0,.45)'}}>
               A modern library experience — discover books, track borrows, manage memberships and reservations all in one beautifully crafted platform.
             </p>
-
             <div className="s4" style={{display:'flex',gap:'13px',flexWrap:'wrap'}}>
-              <Link to="/register" style={{textDecoration:'none'}}>
-                <button className="btn-gold" style={{fontSize:'15px',padding:'14px 34px',borderRadius:'12px'}}>Get Started Free</button>
-              </Link>
-              <Link to="/login" style={{textDecoration:'none'}}>
-                <button className="btn-ghost" style={{fontSize:'15px',padding:'14px 28px',borderRadius:'12px'}}>Sign In →</button>
-              </Link>
+              <Link to="/register" style={{textDecoration:'none'}}><button className="btn-gold" style={{fontSize:'15px',padding:'14px 34px',borderRadius:'12px'}}>Get Started Free</button></Link>
+              <Link to="/login" style={{textDecoration:'none'}}><button className="btn-ghost" style={{fontSize:'15px',padding:'14px 28px',borderRadius:'12px'}}>Sign In →</button></Link>
             </div>
-
             <div className="s5" style={{display:'flex',gap:'11px',marginTop:'46px',flexWrap:'wrap'}}>
               {[{v:'12,500+',l:'Books'},{v:'3,200+',l:'Members'},{v:'98%',l:'Satisfaction'},{v:'3 Roles',l:'Access Levels'}].map(s=>(
                 <div key={s.l} style={{padding:'11px 16px',borderRadius:'11px',textAlign:'center',background:'rgba(10,8,26,.58)',backdropFilter:'blur(20px)',border:'1px solid rgba(108,95,199,.22)',minWidth:'80px'}}>
@@ -375,24 +213,20 @@ export default function Landing() {
               ))}
             </div>
           </div>
-
-          {/* right — floating bookshelf card */}
           <div className="cpop floating">
             <div style={{background:'rgba(10,8,26,.72)',backdropFilter:'blur(28px)',border:'1px solid rgba(108,95,199,.22)',borderRadius:'22px',padding:'30px 24px 22px',boxShadow:'0 40px 100px rgba(0,0,0,.65)'}}>
               <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'18px'}}>
                 <p style={{fontSize:'10px',fontWeight:'700',letterSpacing:'.18em',textTransform:'uppercase',color:'rgba(108,95,199,.52)'}}>Featured Collection</p>
                 <div style={{display:'flex',gap:'5px'}}>
-                  {['#7c6fe0','#9b8db8','#6b9e7e'].map(c=>(
-                    <div key={c} style={{width:'7px',height:'7px',borderRadius:'50%',background:c,boxShadow:`0 0 6px ${c}`}}/>
-                  ))}
+                  {['#7c6fe0','#9b8db8','#6b9e7e'].map(c=>(<div key={c} style={{width:'7px',height:'7px',borderRadius:'50%',background:c,boxShadow:`0 0 6px ${c}`}}/>))}
                 </div>
               </div>
               <div style={{display:'flex',alignItems:'flex-end',gap:'4px',marginBottom:'4px'}}>
-                {BOOKS.map((b,i)=> <BookSpine key={b.id} book={b} i={i} delay={0.4+i*.055}/>)}
+                {BOOKS.map((b,i)=><BookSpine key={b.id} book={b} i={i} delay={0.4+i*.055}/>)}
               </div>
               <div className="shelf" style={{marginBottom:'18px'}}/>
               <div style={{display:'flex',alignItems:'flex-end',gap:'4px',marginBottom:'4px'}}>
-                {[...BOOKS].reverse().map((b,i)=> <BookSpine key={`r${b.id}`} book={b} i={i+2} delay={0.8+i*.045}/>)}
+                {[...BOOKS].reverse().map((b,i)=><BookSpine key={`r${b.id}`} book={b} i={i+2} delay={0.8+i*.045}/>)}
               </div>
               <div className="shelf" style={{marginBottom:'18px'}}/>
               <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'7px'}}>
@@ -411,21 +245,15 @@ export default function Landing() {
             </div>
           </div>
         </div>
-
-        {/* scroll cue */}
         <div style={{position:'absolute',bottom:'28px',left:'50%',transform:'translateX(-50%)',display:'flex',flexDirection:'column',alignItems:'center',gap:'7px',opacity:heroOpacity*.65,transition:'opacity .08s',pointerEvents:'none'}}>
           <p style={{fontSize:'10px',letterSpacing:'.14em',textTransform:'uppercase',color:'rgba(108,95,199,.65)',fontWeight:'600'}}>Scroll to explore</p>
           <svg className="scroll-cue" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(108,95,199,0.65)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════
-          CONTENT LAYER — scrolls over frozen library
-          Starts with #1e1b4b dark band for drama
-      ══════════════════════════════════════════ */}
       <div className="content-layer">
 
-        {/* ── Dark stats band ── */}
+        {/* Stats band */}
         <div style={{background:'#1e1b4b',padding:'54px 60px'}}>
           <div style={{maxWidth:'1200px',margin:'0 auto',display:'flex',justifyContent:'space-around',flexWrap:'wrap',gap:'32px',alignItems:'center'}}>
             {[{v:'12,500+',l:'Books in Collection',e:'📚'},{v:'3,200+',l:'Active Members',e:'👥'},{v:'98%',l:'Satisfaction Rate',e:'⭐'},{v:'24/7',l:'Digital Access',e:'🌐'},{v:'<50ms',l:'Avg Response',e:'⚡'}].map(s=>(
@@ -438,29 +266,20 @@ export default function Landing() {
           </div>
         </div>
 
-        {/* ── FEATURES ── */}
-        <section id="features"
-          ref={el=>refs.current['f']=el} data-s="f"
-          style={{background:'#f5f3ff',padding:'110px 60px'}}>
+        {/* FEATURES */}
+        <section id="features" ref={el=>refs.current['f']=el} data-s="f" style={{background:'#f5f3ff',padding:'110px 60px'}}>
           <div style={{maxWidth:'1200px',margin:'0 auto',display:'grid',gridTemplateColumns:'1fr 2fr',gap:'90px',alignItems:'start'}}>
             <div style={{position:'sticky',top:'92px'}}>
               <div className="stag" style={{marginBottom:'20px'}}><span>Why Librario</span></div>
               <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:'clamp(36px,4vw,54px)',fontWeight:'900',color:'#1e1b4b',lineHeight:1.12,marginBottom:'18px'}}>
                 Everything<br/>your library<br/><em className="gold-shimmer" style={{fontStyle:'italic'}}>needs.</em>
               </h2>
-              <p style={{fontSize:'14px',color:'rgba(30,27,75,.44)',lineHeight:1.85,maxWidth:'230px'}}>
-                One platform. Every tool. Built for admins, librarians and members alike.
-              </p>
+              <p style={{fontSize:'14px',color:'rgba(30,27,75,.44)',lineHeight:1.85,maxWidth:'230px'}}>One platform. Every tool. Built for admins, librarians and members alike.</p>
               <div style={{marginTop:'30px',height:'1px',background:'linear-gradient(90deg,rgba(108,95,199,.45),transparent)'}}/>
             </div>
-
             <div>
               {FEATURES.map((f,i)=>(
-                <div key={f.num} className="feat-row" style={{
-                  opacity: vis['f'] ? 1 : 0,
-                  transform: vis['f'] ? 'none' : 'translateY(18px)',
-                  transition:`opacity .62s ease ${i*.09}s,transform .62s ease ${i*.09}s`,
-                }}>
+                <div key={f.num} className="feat-row" style={{ opacity:vis['f']?1:0, transform:vis['f']?'none':'translateY(18px)', transition:`opacity .62s ease ${i*.09}s,transform .62s ease ${i*.09}s` }}>
                   <p className="fn" style={{fontFamily:"'Playfair Display',serif",fontSize:'24px',fontWeight:'900',color:'rgba(30,27,75,.10)',lineHeight:1,transition:'color .25s'}}>{f.num}</p>
                   <div>
                     <div style={{display:'flex',alignItems:'center',gap:'10px',marginBottom:'7px'}}>
@@ -475,7 +294,7 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* ── PARALLAX STRIP #1 — library window inside content ── */}
+        {/* Parallax strip 1 */}
         <div className="parallax-strip" style={{padding:'90px 60px'}}>
           <div className="ps-inner" style={{maxWidth:'700px',margin:'0 auto',textAlign:'center'}}>
             <p style={{fontSize:'11px',fontWeight:'700',letterSpacing:'.18em',textTransform:'uppercase',color:'rgba(108,95,199,.62)',marginBottom:'18px'}}>Our Philosophy</p>
@@ -486,10 +305,8 @@ export default function Landing() {
           </div>
         </div>
 
-        {/* ── ROLES ── */}
-        <section id="roles"
-          ref={el=>refs.current['r']=el} data-s="r"
-          style={{background:'#edeaff',padding:'110px 60px'}}>
+        {/* ROLES */}
+        <section id="roles" ref={el=>refs.current['r']=el} data-s="r" style={{background:'#edeaff',padding:'110px 60px'}}>
           <div style={{maxWidth:'1200px',margin:'0 auto'}}>
             <div style={{textAlign:'center',marginBottom:'60px'}}>
               <div className="stag" style={{justifyContent:'center',marginBottom:'16px'}}><span>Access Levels</span></div>
@@ -497,18 +314,9 @@ export default function Landing() {
             </div>
             <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'22px'}}>
               {ROLES.map((r,i)=>(
-                <div key={r.role} className="role-card" style={{
-                  background:'#fff',borderRadius:'20px',padding:'36px 28px',
-                  border:'1px solid rgba(30,27,75,.07)',
-                  boxShadow:'0 6px 36px rgba(30,27,75,.07)',
-                  opacity: vis['r'] ? 1 : 0,
-                  transform: vis['r'] ? 'none' : 'translateY(24px)',
-                  transition:`opacity .70s ease ${i*.15}s,transform .70s ease ${i*.15}s`,
-                }}>
+                <div key={r.role} className="role-card" style={{ background:'#fff', borderRadius:'20px', padding:'36px 28px', border:'1px solid rgba(30,27,75,.07)', boxShadow:'0 6px 36px rgba(30,27,75,.07)', opacity:vis['r']?1:0, transform:vis['r']?'none':'translateY(24px)', transition:`opacity .70s ease ${i*.15}s,transform .70s ease ${i*.15}s` }}>
                   <div style={{display:'flex',alignItems:'center',gap:'14px',marginBottom:'8px'}}>
-                    <div style={{width:'52px',height:'52px',borderRadius:'50%',
-                      background:r.col==='#7c6fe0'?'rgba(108,95,199,.12)':r.col==='#9b8db8'?'rgba(155,141,184,.12)':'rgba(107,158,126,.12)',
-                      display:'flex',alignItems:'center',justifyContent:'center',fontSize:'26px',flexShrink:0}}>{r.e}</div>
+                    <div style={{width:'52px',height:'52px',borderRadius:'50%', background:r.col==='#7c6fe0'?'rgba(108,95,199,.12)':r.col==='#9b8db8'?'rgba(155,141,184,.12)':'rgba(107,158,126,.12)', display:'flex',alignItems:'center',justifyContent:'center',fontSize:'26px',flexShrink:0}}>{r.e}</div>
                     <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:'24px',fontWeight:'700',color:r.col}}>{r.role}</h3>
                   </div>
                   <div style={{height:'1px',background:'rgba(30,27,75,.06)',margin:'18px 0'}}/>
@@ -526,10 +334,8 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* ── COLLECTION ── */}
-        <section id="collection"
-          ref={el=>refs.current['c']=el} data-s="c"
-          style={{background:'#f5f3ff',padding:'110px 60px'}}>
+        {/* COLLECTION */}
+        <section id="collection" ref={el=>refs.current['c']=el} data-s="c" style={{background:'#f5f3ff',padding:'110px 60px'}}>
           <div style={{maxWidth:'1200px',margin:'0 auto'}}>
             <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-end',marginBottom:'48px',flexWrap:'wrap',gap:'16px'}}>
               <div>
@@ -540,14 +346,7 @@ export default function Landing() {
             </div>
             <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:'18px'}}>
               {BOOKS.map((book,i)=>(
-                <div key={`t${book.id}`} className="bk-tile" style={{
-                  background:'#fff',borderRadius:'14px',overflow:'hidden',
-                  border:'1px solid rgba(30,27,75,.06)',
-                  boxShadow:'0 6px 28px rgba(30,27,75,.07)',
-                  opacity: vis['c'] ? 1 : 0,
-                  transform: vis['c'] ? 'none' : 'translateY(20px)',
-                  transition:`opacity .55s ease ${i*.07}s,transform .55s ease ${i*.07}s`,
-                }}>
+                <div key={`t${book.id}`} className="bk-tile" style={{ background:'#fff', borderRadius:'14px', overflow:'hidden', border:'1px solid rgba(30,27,75,.06)', boxShadow:'0 6px 28px rgba(30,27,75,.07)', opacity:vis['c']?1:0, transform:vis['c']?'none':'translateY(20px)', transition:`opacity .55s ease ${i*.07}s,transform .55s ease ${i*.07}s` }}>
                   <div style={{height:'130px',background:`linear-gradient(145deg,${book.h}20,${book.h}42)`,position:'relative',display:'flex',alignItems:'center',justifyContent:'center'}}>
                     <div style={{position:'absolute',left:0,top:0,bottom:0,width:'8px',background:`linear-gradient(180deg,${book.h},${book.s})`}}/>
                     <div style={{textAlign:'center',padding:'0 18px'}}>
@@ -572,7 +371,7 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* ── PARALLAX STRIP #2 — testimonials over library ── */}
+        {/* Parallax strip 2 — testimonials */}
         <div className="parallax-strip" style={{padding:'96px 60px'}}>
           <div className="ps-inner">
             <div style={{maxWidth:'1200px',margin:'0 auto'}}>
@@ -580,7 +379,6 @@ export default function Landing() {
                 <p style={{fontSize:'11px',fontWeight:'700',letterSpacing:'.18em',textTransform:'uppercase',color:'rgba(108,95,199,.62)',marginBottom:'14px'}}>Testimonials</p>
                 <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:'clamp(28px,4vw,44px)',fontWeight:'900',color:'#eeeaff'}}>Trusted by readers & librarians</h2>
               </div>
-
               <div ref={el=>refs.current['t']=el} data-s="t" style={{maxWidth:'680px',margin:'0 auto'}}>
                 <div style={{background:'rgba(10,8,26,.68)',backdropFilter:'blur(24px)',border:'1px solid rgba(108,95,199,.20)',borderRadius:'20px',padding:'42px 46px',boxShadow:'0 24px 80px rgba(0,0,0,.52)'}}>
                   {TESTIMONIALS.map((t,i)=>(
@@ -596,9 +394,7 @@ export default function Landing() {
                     </div>
                   ))}
                   <div style={{display:'flex',justifyContent:'center',gap:'8px',marginTop:'24px'}}>
-                    {TESTIMONIALS.map((_,i)=>(
-                      <div key={i} onClick={()=>setTest(i)} style={{width:i===test?'24px':'7px',height:'7px',borderRadius:'4px',background:i===test?'#7c6fe0':'rgba(108,95,199,.22)',transition:'all .36s ease',cursor:'pointer'}}/>
-                    ))}
+                    {TESTIMONIALS.map((_,i)=>(<div key={i} onClick={()=>setTest(i)} style={{width:i===test?'24px':'7px',height:'7px',borderRadius:'4px',background:i===test?'#7c6fe0':'rgba(108,95,199,.22)',transition:'all .36s ease',cursor:'pointer'}}/>))}
                   </div>
                 </div>
               </div>
@@ -606,7 +402,7 @@ export default function Landing() {
           </div>
         </div>
 
-        {/* ── PLANS ── */}
+        {/* PLANS */}
         <section id="plans" style={{background:'#1e1b4b',padding:'110px 60px'}}>
           <div style={{maxWidth:'1200px',margin:'0 auto',textAlign:'center'}}>
             <div style={{display:'flex',justifyContent:'center',marginBottom:'18px'}}>
@@ -615,9 +411,7 @@ export default function Landing() {
             <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:'clamp(32px,4vw,50px)',fontWeight:'900',color:'#eeeaff',marginBottom:'14px'}}>
               Choose your <em className="gold-shimmer" style={{fontStyle:'italic'}}>reading plan</em>
             </h2>
-            <p style={{color:'rgba(238,234,255,.38)',fontSize:'15px',marginBottom:'60px',maxWidth:'450px',margin:'0 auto 60px',lineHeight:1.82}}>
-              From casual readers to research scholars — a plan for every pace.
-            </p>
+            <p style={{color:'rgba(238,234,255,.38)',fontSize:'15px',marginBottom:'60px',maxWidth:'450px',margin:'0 auto 60px',lineHeight:1.82}}>From casual readers to research scholars — a plan for every pace.</p>
             <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:'18px'}}>
               {[
                 {name:'Free',     price:'₹0',   period:'forever', limit:'2 books',  hot:false, col:'rgba(238,234,255,.06)', bc:'rgba(238,234,255,.11)'},
@@ -625,30 +419,18 @@ export default function Landing() {
                 {name:'Standard', price:'₹199', period:'/month',  limit:'10 books', hot:true,  col:'rgba(108,95,199,.13)', bc:'rgba(108,95,199,.38)'},
                 {name:'Premium',  price:'₹349', period:'/month',  limit:'20 books', hot:false, col:'rgba(155,141,184,.09)', bc:'rgba(155,141,184,.28)'},
               ].map((p,i)=>(
-                <div key={p.name} style={{
-                  background:p.col, border:`1px solid ${p.bc}`,
-                  borderRadius:'18px', padding:'32px 22px',
-                  position:'relative', textAlign:'left',
-                  transform: p.hot ? 'translateY(-8px)' : 'none',
-                  boxShadow: p.hot ? '0 20px 60px rgba(108,95,199,.20)' : 'none',
-                  transition:'transform .28s',
-                }}>
+                <div key={p.name} style={{ background:p.col, border:`1px solid ${p.bc}`, borderRadius:'18px', padding:'32px 22px', position:'relative', textAlign:'left', transform:p.hot?'translateY(-8px)':'none', boxShadow:p.hot?'0 20px 60px rgba(108,95,199,.20)':'none', transition:'transform .28s' }}>
                   {p.hot && <div style={{position:'absolute',top:'-12px',left:'50%',transform:'translateX(-50%)',background:'linear-gradient(135deg,#7c6fe0,#5448b8)',color:'#fff',fontSize:'9px',fontWeight:'800',letterSpacing:'.12em',textTransform:'uppercase',padding:'4px 14px',borderRadius:'20px',whiteSpace:'nowrap'}}>Most Popular</div>}
-                  <p style={{fontSize:'11px',fontWeight:'700',color: p.hot?'#7c6fe0':p.name==='Premium'?'#9b8db8':'rgba(238,234,255,.52)',letterSpacing:'.10em',textTransform:'uppercase',marginBottom:'14px'}}>{p.name}</p>
+                  <p style={{fontSize:'11px',fontWeight:'700',color:p.hot?'#7c6fe0':p.name==='Premium'?'#9b8db8':'rgba(238,234,255,.52)',letterSpacing:'.10em',textTransform:'uppercase',marginBottom:'14px'}}>{p.name}</p>
                   <div style={{display:'flex',alignItems:'baseline',gap:'4px',marginBottom:'6px'}}>
                     <span style={{fontFamily:"'Playfair Display',serif",fontSize:'36px',fontWeight:'900',color:'#eeeaff'}}>{p.price}</span>
                     <span style={{fontSize:'12px',color:'rgba(238,234,255,.32)',fontWeight:'500'}}>{p.period}</span>
                   </div>
-                  <p style={{fontSize:'12px',color: p.hot?'#7c6fe0':'rgba(238,234,255,.42)',fontWeight:'700',marginBottom:'22px'}}>{p.limit} at a time</p>
+                  <p style={{fontSize:'12px',color:p.hot?'#7c6fe0':'rgba(238,234,255,.42)',fontWeight:'700',marginBottom:'22px'}}>{p.limit} at a time</p>
                   <div style={{height:'1px',background:'rgba(238,234,255,.07)',marginBottom:'18px'}}/>
                   <Link to="/login" style={{textDecoration:'none',display:'block'}}>
-                    <button style={{width:'100%',padding:'11px',borderRadius:'10px',fontSize:'13px',fontWeight:'700',cursor:'pointer',fontFamily:"'DM Sans',sans-serif",transition:'all .25s',
-                      background: p.hot ? 'linear-gradient(135deg,#7c6fe0,#5448b8)' : 'rgba(238,234,255,.08)',
-                      color: p.hot ? '#fff' : 'rgba(238,234,255,.60)',
-                      border: p.hot ? 'none' : '1px solid rgba(238,234,255,.12)',
-                      boxShadow: p.hot ? '0 6px 20px rgba(84,72,184,.42)' : 'none',
-                    }}>
-                      {p.price==='₹0' ? 'Start Free' : 'Choose Plan'}
+                    <button style={{width:'100%',padding:'11px',borderRadius:'10px',fontSize:'13px',fontWeight:'700',cursor:'pointer',fontFamily:"'DM Sans',sans-serif",transition:'all .25s', background:p.hot?'linear-gradient(135deg,#7c6fe0,#5448b8)':'rgba(238,234,255,.08)', color:p.hot?'#fff':'rgba(238,234,255,.60)', border:p.hot?'none':'1px solid rgba(238,234,255,.12)', boxShadow:p.hot?'0 6px 20px rgba(84,72,184,.42)':'none' }}>
+                      {p.price==='₹0'?'Start Free':'Choose Plan'}
                     </button>
                   </Link>
                 </div>
@@ -657,31 +439,24 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* ── FINAL CTA — library shines at maximum through parallax ── */}
+        {/* Final CTA parallax */}
         <div className="parallax-strip" style={{padding:'130px 60px',textAlign:'center'}}>
           <div className="ps-inner" style={{maxWidth:'660px',margin:'0 auto'}}>
             <div style={{display:'flex',justifyContent:'center',marginBottom:'22px'}}>
               <div className="stag" style={{background:'rgba(108,95,199,.10)',border:'1px solid rgba(108,95,199,.26)'}}><span style={{color:'#7c6fe0'}}>Get Started Today</span></div>
             </div>
             <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:'clamp(38px,5vw,66px)',fontWeight:'900',color:'#eeeaff',lineHeight:1.06,marginBottom:'18px',letterSpacing:'-0.02em',textShadow:'0 4px 36px rgba(0,0,0,.55)'}}>
-              Ready to explore<br/>
-              <em className="gold-shimmer" style={{fontStyle:'italic'}}>your library?</em>
+              Ready to explore<br/><em className="gold-shimmer" style={{fontStyle:'italic'}}>your library?</em>
             </h2>
-            <p style={{color:'rgba(238,234,255,.48)',fontSize:'16px',marginBottom:'40px',lineHeight:1.80,textShadow:'0 2px 10px rgba(0,0,0,.40)'}}>
-              Join thousands of readers who manage their library life with Librario.
-            </p>
+            <p style={{color:'rgba(238,234,255,.48)',fontSize:'16px',marginBottom:'40px',lineHeight:1.80,textShadow:'0 2px 10px rgba(0,0,0,.40)'}}>Join thousands of readers who manage their library life with Librario.</p>
             <div style={{display:'flex',gap:'14px',justifyContent:'center',flexWrap:'wrap'}}>
-              <Link to="/register" style={{textDecoration:'none'}}>
-                <button className="btn-gold" style={{fontSize:'16px',padding:'16px 42px',borderRadius:'13px'}}>Create Free Account</button>
-              </Link>
-              <Link to="/login" style={{textDecoration:'none'}}>
-                <button className="btn-ghost" style={{fontSize:'16px',padding:'16px 32px',borderRadius:'13px'}}>Sign In →</button>
-              </Link>
+              <Link to="/register" style={{textDecoration:'none'}}><button className="btn-gold" style={{fontSize:'16px',padding:'16px 42px',borderRadius:'13px'}}>Create Free Account</button></Link>
+              <Link to="/login" style={{textDecoration:'none'}}><button className="btn-ghost" style={{fontSize:'16px',padding:'16px 32px',borderRadius:'13px'}}>Sign In →</button></Link>
             </div>
           </div>
         </div>
 
-        {/* ── FOOTER ── */}
+        {/* FOOTER */}
         <footer style={{background:'#0c0a28',padding:'30px 60px',display:'flex',justifyContent:'space-between',alignItems:'center',flexWrap:'wrap',gap:'16px',borderTop:'1px solid rgba(108,95,199,.12)'}}>
           <div style={{display:'flex',alignItems:'center',gap:'11px'}}>
             <div style={{width:'30px',height:'30px',background:'linear-gradient(135deg,#7c6fe0,#5448b8)',borderRadius:'7px',display:'flex',alignItems:'center',justifyContent:'center'}}>
@@ -703,6 +478,9 @@ export default function Landing() {
         </footer>
 
       </div>{/* end content-layer */}
+
+      {/* Public AI Chatbot */}
+      <PublicChatbot/>
     </div>
   );
 }
