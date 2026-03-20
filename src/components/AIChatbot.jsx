@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import useAuthStore from '../store/authStore';
 
-const GEMINI_KEY = import.meta.env.VITE_GEMINI_KEY || 'AIzaSyB2br5ervemPwHHNurt7nBS8B4tPPYMZhk';
+const GEMINI_KEY = import.meta.env.VITE_GEMINI_KEY || 'AIzaSyCnTOhvuGPOV4YeWf-0qrC8fTU3DxCQCgc';
 const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_KEY}`;
 
 /* ══════════════════════════════════════════════════════════════

@@ -1,13 +1,32 @@
 import Sidebar from './Sidebar';
 import useAuthStore from '../store/authStore';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import AIChatbot from './AIChatbot';
+import API from '../api/axiosInstance';
 
 export default function Layout({ title, subtitle, actions, children }) {
   const { theme } = useAuthStore();
   useEffect(() => { document.documentElement.setAttribute('data-theme', theme); }, [theme]);
 
-  const [chatOpen, setChatOpen] = useState(false);
+  const [chatOpen,    setChatOpen]    = useState(false);
+  const [unreadCount, setUnreadCount] = useState(0);
+  const { user } = useAuthStore();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user?.id) return;
+    let active = true;
+    const fetch = async () => {
+      try {
+        const res = await API.get(`/notifications/${user.id}/unread-count`);
+        if (active) setUnreadCount(res.data?.count || 0);
+      } catch {}
+    };
+    fetch();
+    const iv = setInterval(fetch, 60000);
+    return () => { active = false; clearInterval(iv); };
+  }, [user?.id]);
 
   return (
     <div className="app-layout" data-theme={theme}>
@@ -18,7 +37,43 @@ export default function Layout({ title, subtitle, actions, children }) {
             {title && <h1 style={{ fontSize:'19px', fontWeight:'700', color:'var(--text-1)', fontFamily:"'Playfair Display',serif" }}>{title}</h1>}
             {subtitle && <p style={{ fontSize:'12px', color:'var(--text-2)', marginTop:'1px' }}>{subtitle}</p>}
           </div>
-          {actions && <div style={{ display:'flex', gap:'10px', alignItems:'center' }}>{actions}</div>}
+          <div style={{ display:'flex', gap:'10px', alignItems:'center' }}>
+            {actions}
+
+            {/* ── Bell notification icon ── */}
+            <button
+              onClick={() => navigate('/notifications')}
+              title="Notifications"
+              style={{
+                position:'relative', background:'var(--bg-card)',
+                border:'1px solid var(--border)', borderRadius:'10px',
+                width:'38px', height:'38px', cursor:'pointer',
+                display:'flex', alignItems:'center', justifyContent:'center',
+                color:'var(--text-2)', transition:'all 0.18s', flexShrink:0,
+              }}
+              onMouseEnter={e => { e.currentTarget.style.background='var(--accent-muted)'; e.currentTarget.style.borderColor='var(--border-accent)'; e.currentTarget.style.color='var(--accent)'; }}
+              onMouseLeave={e => { e.currentTarget.style.background='var(--bg-card)'; e.currentTarget.style.borderColor='var(--border)'; e.currentTarget.style.color='var(--text-2)'; }}
+            >
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+              </svg>
+              {/* Red badge */}
+              {unreadCount > 0 && (
+                <span style={{
+                  position:'absolute', top:'-5px', right:'-5px',
+                  background:'#e0425a', color:'white',
+                  fontSize:'9px', fontWeight:'800',
+                  minWidth:'17px', height:'17px', borderRadius:'20px',
+                  display:'flex', alignItems:'center', justifyContent:'center',
+                  padding:'0 4px', border:'2px solid var(--bg)',
+                  lineHeight:1, animation: unreadCount > 0 ? 'bellPulse 2s ease-in-out infinite' : 'none',
+                }}>
+                  {unreadCount > 99 ? '99+' : unreadCount}
+                </span>
+              )}
+            </button>
+          </div>
         </div>
         <div className="page-body page-enter">
           {children}
@@ -88,6 +143,10 @@ export default function Layout({ title, subtitle, actions, children }) {
       </button>
 
       <style>{`
+        @keyframes bellPulse {
+          0%,100% { transform: scale(1); }
+          50%     { transform: scale(1.12); }
+        }
         @keyframes chatPulse {
           0%   { transform:scale(1);    opacity:0.8; }
           70%  { transform:scale(1.55); opacity:0;   }
