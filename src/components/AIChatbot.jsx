@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
 import useAuthStore from '../store/authStore';
+import API from '../api/axiosInstance';
 
-const GEMINI_KEY = import.meta.env.VITE_GEMINI_KEY || 'AIzaSyCnTOhvuGPOV4YeWf-0qrC8fTU3DxCQCgc';
-const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_KEY}`;
+// Chatbot calls your Spring Boot backend — key stays safe on the server
+const CHAT_URL = `${import.meta.env.VITE_API_BASE || 'http://localhost:8080'}/api/ai/chat`;
 
 /* ══════════════════════════════════════════════════════════════
    ROLE-BASED SYSTEM PROMPTS
@@ -12,7 +13,7 @@ const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemi
    MEMBER    → general library help, no staff functions
    PUBLIC    → landing page visitor, general Librario info only
    ══════════════════════════════════════════════════════════════ */
-function buildSystemPrompt(user, mode) {
+function buildSystemPrompt(user, mode, stats = null) {
   const role = user?.role || 'PUBLIC';
   const name = user?.name || 'there';
   const plan = user?.subscriptionPlan || 'FREE';
@@ -40,7 +41,29 @@ Librario overview:
 DO NOT reveal any internal system data, user details, or admin functions.
 Encourage visitors to create a free account or sign in.`;
 
-  if (role === 'ADMIN') return base + `
+  // Inject live stats if available
+  const topFinesText = stats?.topFines?.length > 0
+    ? stats.topFines.map(f => `${f.memberName}: ₹${f.totalFine}`).join(', ')
+    : 'No fines recorded yet';
+
+  const statsBlock = stats ? `
+
+📊 LIVE SYSTEM DATA (real-time from database):
+- Total Books in Catalog: ${stats.totalBooks}
+- Currently Available Books: ${stats.availableBooks}
+- Out of Stock Books: ${stats.outOfStock ?? 0}
+- Currently Borrowed: ${stats.currentlyBorrowed}
+- Overdue Books: ${stats.overdueBooks}
+- Total Members: ${stats.totalMembers}
+- Total Librarians: ${stats.totalLibrarians ?? 'N/A'}
+- Total Admins: ${stats.totalAdmins ?? 'N/A'}
+- Total Staff (Librarians + Admins): ${stats.totalStaff ?? 'N/A'}
+- Total Users (all roles): ${stats.totalUsers ?? 'N/A'}
+- Pending Approvals: ${stats.totalPendingUsers}
+- Members with Highest Fines: ${topFinesText}
+Use ONLY these exact numbers when asked about any library statistics. Never guess or say you don't know — the data is above.` : '';
+
+  if (role === 'ADMIN') return base + statsBlock + `
 
 You are speaking with ${name}, the ADMIN. You have FULL access to everything.
 ADMIN exclusive capabilities you can guide on:
@@ -228,9 +251,17 @@ function ChatPanel({ mode, user, onClose }) {
   const [messages, setMessages] = useState([{ role:'assistant', content: greeting }]);
   const [input,    setInput]    = useState('');
   const [loading,  setLoading]  = useState(false);
+  const [stats,    setStats]    = useState(null);
   const bottomRef = useRef(null);
   const inputRef  = useRef(null);
   const chips = CHIPS[role] || CHIPS.PUBLIC;
+
+  // Fetch live stats so Aria knows real database numbers
+  useEffect(() => {
+    if (mode === 'interior' && (role === 'ADMIN' || role === 'LIBRARIAN')) {
+      API.get('/borrow/stats').then(res => setStats(res.data)).catch(() => {});
+    }
+  }, []);
 
   useEffect(() => { bottomRef.current?.scrollIntoView({ behavior:'smooth' }); }, [messages, loading]);
   useEffect(() => { setTimeout(() => inputRef.current?.focus(), 100); }, []);
@@ -251,11 +282,11 @@ function ChatPanel({ mode, user, onClose }) {
         parts: [{ text: m.content }],
       }));
 
-      const res = await fetch(GEMINI_URL, {
+      const res = await fetch(CHAT_URL, {
         method:'POST',
         headers:{ 'Content-Type':'application/json' },
         body: JSON.stringify({
-          system_instruction: { parts:[{ text: buildSystemPrompt(user, mode === 'public' ? 'public' : null) }] },
+          system_instruction: { parts:[{ text: buildSystemPrompt(user, mode === 'public' ? 'public' : null, stats) }] },
           contents: history,
           generationConfig: { temperature:0.78, maxOutputTokens:600, topP:0.95 },
           safetySettings: [
@@ -274,7 +305,18 @@ function ChatPanel({ mode, user, onClose }) {
       if (!reply) throw new Error('Empty response');
       setMessages(prev => [...prev, { role:'assistant', content: reply.trim() }]);
     } catch (e) {
-      setMessages(prev => [...prev, { role:'assistant', content:`⚠️ ${e.message.includes('API') ? 'API key issue — check your .env file.' : 'Something went wrong. Please try again.'}` }]);
+      const msg = e.message || '';
+      let errText = '⚠️ Something went wrong. Please try again.';
+      if (msg.includes('429') || msg.toLowerCase().includes('quota') || msg.toLowerCase().includes('rate')) {
+        errText = '⏳ Too many requests — Gemini free tier rate limit hit. Please wait 30 seconds and try again.';
+      } else if (msg.includes('API_KEY') || msg.includes('key not valid')) {
+        errText = '🔑 API key error — please check your backend application.properties.';
+      } else if (msg.includes('500')) {
+        errText = '🔴 Backend error — make sure Spring Boot is running on port 8080.';
+      } else if (msg.toLowerCase().includes('failed to fetch') || msg.toLowerCase().includes('networkerror')) {
+        errText = '🔌 Cannot reach backend — make sure Spring Boot is running on localhost:8080.';
+      }
+      setMessages(prev => [...prev, { role:'assistant', content: errText }]);
     } finally { setLoading(false); }
   };
 
@@ -315,7 +357,7 @@ function ChatPanel({ mode, user, onClose }) {
               {roleLabel[role]}
             </span>
           </div>
-          <p style={{ fontSize:'11px', color: text2, marginTop:'3px' }}>Librario AI · Powered by Gemini</p>
+          <p style={{ fontSize:'11px', color: text2, marginTop:'3px' }}>Librario AI · Powered by Groq</p>
         </div>
         <div style={{ display:'flex', gap:'4px' }}>
           <button onClick={() => setMessages([{ role:'assistant', content: greeting }])} title="Clear chat"
@@ -370,7 +412,7 @@ function ChatPanel({ mode, user, onClose }) {
       </div>
 
       <div style={{ padding:'5px 0 8px', textAlign:'center' }}>
-        <p style={{ fontSize:'10px', color:'rgba(108,95,199,0.40)', letterSpacing:'0.03em' }}>Powered by Google Gemini · Free API</p>
+        <p style={{ fontSize:'10px', color:'rgba(108,95,199,0.40)', letterSpacing:'0.03em' }}>Powered by Groq · Free API</p>
       </div>
     </div>
   );
