@@ -23,49 +23,55 @@ import MemberPlans from './components/MemberPlans';
 import AddMember from './components/AddMember';
 import QRScanner from './components/QRScanner';
 import LibraryCard from './components/LibraryCard';
+import Reports from './components/Reports';
+import { OfflineBanner } from './hooks/useOfflineAccess.jsx';
 
 function AppRoutes() {
   const { token, theme } = useAuthStore();
   useEffect(() => { document.documentElement.setAttribute('data-theme', theme); }, [theme]);
 
   return (
-    <Routes>
-      {/* Public */}
-      <Route path="/"               element={token ? <Navigate to="/dashboard" /> : <Landing />} />
-      <Route path="/login"          element={token ? <Navigate to="/dashboard" /> : <Login />} />
-      <Route path="/register"       element={<Register />} />
-      <Route path="/verify-otp"     element={<VerifyOtp />} />
-      <Route path="/forgot-password" element={<ForgotPassword />} />
+    <>
+      <OfflineBanner />
+      <Routes>
+        {/* Public */}
+        <Route path="/"                element={token ? <Navigate to="/dashboard" /> : <Landing />} />
+        <Route path="/login"           element={token ? <Navigate to="/dashboard" /> : <Login />} />
+        <Route path="/register"        element={<Register />} />
+        <Route path="/verify-otp"      element={<VerifyOtp />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
 
-      {/* All authenticated roles */}
-      <Route path="/dashboard"      element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-      <Route path="/books"          element={<ProtectedRoute><Books /></ProtectedRoute>} />
-      <Route path="/bookshelf"      element={<ProtectedRoute><BookShelf /></ProtectedRoute>} />
-      <Route path="/reservations"   element={<ProtectedRoute><Reservations /></ProtectedRoute>} />
-      <Route path="/profile"        element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-      <Route path="/notifications"  element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
+        {/* All authenticated roles */}
+        <Route path="/dashboard"     element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+        <Route path="/books"         element={<ProtectedRoute><Books /></ProtectedRoute>} />
+        <Route path="/bookshelf"     element={<ProtectedRoute><BookShelf /></ProtectedRoute>} />
+        <Route path="/reservations"  element={<ProtectedRoute><Reservations /></ProtectedRoute>} />
+        <Route path="/profile"       element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+        <Route path="/notifications" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
 
-      {/* Member only */}
-      <Route path="/my-borrows"     element={<ProtectedRoute><MyBorrows /></ProtectedRoute>} />
-      <Route path="/plans"          element={<ProtectedRoute><MemberPlans /></ProtectedRoute>} />
-      <Route path="/library-card"   element={<ProtectedRoute><LibraryCard /></ProtectedRoute>} />
+        {/* Member only */}
+        <Route path="/my-borrows"   element={<ProtectedRoute><MyBorrows /></ProtectedRoute>} />
+        <Route path="/plans"        element={<ProtectedRoute><MemberPlans /></ProtectedRoute>} />
+        <Route path="/library-card" element={<ProtectedRoute><LibraryCard /></ProtectedRoute>} />
 
-      {/* Admin + Librarian */}
-      <Route path="/add-book"       element={<ProtectedRoute><AddBook /></ProtectedRoute>} />
-      <Route path="/edit-book/:id"  element={<ProtectedRoute><AddBook /></ProtectedRoute>} />
-      <Route path="/borrow"         element={<ProtectedRoute><BorrowManagement /></ProtectedRoute>} />
-      <Route path="/qr-scanner"     element={<ProtectedRoute><QRScanner /></ProtectedRoute>} />
-      <Route path="/users"          element={<ProtectedRoute><Users /></ProtectedRoute>} />
-      <Route path="/approvals"      element={<ProtectedRoute><Approvals /></ProtectedRoute>} />
-      <Route path="/admin-alerts"   element={<ProtectedRoute><AdminAlerts /></ProtectedRoute>} />
+        {/* Admin + Librarian */}
+        <Route path="/add-book"      element={<ProtectedRoute><AddBook /></ProtectedRoute>} />
+        <Route path="/edit-book/:id" element={<ProtectedRoute><AddBook /></ProtectedRoute>} />
+        <Route path="/borrow"        element={<ProtectedRoute><BorrowManagement /></ProtectedRoute>} />
+        <Route path="/qr-scanner"    element={<ProtectedRoute><QRScanner /></ProtectedRoute>} />
+        <Route path="/users"         element={<ProtectedRoute><Users /></ProtectedRoute>} />
+        <Route path="/approvals"     element={<ProtectedRoute><Approvals /></ProtectedRoute>} />
+        <Route path="/admin-alerts"  element={<ProtectedRoute><AdminAlerts /></ProtectedRoute>} />
 
-      {/* Admin only */}
-      <Route path="/add-staff"      element={<ProtectedRoute><AddStaff /></ProtectedRoute>} />
-      <Route path="/add-member"     element={<ProtectedRoute><AddMember /></ProtectedRoute>} />
-      <Route path="/subscriptions"  element={<ProtectedRoute><Subscriptions /></ProtectedRoute>} />
+        {/* Admin only */}
+        <Route path="/add-staff"     element={<ProtectedRoute><AddStaff /></ProtectedRoute>} />
+        <Route path="/add-member"    element={<ProtectedRoute><AddMember /></ProtectedRoute>} />
+        <Route path="/subscriptions" element={<ProtectedRoute><Subscriptions /></ProtectedRoute>} />
+        <Route path="/reports"       element={<ProtectedRoute><Reports /></ProtectedRoute>} />
 
-      <Route path="*" element={<Navigate to="/" />} />
-    </Routes>
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </>
   );
 }
 

@@ -144,11 +144,13 @@ export default function Dashboard() {
   const { books, fetchBooks }      = useBookStore();
   const { users, pendingUsers, fetchAllUsers, fetchPendingUsers, approveUser, rejectUser } = useUserStore();
   const [stats,      setStats]      = useState(null);
+  const [activity,   setActivity]   = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const role = user?.role;
 
   const fetchStats = useCallback(async () => {
     try { const r = await API.get('/borrow/stats'); setStats(r.data); } catch {}
+    try { const r = await API.get('/borrow/all');   setActivity(r.data.slice(0,10)); } catch {}
   }, []);
 
   useEffect(() => {
@@ -409,6 +411,61 @@ export default function Dashboard() {
           </div>
         )}
       </div>
+
+      {/* ── RECENT ACTIVITY (Admin/Librarian only) ── */}
+      {(role === 'ADMIN' || role === 'LIBRARIAN') && (
+        <div style={{ marginTop:'24px' }}>
+          <h2 style={{ fontSize:'16px', fontWeight:'700', color:'var(--text-1)', marginBottom:'16px', display:'flex', alignItems:'center', gap:'8px' }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Recent Activity
+          </h2>
+          <div className="card" style={{ padding:0, overflow:'hidden' }}>
+            {activity.length === 0 ? (
+              <div style={{ padding:'32px', textAlign:'center', color:'var(--text-3)', fontSize:'13px' }}>No recent activity</div>
+            ) : (
+              activity.map((r, i) => {
+                const isOverdue = !r.returned && r.dueDate && new Date(r.dueDate) < new Date();
+                const icon = r.returned ? '📗' : isOverdue ? '⚠️' : '📘';
+                const statusColor = r.returned ? 'var(--green)' : isOverdue ? 'var(--red)' : 'var(--accent)';
+                const action = r.returned
+                  ? `returned "${r.book?.title}"`
+                  : isOverdue
+                  ? `overdue — "${r.book?.title}" (${Math.ceil((new Date()-new Date(r.dueDate))/(1000*60*60*24))}d late)`
+                  : `borrowed "${r.book?.title}"`;
+                return (
+                  <div key={r.id} style={{
+                    display:'flex', alignItems:'center', gap:'14px',
+                    padding:'13px 20px',
+                    borderBottom: i < activity.length-1 ? '1px solid var(--border)' : 'none',
+                  }}>
+                    <div style={{ width:'36px', height:'36px', borderRadius:'10px', background:`${statusColor}18`, display:'flex', alignItems:'center', justifyContent:'center', fontSize:'16px', flexShrink:0 }}>
+                      {icon}
+                    </div>
+                    <div style={{ flex:1, minWidth:0 }}>
+                      <p style={{ fontSize:'13px', color:'var(--text-1)', fontWeight:'500' }}>
+                        <span style={{ fontWeight:'700' }}>{r.user?.name}</span> {action}
+                      </p>
+                      <p style={{ fontSize:'11px', color:'var(--text-3)', marginTop:'2px' }}>
+                        {r.user?.email} · Borrowed: {r.borrowDate} · Due: {r.dueDate}
+                        {r.returned && r.returnDate ? ` · Returned: ${r.returnDate}` : ''}
+                        {r.fine > 0 ? ` · Fine: ₹${r.fine}` : ''}
+                      </p>
+                    </div>
+                    <span style={{
+                      fontSize:'10px', fontWeight:'700', padding:'3px 10px',
+                      borderRadius:'20px', background:`${statusColor}18`,
+                      color: statusColor, border:`1px solid ${statusColor}40`,
+                      flexShrink:0,
+                    }}>
+                      {r.returned ? 'RETURNED' : isOverdue ? 'OVERDUE' : 'BORROWED'}
+                    </span>
+                  </div>
+                );
+              })
+            )}
+          </div>
+        </div>
+      )}
 
     </Layout>
   );

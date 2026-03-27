@@ -34,7 +34,7 @@ const DAMAGE_LEVELS = [
     desc: 'Scuffs, light marks, minor wear',
     icon: '🟡',
     fine: 100,
-    color: '#7c6fe0',
+    color: '#c8a55a',
     bg: 'rgba(245,158,11,0.08)',
     border: 'rgba(245,158,11,0.3)',
   },
@@ -228,7 +228,8 @@ export default function BorrowManagement() {
   const [issueMsg,     setIssueMsg]     = useState({ text:'', type:'' });
   const [returnResult, setReturnResult] = useState(null);
   const [submitting,   setSubmitting]   = useState(false);
-  const [damagedRecord, setDamagedRecord] = useState(null); // ← damaged modal
+  const [damagedRecord, setDamagedRecord] = useState(null);
+  const [alerting,      setAlerting]      = useState(null); // borrowId being alerted
 
   const [bookSearch,   setBookSearch]   = useState('');
   const [userSearch,   setUserSearch]   = useState('');
@@ -277,6 +278,21 @@ export default function BorrowManagement() {
     try { const res = await API.put(`/borrow/return/${borrowId}`); setReturnResult(res.data); loadRecords(); fetchBooks(); }
     catch (err) { alert(err.response?.data || 'Return failed'); }
     finally { setSubmitting(false); }
+  };
+
+  const sendFineAlert = async (r) => {
+    setAlerting(r.id);
+    try {
+      await API.post('/notifications/fine-alert', {
+        userId:    r.user?.id,
+        bookTitle: r.book?.title,
+        daysLate:  daysLate(r.dueDate),
+        fine:      daysLate(r.dueDate) * 5,
+      });
+      alert(`✅ Fine alert sent to ${r.user?.name} (${r.user?.email})`);
+    } catch {
+      alert('Failed to send alert. Try again.');
+    } finally { setAlerting(null); }
   };
 
   const isOverdue = (r) => !r.returned && r.dueDate && new Date(r.dueDate) < new Date();
@@ -537,7 +553,8 @@ export default function BorrowManagement() {
                 <tbody>{overdueRecords.map(r => (
                   <BorrowRow key={r.id} r={r} isOverdue={isOverdue} daysLate={daysLate}
                     handleReturn={handleReturn} submitting={submitting}
-                    onMarkDamaged={() => setDamagedRecord(r)} />
+                    onMarkDamaged={() => setDamagedRecord(r)}
+                    onSendAlert={sendFineAlert} alerting={alerting} />
                 ))}</tbody>
               </table>
             </div>
@@ -568,7 +585,7 @@ export default function BorrowManagement() {
   );
 }
 
-function BorrowRow({ r, isOverdue, daysLate, handleReturn, submitting, onMarkDamaged }) {
+function BorrowRow({ r, isOverdue, daysLate, handleReturn, submitting, onMarkDamaged, onSendAlert, alerting }) {
   const overdue  = isOverdue(r);
   const calcFine = overdue ? daysLate(r.dueDate) * 5 : 0;
   return (
@@ -616,6 +633,24 @@ function BorrowRow({ r, isOverdue, daysLate, handleReturn, submitting, onMarkDam
                 onMouseLeave={e => { e.currentTarget.style.background='var(--purple-muted)'; e.currentTarget.style.color='var(--purple)'; }}>
                 🔧 Damaged
               </button>
+              {overdue && onSendAlert && (
+                <button
+                  onClick={() => onSendAlert(r)}
+                  disabled={alerting === r.id}
+                  title="Send fine alert email to member"
+                  style={{
+                    fontSize:'12px', whiteSpace:'nowrap', padding:'8px 12px',
+                    borderRadius:'9px', border:'1px solid var(--orange)',
+                    background:'var(--orange-muted)', color:'var(--orange)',
+                    cursor:'pointer', fontFamily:"'DM Sans',sans-serif",
+                    fontWeight:'600', transition:'all 0.2s',
+                    opacity: alerting === r.id ? 0.6 : 1,
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.background='var(--orange)'; e.currentTarget.style.color='white'; }}
+                  onMouseLeave={e => { e.currentTarget.style.background='var(--orange-muted)'; e.currentTarget.style.color='var(--orange)'; }}>
+                  {alerting === r.id ? '⏳' : '🔔'} {alerting === r.id ? 'Sending...' : 'Alert'}
+                </button>
+              )}
             </>
           ) : (
             <span style={{ color:'var(--text-3)', fontSize:'12px' }}>Returned {r.returnDate}</span>

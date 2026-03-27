@@ -24,7 +24,12 @@ You are warm, helpful, concise, and smart.
 Today is ${date}.
 Always reply in 2–4 sentences unless a step-by-step explanation is genuinely needed.
 Never make up specific real-time data (live book counts, specific users, etc.) you don't have.
-Always stay on topic — if asked something completely unrelated to libraries/Librario, politely redirect.`;
+Always stay on topic — if asked something completely unrelated to libraries/Librario, politely redirect.
+
+Library Operating Hours:
+- Monday to Saturday: 9:00 AM – 5:00 PM
+- Sunday: CLOSED (Holiday)
+- When asked about timings, always give this exact information.`;
 
   if (mode === 'public') return base + `
 
@@ -61,6 +66,8 @@ Encourage visitors to create a free account or sign in.`;
 - Total Users (all roles): ${stats.totalUsers ?? 'N/A'}
 - Pending Approvals: ${stats.totalPendingUsers}
 - Members with Highest Fines: ${topFinesText}
+- Most Borrowed Books: ${stats.mostBorrowedBooks ?? 'No data'}
+- Total Book Copies in Library: ${stats.totalBookCopies ?? 'N/A'}
 Use ONLY these exact numbers when asked about any library statistics. Never guess or say you don't know — the data is above.` : '';
 
   if (role === 'ADMIN') return base + statsBlock + `
@@ -259,7 +266,20 @@ function ChatPanel({ mode, user, onClose }) {
   // Fetch live stats so Aria knows real database numbers
   useEffect(() => {
     if (mode === 'interior' && (role === 'ADMIN' || role === 'LIBRARIAN')) {
-      API.get('/borrow/stats').then(res => setStats(res.data)).catch(() => {});
+      // Fetch stats + books to give Aria real data
+      Promise.all([
+        API.get('/borrow/stats'),
+        API.get('/books'),
+      ]).then(([statsRes, booksRes]) => {
+        const stats = statsRes.data;
+        // Find most borrowed book from books list
+        const books = booksRes.data || [];
+        const sorted = [...books].sort((a, b) => (b.borrowedCount || 0) - (a.borrowedCount || 0));
+        const topBooks = sorted.slice(0, 3).map(b => `${b.title} (${b.borrowedCount || 0} borrows)`).join(', ');
+        stats.mostBorrowedBooks = topBooks || 'No data';
+        stats.totalBookCopies   = books.reduce((sum, b) => sum + (b.quantity || 0), 0);
+        setStats(stats);
+      }).catch(() => {});
     }
   }, []);
 

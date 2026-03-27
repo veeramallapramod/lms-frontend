@@ -121,6 +121,7 @@ export default function Sidebar() {
           <NavLink to="/approvals"     icon="M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4 12 14.01l-3-3" label="Approvals" badge={pendingUsers.length}/>
           <NavLink to="/subscriptions" icon="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" label="Subscriptions"/>
           <NavLink to="/admin-alerts"  icon="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0zM12 9v4M12 17h.01" label="Admin Alerts 🚨"/>
+          <NavLink to="/reports" icon="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2z" label="Reports 📊"/>
         </>)}
 
         {role === 'LIBRARIAN' && (<>

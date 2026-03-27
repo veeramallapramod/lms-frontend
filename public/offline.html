@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Librario — Offline</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family:'Segoe UI',Arial,sans-serif;
+      background:linear-gradient(135deg,#f5f3ff,#ede9ff);
+      min-height:100vh; display:flex;
+      align-items:center; justify-content:center; padding:24px;
+    }
+    .card {
+      background:white; border-radius:24px; padding:48px;
+      max-width:480px; width:100%; text-align:center;
+      box-shadow:0 20px 60px rgba(108,95,199,0.15);
+      border:1px solid rgba(124,111,224,0.2);
+    }
+    .icon { font-size:64px; margin-bottom:24px; }
+    h1 { font-size:24px; font-weight:800; color:#1e1b4b; margin-bottom:8px; }
+    p  { font-size:14px; color:#64748b; line-height:1.7; margin-bottom:24px; }
+    .badge {
+      display:inline-flex; align-items:center; gap:8px;
+      background:linear-gradient(135deg,#7c6fe0,#5448b8);
+      color:white; padding:8px 20px; border-radius:20px;
+      font-size:13px; font-weight:700; margin-bottom:24px;
+    }
+    .features {
+      background:#f8f7ff; border-radius:12px; padding:20px;
+      margin-bottom:24px; text-align:left;
+    }
+    .features h3 { font-size:12px; font-weight:700; color:#7c6fe0; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:12px; }
+    .feature { display:flex; align-items:center; gap:10px; margin-bottom:8px; font-size:13px; color:#374151; }
+    .feature span { font-size:16px; }
+    .retry {
+      background:linear-gradient(135deg,#7c6fe0,#5448b8);
+      color:white; border:none; padding:12px 32px; border-radius:12px;
+      font-size:14px; font-weight:700; cursor:pointer; width:100%;
+      font-family:'Segoe UI',sans-serif; transition:opacity 0.2s;
+    }
+    .retry:hover { opacity:0.9; }
+    .logo { display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:32px; }
+    .logo-icon { width:40px; height:40px; background:linear-gradient(135deg,#7c6fe0,#4ecba8); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:20px; }
+    .logo-text { font-size:22px; font-weight:800; color:#1e1b4b; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">
+      <div class="logo-icon">📚</div>
+      <div class="logo-text">Librario</div>
+    </div>
+    <div class="icon">📡</div>
+    <h1>You're Offline</h1>
+    <p>No internet connection detected. As a premium member, you can still access your cached library data.</p>
+
+    <div class="badge">
+      ⭐ Membership Offline Access Active
+    </div>
+
+    <div class="features">
+      <h3>Available Offline</h3>
+      <div class="feature"><span>📚</span> View your borrowed books</div>
+      <div class="feature"><span>🔔</span> View cached notifications</div>
+      <div class="feature"><span>📋</span> View book catalog</div>
+      <div class="feature"><span>👤</span> View your profile</div>
+    </div>
+
+    <p style="font-size:12px;color:#94a3b8;margin-bottom:16px;">
+      Live actions (borrow, return, reserve) require an internet connection.
+    </p>
+
+    <button class="retry" onclick="window.location.reload()">
+      🔄 Try Again
+    </button>
+  </div>
+</body>
+</html>
