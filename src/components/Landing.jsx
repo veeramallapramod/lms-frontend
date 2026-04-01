@@ -107,7 +107,7 @@ export default function Landing() {
         .hero-section { position:relative; z-index:10; min-height:100vh; display:flex; align-items:center; }
         .content-layer { position:relative; z-index:20; background:#f5f3ff; }
 
-        .parallax-strip { position:relative; z-index:21; background-image:url('/lib.jpg'); background-size:cover; background-attachment:fixed; background-position:center 25%; }
+        .parallax-strip { position:relative; z-index:21; background-image:url('/backgnd.webp'); background-size:cover; background-attachment:fixed; background-position:center 25%; }
         .parallax-strip::before { content:''; position:absolute; inset:0; background:rgba(10,8,26,0.70); }
         .parallax-strip > .ps-inner { position:relative; z-index:1; }
 
@@ -164,7 +164,8 @@ export default function Landing() {
         .gold-rule{height:1px;background:linear-gradient(90deg,transparent,rgba(108,95,199,.45),transparent);}
       `}</style>
 
-      <div className="lib-fixed-bg"><img src="/lib.jpg" alt="" draggable="false"/></div>
+      {/* ✅ CHANGED: /lib.jpg → /backgnd.webp */}
+      <div className="lib-fixed-bg"><img src="/backgnd.webp" alt="" draggable="false"/></div>
 
       {/* NAVBAR */}
       <nav style={{ position:'fixed', top:0, left:0, right:0, zIndex:200, height:'64px', display:'flex', alignItems:'center', justifyContent:'space-between', padding:'0 60px', background: navSolid ? 'rgba(10,8,26,0.92)' : 'transparent', backdropFilter: navSolid ? 'blur(22px)' : 'none', borderBottom: navSolid ? '1px solid rgba(108,95,199,0.15)' : 'none', transition:'all .40s ease' }}>

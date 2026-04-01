@@ -74,16 +74,12 @@ function Doodle({ type, size, color }) {
 
 export default function Login() {
   const navigate   = useNavigate();
-  const { setToken, theme, toggleTheme } = useAuthStore();
+  const { setToken } = useAuthStore();
   const [form,      setForm]      = useState({ email:'', password:'' });
   const [errors,    setErrors]    = useState({});
   const [loading,   setLoading]   = useState(false);
   const [serverMsg, setServerMsg] = useState('');
   const [showPass,  setShowPass]  = useState(false);
-
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-  }, [theme]);
 
   const validate = () => {
     const e = {};
@@ -171,7 +167,7 @@ export default function Login() {
           <LibraryIllustration/>
         </div>
 
-        {/* Floating doodles — 4 different float animations — z:2 so above illustration */}
+        {/* Floating doodles */}
         {DOODLES.map((d, i) => {
           const anims = ['floatA','floatB','floatC','floatD'];
           return (
@@ -214,23 +210,7 @@ export default function Login() {
       </div>
 
       {/* ══ RIGHT — Form ══ */}
-      <div style={{ background:'var(--bg)', display:'flex', alignItems:'center', justifyContent:'center', padding:'48px 40px', position:'relative' }}>
-        {/* Theme toggle */}
-        <button onClick={toggleTheme} style={{
-          position:'absolute', top:'20px', right:'20px',
-          background:'var(--bg-card)', border:'1px solid var(--border)',
-          borderRadius:'10px', padding:'9px', cursor:'pointer',
-          color:'var(--text-2)', lineHeight:0, transition:'all 0.2s',
-          boxShadow:'0 2px 8px rgba(108,95,199,0.10)',
-        }}
-          onMouseEnter={e=>e.currentTarget.style.background='var(--accent-muted)'}
-          onMouseLeave={e=>e.currentTarget.style.background='var(--bg-card)'}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            {theme === 'dark'
-              ? <><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></>
-              : <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>}
-          </svg>
-        </button>
+      <div style={{ background:'#f8f7ff', display:'flex', alignItems:'center', justifyContent:'center', padding:'48px 40px', position:'relative' }}>
         {/* Subtle dot texture */}
         <div style={{ position:'absolute', inset:0, backgroundImage:'radial-gradient(circle, rgba(108,95,199,0.055) 1px, transparent 1px)', backgroundSize:'26px 26px', pointerEvents:'none' }}/>
 

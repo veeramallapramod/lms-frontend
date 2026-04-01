@@ -21,7 +21,7 @@ import Subscriptions from './components/Subscriptions';
 import MyBorrows from './components/MyBorrows';
 import MemberPlans from './components/MemberPlans';
 import AddMember from './components/AddMember';
-import QRScanner from './components/QRScanner';
+
 import LibraryCard from './components/LibraryCard';
 import Reports from './components/Reports';
 import { OfflineBanner } from './hooks/useOfflineAccess.jsx';
@@ -58,7 +58,7 @@ function AppRoutes() {
         <Route path="/add-book"      element={<ProtectedRoute><AddBook /></ProtectedRoute>} />
         <Route path="/edit-book/:id" element={<ProtectedRoute><AddBook /></ProtectedRoute>} />
         <Route path="/borrow"        element={<ProtectedRoute><BorrowManagement /></ProtectedRoute>} />
-        <Route path="/qr-scanner"    element={<ProtectedRoute><QRScanner /></ProtectedRoute>} />
+        
         <Route path="/users"         element={<ProtectedRoute><Users /></ProtectedRoute>} />
         <Route path="/approvals"     element={<ProtectedRoute><Approvals /></ProtectedRoute>} />
         <Route path="/admin-alerts"  element={<ProtectedRoute><AdminAlerts /></ProtectedRoute>} />
