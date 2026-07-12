@@ -7,7 +7,7 @@ const PLAN_INFO = {
   FREE:     { label:'Free',     price:'₹0/mo',   books:2,  color:'#94a3b8' },
   BASIC:    { label:'Basic',    price:'₹99/mo',  books:5,  color:'#3b82f6' },
   STANDARD: { label:'Standard', price:'₹199/mo', books:10, color:'#8b5cf6' },
-  PREMIUM:  { label:'Premium',  price:'₹399/mo', books:20, color:'#7c6fe0' },
+  PREMIUM:  { label:'Premium',  price:'₹399/mo', books:20, color:'#b8863f' },
 };
 
 export default function AddMember() {
@@ -175,7 +175,7 @@ export default function AddMember() {
               {selectedPlan.label} Plan Selected
             </p>
             <div style={{ display:'flex', alignItems:'baseline', gap:'4px', marginBottom:'14px' }}>
-              <span style={{ fontFamily:"'Playfair Display',serif", fontSize:'28px', color:'var(--text-1)' }}>{selectedPlan.price}</span>
+              <span style={{ fontFamily:"'Bodoni Moda',serif", fontSize:'28px', color:'var(--text-1)' }}>{selectedPlan.price}</span>
             </div>
             {[
               `Up to ${selectedPlan.books} books at a time`,

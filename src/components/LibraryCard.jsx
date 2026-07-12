@@ -42,7 +42,7 @@ function _drawQR(canvas,text,px,dark,light){
     for(let r=0;r<size;r++)for(let c=0;c<size;c++)if(matrix[r][c]===1)ctx.fillRect(c*sc,r*sc,sc,sc);
   }catch(e){console.error('QR draw error:',e);canvas.width=px;canvas.height=px;}
 }
-function getQRDataURL(text,px=200,dark='#1e1b4b',light='#ffffff'){
+function getQRDataURL(text,px=200,dark='#1E1A16',light='#ffffff'){
   const c=document.createElement('canvas');_drawQR(c,text,px,dark,light);return c.toDataURL('image/png');
 }
 function generateQRForCanvas(text){return _makeQR(text);}
@@ -57,7 +57,7 @@ function QRCode({value,size=120,dark='#000000',light='#ffffff',style={}}){
 
 
 const PLAN_COLORS = {
-  FREE:     { bg:['#e8e6ff','#d0ccff'], accent:'#6c5fc7', badge:'FREE',     icon:'📚' },
+  FREE:     { bg:['#e8e6ff','#d0ccff'], accent:'#96702E', badge:'FREE',     icon:'📚' },
   BASIC:    { bg:['#e0f4ee','#b8e8d4'], accent:'#2d7a52', badge:'BASIC',    icon:'⭐' },
   STANDARD: { bg:['#e8f4ff','#b8d8f8'], accent:'#1a6aaa', badge:'STANDARD', icon:'✨' },
   PREMIUM:  { bg:['#fff4e0','#ffd88a'], accent:'#9b6800', badge:'PREMIUM',  icon:'👑' },
@@ -65,7 +65,7 @@ const PLAN_COLORS = {
 
 const ROLE_COLORS = {
   ADMIN:     { accent:'#c8a55a', label:'Administrator' },
-  LIBRARIAN: { accent:'#7c6fe0', label:'Librarian'     },
+  LIBRARIAN: { accent:'#b8863f', label:'Librarian'     },
   MEMBER:    { accent:'#38b2a0', label:'Member'        },
 };
 
@@ -85,7 +85,7 @@ function LibraryCardFace({ user, borrowStats, qrDataUrl, cardRef }) {
       width: '420px', height: '260px',
       borderRadius: '18px', overflow: 'hidden',
       position: 'relative', flexShrink: 0,
-      fontFamily: "'DM Sans', sans-serif",
+      fontFamily: "'Manrope', sans-serif",
       background: `linear-gradient(135deg, ${pCfg.bg[0]} 0%, ${pCfg.bg[1]} 100%)`,
       boxShadow: `0 20px 60px ${pCfg.accent}30, 0 4px 20px rgba(0,0,0,0.10)`,
     }}>
@@ -108,7 +108,7 @@ function LibraryCardFace({ user, borrowStats, qrDataUrl, cardRef }) {
             </svg>
           </div>
           <div>
-            <p style={{ fontSize:'14px', fontWeight:'700', color:'#1e1b4b', lineHeight:1, fontFamily:"'Playfair Display',serif" }}>Librario</p>
+            <p style={{ fontSize:'14px', fontWeight:'700', color:'#1E1A16', lineHeight:1, fontFamily:"'Bodoni Moda',serif" }}>Librario</p>
             <p style={{ fontSize:'8px', letterSpacing:'0.12em', color:`${pCfg.accent}`, fontWeight:'700', textTransform:'uppercase', marginTop:'1px' }}>LIBRARY MANAGEMENT</p>
           </div>
         </div>
@@ -130,7 +130,7 @@ function LibraryCardFace({ user, borrowStats, qrDataUrl, cardRef }) {
               {initials}
             </div>
             <div>
-              <p style={{ fontSize:'17px', fontWeight:'700', color:'#1e1b4b', lineHeight:1.2, maxWidth:'160px', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{user?.name || 'Library Member'}</p>
+              <p style={{ fontSize:'17px', fontWeight:'700', color:'#1E1A16', lineHeight:1.2, maxWidth:'160px', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{user?.name || 'Library Member'}</p>
               <p style={{ fontSize:'10px', color:`${pCfg.accent}`, fontWeight:'600', marginTop:'2px', background:`${pCfg.accent}15`, padding:'2px 8px', borderRadius:'4px', display:'inline-block' }}>
                 {rCfg.label}
               </p>
@@ -147,7 +147,7 @@ function LibraryCardFace({ user, borrowStats, qrDataUrl, cardRef }) {
             ].map(({ label, value }) => (
               <div key={label}>
                 <p style={{ fontSize:'8px', fontWeight:'700', color:`${pCfg.accent}99`, letterSpacing:'0.12em', marginBottom:'1px' }}>{label}</p>
-                <p style={{ fontSize:'11px', fontWeight:'600', color:'#1e1b4b', fontFamily: label === 'MEMBER ID' ? 'monospace' : 'inherit' }}>{value}</p>
+                <p style={{ fontSize:'11px', fontWeight:'600', color:'#1E1A16', fontFamily: label === 'MEMBER ID' ? 'monospace' : 'inherit' }}>{value}</p>
               </div>
             ))}
           </div>
@@ -162,7 +162,7 @@ function LibraryCardFace({ user, borrowStats, qrDataUrl, cardRef }) {
         {/* Right: QR code */}
         <div style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:'6px', flexShrink:0 }}>
           <div style={{ background:'white', borderRadius:'10px', padding:'8px', boxShadow:`0 4px 16px ${pCfg.accent}20`, border:`1px solid ${pCfg.accent}22` }}>
-            <QRCode value={`LIBRARIO_MEMBER_${user?.id || 0}`} size={80} dark="#1e1b4b" light="#ffffff"/>
+            <QRCode value={`LIBRARIO_MEMBER_${user?.id || 0}`} size={80} dark="#1E1A16" light="#ffffff"/>
           </div>
           <p style={{ fontSize:'8px', color:`${pCfg.accent}88`, fontWeight:'600', letterSpacing:'0.08em', textAlign:'center' }}>SCAN TO VERIFY</p>
         </div>
@@ -214,7 +214,7 @@ export default function LibraryCard() {
 
   /* Generate QR code data URL for download */
   useEffect(() => {
-    const url = getQRDataURL(`LIBRARIO_MEMBER_${user?.id || 0}`, 200, '#1e1b4b', '#ffffff');
+    const url = getQRDataURL(`LIBRARIO_MEMBER_${user?.id || 0}`, 200, '#1E1A16', '#ffffff');
     if (url) setQrDataUrl(url);
   }, [user]);
 
@@ -260,7 +260,7 @@ export default function LibraryCard() {
       ctx.fillText('📚', 68, 78);
 
       // Librario text
-      ctx.fillStyle = '#1e1b4b';
+      ctx.fillStyle = '#1E1A16';
       ctx.textAlign = 'left';
       ctx.font = 'bold 32px serif';
       ctx.fillText('Librario', 116, 66);
@@ -294,7 +294,7 @@ export default function LibraryCard() {
       ctx.fillText(initials, 94, 212);
 
       // Name
-      ctx.fillStyle = '#1e1b4b';
+      ctx.fillStyle = '#1E1A16';
       ctx.font = 'bold 36px sans-serif';
       ctx.textAlign = 'left';
       ctx.fillText(user?.name || 'Library Member', 170, 195);
@@ -316,7 +316,7 @@ export default function LibraryCard() {
         ctx.font = '13px sans-serif';
         ctx.textAlign = 'left';
         ctx.fillText(label, col, row);
-        ctx.fillStyle = '#1e1b4b';
+        ctx.fillStyle = '#1E1A16';
         ctx.font = i === 0 ? 'bold 18px monospace' : 'bold 18px sans-serif';
         ctx.fillText(val, col, row + 26);
       });
@@ -340,7 +340,7 @@ export default function LibraryCard() {
         ctx.fillStyle = '#fff';
         ctx.roundRect(qrX - 12, qrY - 12, qrSize + 24, qrSize + 24, 14);
         ctx.fill();
-        ctx.fillStyle = '#1e1b4b';
+        ctx.fillStyle = '#1E1A16';
         for (let r = 0; r < modules; r++)
           for (let col = 0; col < modules; col++)
             if (matrix[r]?.[col])
@@ -421,7 +421,7 @@ export default function LibraryCard() {
               ].map(s => (
                 <div key={s.label} style={{ textAlign:'center', padding:'16px 10px', background:'var(--bg-2)', borderRadius:'12px', border:'1px solid var(--border)' }}>
                   <p style={{ fontSize:'20px', marginBottom:'6px' }}>{s.icon}</p>
-                  <p style={{ fontSize:'22px', fontWeight:'800', color:s.color, lineHeight:1, fontFamily:"'Playfair Display',serif" }}>{s.value}</p>
+                  <p style={{ fontSize:'22px', fontWeight:'800', color:s.color, lineHeight:1, fontFamily:"'Bodoni Moda',serif" }}>{s.value}</p>
                   <p style={{ fontSize:'10px', color:'var(--text-3)', marginTop:'4px', fontWeight:'500' }}>{s.label}</p>
                 </div>
               ))}
@@ -457,7 +457,7 @@ export default function LibraryCard() {
           <div className="card" style={{ padding:'22px', background:`${pCfg.accent}08`, border:`1px solid ${pCfg.accent}28` }}>
             <div style={{ display:'flex', alignItems:'flex-start', gap:'16px' }}>
               <div style={{ background:'white', borderRadius:'10px', padding:'8px', border:`1px solid ${pCfg.accent}25`, flexShrink:0, boxShadow:`0 4px 14px ${pCfg.accent}18` }}>
-                <QRCode value={`LIBRARIO_MEMBER_${user?.id || 0}`} size={72} dark="#1e1b4b" light="#ffffff"/>
+                <QRCode value={`LIBRARIO_MEMBER_${user?.id || 0}`} size={72} dark="#1E1A16" light="#ffffff"/>
               </div>
               <div>
                 <p style={{ fontSize:'14px', fontWeight:'700', color:'var(--text-1)', marginBottom:'6px' }}>Your Member QR Code</p>

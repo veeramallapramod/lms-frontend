@@ -217,7 +217,7 @@ export default function RazorpayModal({ mode, fineData, planData, onClose, onSuc
                   width:'100%', padding:'15px', borderRadius:'12px', border:'none',
                   background:'linear-gradient(135deg, #2563eb, #7c3aed)',
                   color:'#fff', fontSize:'15px', fontWeight:'800', cursor:'pointer',
-                  fontFamily:"'DM Sans',sans-serif", letterSpacing:'0.02em',
+                  fontFamily:"'Manrope',sans-serif", letterSpacing:'0.02em',
                   transition:'all 0.2s', boxShadow:'0 4px 20px rgba(99,102,241,0.35)',
                 }}
                 onMouseEnter={e => { e.currentTarget.style.transform='translateY(-1px)'; e.currentTarget.style.boxShadow='0 8px 28px rgba(99,102,241,0.45)'; }}
@@ -309,7 +309,7 @@ function FormField({ label, value, error, placeholder, onChange, type = 'text', 
           fontSize: '13px', color: '#0f172a',
           background: readOnly ? '#f8fafc' : '#fff',
           outline: 'none', transition: 'border-color 0.15s',
-          fontFamily:"'DM Sans',sans-serif",
+          fontFamily:"'Manrope',sans-serif",
         }}
         onFocus={e => { if (!readOnly) e.target.style.borderColor = '#3b82f6'; }}
         onBlur={e => { e.target.style.borderColor = error ? '#ef4444' : '#e2e8f0'; }}

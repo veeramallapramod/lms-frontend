@@ -6,8 +6,7 @@ import AIChatbot from './AIChatbot';
 import API from '../api/axiosInstance';
 
 export default function Layout({ title, subtitle, actions, children }) {
-  const { theme } = useAuthStore();
-  useEffect(() => { document.documentElement.setAttribute('data-theme', theme); }, [theme]);
+  useEffect(() => { document.documentElement.setAttribute('data-theme', 'light'); }, []);
 
   const [chatOpen,    setChatOpen]    = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
@@ -29,12 +28,12 @@ export default function Layout({ title, subtitle, actions, children }) {
   }, [user?.id]);
 
   return (
-    <div className="app-layout" data-theme={theme}>
+    <div className="app-layout" data-theme="light">
       <Sidebar />
       <div className="main-content">
         <div className="topbar">
           <div>
-            {title && <h1 style={{ fontSize:'19px', fontWeight:'700', color:'var(--text-1)', fontFamily:"'Playfair Display',serif" }}>{title}</h1>}
+            {title && <h1 style={{ fontSize:'19px', fontWeight:'700', color:'var(--text-1)', fontFamily:"'Bodoni Moda',serif" }}>{title}</h1>}
             {subtitle && <p style={{ fontSize:'12px', color:'var(--text-2)', marginTop:'1px' }}>{subtitle}</p>}
           </div>
           <div style={{ display:'flex', gap:'10px', alignItems:'center' }}>
@@ -90,12 +89,12 @@ export default function Layout({ title, subtitle, actions, children }) {
           width:'64px', height:'64px', borderRadius:'50%', border:'none',
           background: chatOpen
             ? 'linear-gradient(135deg,#e0425a,#b8203c)'
-            : 'linear-gradient(135deg,#7c6fe0,#4ecba8)',
+            : 'linear-gradient(135deg,#b8863f,#C9A35A)',
           color:'white', cursor:'pointer',
           display:'flex', alignItems:'center', justifyContent:'center',
           boxShadow: chatOpen
             ? '0 6px 24px rgba(224,66,90,0.45)'
-            : '0 6px 24px rgba(108,95,199,0.45)',
+            : '0 6px 24px rgba(150,108,40,0.45)',
           transition:'all 0.28s cubic-bezier(0.34,1.56,0.64,1)',
           transform: chatOpen ? 'scale(1.05)' : 'scale(1)',
           overflow:'visible', padding:0,
@@ -113,15 +112,15 @@ export default function Layout({ title, subtitle, actions, children }) {
                 {/* Head */}
                 <rect x="10" y="8" width="16" height="12" rx="4" fill="white" opacity="0.95"/>
                 {/* Eyes */}
-                <circle cx="14.5" cy="13" r="1.8" fill="#5448b8"/>
-                <circle cx="21.5" cy="13" r="1.8" fill="#5448b8"/>
+                <circle cx="14.5" cy="13" r="1.8" fill="#96702E"/>
+                <circle cx="21.5" cy="13" r="1.8" fill="#96702E"/>
                 <circle cx="15.1" cy="12.4" r="0.65" fill="white"/>
                 <circle cx="22.1" cy="12.4" r="0.65" fill="white"/>
                 {/* Smile */}
-                <path d="M14 17 Q18 19.5 22 17" stroke="#5448b8" strokeWidth="1.3" strokeLinecap="round" fill="none"/>
+                <path d="M14 17 Q18 19.5 22 17" stroke="#96702E" strokeWidth="1.3" strokeLinecap="round" fill="none"/>
                 {/* Antenna */}
                 <line x1="18" y1="8" x2="18" y2="5.5" stroke="white" strokeWidth="1.3" strokeLinecap="round" opacity="0.9"/>
-                <circle cx="18" cy="4.8" r="1.4" fill="#4ecba8"/>
+                <circle cx="18" cy="4.8" r="1.4" fill="#C9A35A"/>
                 {/* Ears */}
                 <rect x="7.5" y="11" width="3" height="5" rx="1.5" fill="white" opacity="0.7"/>
                 <rect x="25.5" y="11" width="3" height="5" rx="1.5" fill="white" opacity="0.7"/>
@@ -137,7 +136,7 @@ export default function Layout({ title, subtitle, actions, children }) {
               {/* Online dot */}
               <div style={{ position:'absolute', bottom:'5px', right:'5px', width:'12px', height:'12px', borderRadius:'50%', background:'#3dd68a', border:'2.5px solid white', boxShadow:'0 0 8px rgba(61,214,138,0.80)', zIndex:2 }}/>
               {/* Pulse ring */}
-              <span style={{ position:'absolute', inset:'-5px', borderRadius:'50%', background:'rgba(124,111,224,0.22)', animation:'chatPulse 2.5s ease-out infinite', pointerEvents:'none' }}/>
+              <span style={{ position:'absolute', inset:'-5px', borderRadius:'50%', background:'rgba(183,134,63,0.22)', animation:'chatPulse 2.5s ease-out infinite', pointerEvents:'none' }}/>
             </>
         }
       </button>

@@ -2,42 +2,34 @@ import { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import API from '../api/axiosInstance';
 import useAuthStore from '../store/authStore';
-import LibraryIllustration from './LibraryIllustration';
 
 // Reusable split layout wrapper
 function AuthLayout({ children, quote, author }) {
-  const { theme, toggleTheme } = useAuthStore();
-  useEffect(() => { document.documentElement.setAttribute('data-theme', theme); }, [theme]);
+  useEffect(() => { document.documentElement.setAttribute('data-theme', 'light'); }, []);
 
   return (
     <>
     <style>{`
-      @keyframes gradMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-      .lav-bg{background:linear-gradient(145deg,#ede9ff 0%,#ddd6ff 28%,#cce8ff 58%,#d2f8ee 100%)!important;background-size:240% 240%!important;animation:gradMove 14s ease infinite!important;}
+      .auth-left-photo { position:relative; background:#1E1A16; }
+      .auth-left-photo img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 30%; filter:brightness(0.62) contrast(1.08) saturate(1.02); }
+      .auth-left-photo::after { content:''; position:absolute; inset:0; background:linear-gradient(180deg, rgba(30,26,22,0.35) 0%, rgba(30,26,22,0.55) 55%, rgba(30,26,22,0.82) 100%); }
     `}</style>
-    <div className="auth-root" data-theme={theme}>
-      <div className="auth-left lav-bg">
+    <div className="auth-root" data-theme="light">
+      <div className="auth-left auth-left-photo">
+        <img src="/lib.jpg" alt="" />
         <div style={{ position: 'absolute', top: '40px', left: '40px', zIndex: 3, display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <div style={{ width: '34px', height: '34px', background: 'linear-gradient(135deg,#7c6fe0,#5448b8)', borderRadius: '9px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow:'0 3px 12px rgba(108,95,199,0.36)' }}>
+          <div style={{ width: '34px', height: '34px', background: 'linear-gradient(135deg,#b8863f,#96702E)', borderRadius: '9px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow:'0 3px 12px rgba(150,108,40,0.36)' }}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
           </div>
-          <span style={{ fontFamily:"'Playfair Display',serif", fontSize: '20px', color: '#2d2080', fontWeight:'700' }}>Librario</span>
+          <span style={{ fontFamily:"'Bodoni Moda',serif", fontSize: '20px', color: '#F8F6F2', fontWeight:'700' }}>Librario</span>
         </div>
-        <div style={{ position: 'absolute', inset: 0, zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '80px 20px 160px' }}>
-          <LibraryIllustration />
-        </div>
-        <div className="auth-left-content">
-          <div style={{ width: '36px', height: '3px', background: 'linear-gradient(90deg,#7c6fe0,#4ecba8)', borderRadius: '2px', marginBottom: '14px' }} />
-          <p style={{ fontFamily:"'Playfair Display',serif", fontSize: '19px', color: '#2d2080', lineHeight: 1.5, fontStyle: 'italic', marginBottom: '8px' }}>"{quote}"</p>
-          <p style={{ fontSize: '12px', color: 'rgba(45,32,128,0.42)' }}>— {author}</p>
+        <div className="auth-left-content" style={{ position:'relative', zIndex:3 }}>
+          <div style={{ width: '36px', height: '3px', background: 'linear-gradient(90deg,#b8863f,#C9A35A)', borderRadius: '2px', marginBottom: '14px' }} />
+          <p style={{ fontFamily:"'Bodoni Moda',serif", fontSize: '19px', color: '#F8F6F2', lineHeight: 1.5, fontStyle: 'italic', marginBottom: '8px' }}>"{quote}"</p>
+          <p style={{ fontSize: '12px', color: 'rgba(248,246,242,0.62)' }}>— {author}</p>
         </div>
       </div>
       <div className="auth-right">
-        <button onClick={toggleTheme} style={{ position: 'absolute', top: '20px', right: '20px', background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '8px', padding: '8px', cursor: 'pointer', color: 'var(--text-2)' }}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            {theme === 'dark' ? <><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></> : <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>}
-          </svg>
-        </button>
         <div className="auth-form-wrap">{children}</div>
       </div>
     </div>
@@ -79,7 +71,7 @@ export function Register() {
   return (
     <AuthLayout quote="The more that you read, the more things you will know." author="Dr. Seuss">
       <div style={{ marginBottom: '24px' }}>
-        <h1 style={{ fontSize: '26px', fontWeight: '700', color: 'var(--text-1)', marginBottom: '4px', fontFamily:"'Playfair Display',serif" }}>Create Account</h1>
+        <h1 style={{ fontSize: '26px', fontWeight: '700', color: 'var(--text-1)', marginBottom: '4px', fontFamily:"'Bodoni Moda',serif" }}>Create Account</h1>
         <p style={{ color: 'var(--text-2)', fontSize: '14px' }}>Join the library management system</p>
       </div>
       <div className="auth-card">
@@ -163,7 +155,7 @@ export function VerifyOtp() {
         <div style={{ width: '52px', height: '52px', background: 'var(--accent-muted)', border: '1px solid var(--border-accent)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 14px' }}>
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         </div>
-        <h1 style={{ fontSize: '24px', fontWeight: '700', color: 'var(--text-1)', fontFamily:"'Playfair Display',serif" }}>Verify your email</h1>
+        <h1 style={{ fontSize: '24px', fontWeight: '700', color: 'var(--text-1)', fontFamily:"'Bodoni Moda',serif" }}>Verify your email</h1>
         <p style={{ color: 'var(--text-2)', fontSize: '14px', marginTop: '4px' }}>OTP sent to <span style={{ color: 'var(--accent)', fontWeight: '600' }}>{email}</span></p>
       </div>
       <div className="auth-card">
@@ -229,7 +221,7 @@ export function ForgotPassword() {
   return (
     <AuthLayout quote="Reading is to the mind what exercise is to the body." author="Joseph Addison">
       <div style={{ marginBottom: '24px' }}>
-        <h1 style={{ fontSize: '26px', fontWeight: '700', color: 'var(--text-1)', fontFamily:"'Playfair Display',serif" }}>{step === 1 ? 'Reset Password' : 'New Password'}</h1>
+        <h1 style={{ fontSize: '26px', fontWeight: '700', color: 'var(--text-1)', fontFamily:"'Bodoni Moda',serif" }}>{step === 1 ? 'Reset Password' : 'New Password'}</h1>
         <p style={{ color: 'var(--text-2)', fontSize: '14px', marginTop: '4px' }}>{step === 1 ? 'Enter your email to receive a reset OTP' : `OTP sent to ${email}`}</p>
       </div>
       <div className="auth-card">

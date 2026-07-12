@@ -167,27 +167,27 @@ function BotFace({ size = 38, glow = false }) {
   return (
     <div style={{
       width:`${size}px`, height:`${size}px`, borderRadius:'50%', flexShrink:0,
-      background:'linear-gradient(145deg,#7c6fe0 0%,#5448b8 50%,#4ecba8 100%)',
+      background:'linear-gradient(145deg,#b8863f 0%,#96702E 50%,#C9A35A 100%)',
       display:'flex', alignItems:'center', justifyContent:'center', position:'relative',
       boxShadow: glow
-        ? '0 0 0 3px rgba(124,111,224,0.25), 0 4px 18px rgba(108,95,199,0.45)'
-        : '0 3px 12px rgba(108,95,199,0.38)',
+        ? '0 0 0 3px rgba(183,134,63,0.25), 0 4px 18px rgba(150,108,40,0.45)'
+        : '0 3px 12px rgba(150,108,40,0.38)',
     }}>
       {/* Bot face */}
       <svg width={size*0.62} height={size*0.62} viewBox="0 0 24 24" fill="none">
         {/* Head */}
         <rect x="4" y="5" width="16" height="13" rx="4" fill="white" opacity="0.95"/>
         {/* Eyes */}
-        <circle cx="9"  cy="10.5" r="1.8" fill="#5448b8"/>
-        <circle cx="15" cy="10.5" r="1.8" fill="#5448b8"/>
+        <circle cx="9"  cy="10.5" r="1.8" fill="#96702E"/>
+        <circle cx="15" cy="10.5" r="1.8" fill="#96702E"/>
         {/* Eye shine */}
         <circle cx="9.6"  cy="9.9" r="0.6" fill="white"/>
         <circle cx="15.6" cy="9.9" r="0.6" fill="white"/>
         {/* Smile */}
-        <path d="M9 14 Q12 16.5 15 14" stroke="#5448b8" strokeWidth="1.4" strokeLinecap="round" fill="none"/>
+        <path d="M9 14 Q12 16.5 15 14" stroke="#96702E" strokeWidth="1.4" strokeLinecap="round" fill="none"/>
         {/* Antenna */}
         <line x1="12" y1="5" x2="12" y2="2.5" stroke="white" strokeWidth="1.4" strokeLinecap="round" opacity="0.9"/>
-        <circle cx="12" cy="2" r="1.2" fill="#4ecba8"/>
+        <circle cx="12" cy="2" r="1.2" fill="#C9A35A"/>
         {/* Ears */}
         <rect x="2"  y="9" width="2.5" height="5" rx="1.2" fill="white" opacity="0.7"/>
         <rect x="19.5" y="9" width="2.5" height="5" rx="1.2" fill="white" opacity="0.7"/>
@@ -208,17 +208,17 @@ function Bubble({ msg }) {
       <div style={{
         maxWidth:'76%', padding:'10px 14px',
         borderRadius: isUser ? '16px 16px 4px 16px' : '16px 16px 16px 4px',
-        background: isUser ? 'linear-gradient(135deg,#7c6fe0,#5448b8)' : 'var(--bg-card, #fff)',
-        color: isUser ? '#fff' : 'var(--text-1, #1e1b4b)',
+        background: isUser ? 'linear-gradient(135deg,#b8863f,#96702E)' : 'var(--bg-card, #fff)',
+        color: isUser ? '#fff' : 'var(--text-1, #1E1A16)',
         fontSize:'14px', lineHeight:1.60,
-        border: isUser ? 'none' : '1px solid var(--border, rgba(108,95,199,0.14))',
-        boxShadow: isUser ? '0 4px 14px rgba(108,95,199,0.32)' : '0 2px 8px rgba(0,0,0,0.06)',
+        border: isUser ? 'none' : '1px solid var(--border, rgba(150,108,40,0.14))',
+        boxShadow: isUser ? '0 4px 14px rgba(150,108,40,0.32)' : '0 2px 8px rgba(0,0,0,0.06)',
         whiteSpace:'pre-wrap', wordBreak:'break-word',
       }}>
         {msg.content}
       </div>
       {isUser && (
-        <div style={{ width:'28px', height:'28px', borderRadius:'50%', background:'linear-gradient(135deg,#a89cf7,#7c6fe0)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:'12px', fontWeight:'800', color:'white', flexShrink:0 }}>
+        <div style={{ width:'28px', height:'28px', borderRadius:'50%', background:'linear-gradient(135deg,#C9A35A,#b8863f)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:'12px', fontWeight:'800', color:'white', flexShrink:0 }}>
           {msg.initials || 'U'}
         </div>
       )}
@@ -231,9 +231,9 @@ function Typing() {
   return (
     <div style={{ display:'flex', alignItems:'flex-end', gap:'8px', marginBottom:'12px' }}>
       <BotFace size={28}/>
-      <div style={{ background:'var(--bg-card,#fff)', border:'1px solid var(--border,rgba(108,95,199,0.14))', borderRadius:'16px 16px 16px 4px', padding:'12px 16px', display:'flex', gap:'5px', alignItems:'center' }}>
+      <div style={{ background:'var(--bg-card,#fff)', border:'1px solid var(--border,rgba(150,108,40,0.14))', borderRadius:'16px 16px 16px 4px', padding:'12px 16px', display:'flex', gap:'5px', alignItems:'center' }}>
         {[0,1,2].map(i => (
-          <div key={i} style={{ width:'7px', height:'7px', borderRadius:'50%', background:'#7c6fe0', animation:`dot 1.3s ease-in-out ${i*0.18}s infinite` }}/>
+          <div key={i} style={{ width:'7px', height:'7px', borderRadius:'50%', background:'#b8863f', animation:`dot 1.3s ease-in-out ${i*0.18}s infinite` }}/>
         ))}
       </div>
     </div>
@@ -249,7 +249,7 @@ function ChatPanel({ mode, user, onClose }) {
   const initials = user?.name?.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2) || 'U';
 
   const roleLabel = { ADMIN:'Admin mode', LIBRARIAN:'Librarian mode', MEMBER:'Member mode', PUBLIC:'Public mode' };
-  const roleColor = { ADMIN:'#f0945a', LIBRARIAN:'#4ecba8', MEMBER:'#7c6fe0', PUBLIC:'#60b8e8' };
+  const roleColor = { ADMIN:'#f0945a', LIBRARIAN:'#C9A35A', MEMBER:'#b8863f', PUBLIC:'#60b8e8' };
 
   const greeting = mode === 'public'
     ? `Hi! 👋 I'm Aria, Librario's AI assistant.\n\nAsk me anything about Librario — features, pricing, how to join, or how the library system works!`
@@ -345,11 +345,11 @@ function ChatPanel({ mode, user, onClose }) {
   /* ── Panel styles — interior uses CSS vars, public uses hardcoded ── */
   const isPublic = mode === 'public';
   const panelBg  = isPublic ? 'rgba(255,255,255,0.97)' : 'var(--bg-card)';
-  const textCol  = isPublic ? '#1e1b4b' : 'var(--text-1)';
-  const text2    = isPublic ? 'rgba(30,27,75,0.50)' : 'var(--text-2)';
-  const borderCol= isPublic ? 'rgba(108,95,199,0.15)' : 'var(--border)';
-  const inputBg  = isPublic ? '#faf9ff' : 'var(--bg-input)';
-  const chipBg   = isPublic ? '#f5f3ff' : 'var(--bg-2)';
+  const textCol  = isPublic ? '#1E1A16' : 'var(--text-1)';
+  const text2    = isPublic ? 'rgba(95,91,86,0.50)' : 'var(--text-2)';
+  const borderCol= isPublic ? 'rgba(150,108,40,0.15)' : 'var(--border)';
+  const inputBg  = isPublic ? '#FFFFFF' : 'var(--bg-input)';
+  const chipBg   = isPublic ? '#F8F6F2' : 'var(--bg-2)';
 
   return (
     <div style={{
@@ -357,9 +357,9 @@ function ChatPanel({ mode, user, onClose }) {
       background: panelBg,
       borderRadius:'22px',
       border:`1px solid ${borderCol}`,
-      boxShadow:'0 28px 90px rgba(108,95,199,0.24), 0 6px 24px rgba(0,0,0,0.10)',
+      boxShadow:'0 28px 90px rgba(150,108,40,0.24), 0 6px 24px rgba(0,0,0,0.10)',
       display:'flex', flexDirection:'column', overflow:'hidden',
-      fontFamily:"'DM Sans',sans-serif",
+      fontFamily:"'Manrope',sans-serif",
       backdropFilter:'blur(20px)',
     }}>
       <style>{`
@@ -368,7 +368,7 @@ function ChatPanel({ mode, user, onClose }) {
       `}</style>
 
       {/* Header */}
-      <div style={{ padding:'16px 18px', borderBottom:`1px solid ${borderCol}`, display:'flex', alignItems:'center', gap:'12px', background:'linear-gradient(135deg,rgba(124,111,224,0.09),rgba(78,203,168,0.07))' }}>
+      <div style={{ padding:'16px 18px', borderBottom:`1px solid ${borderCol}`, display:'flex', alignItems:'center', gap:'12px', background:'linear-gradient(135deg,rgba(183,134,63,0.09),rgba(183,134,63,0.07))' }}>
         <BotFace size={42} glow/>
         <div style={{ flex:1 }}>
           <div style={{ display:'flex', alignItems:'center', gap:'8px' }}>
@@ -382,7 +382,7 @@ function ChatPanel({ mode, user, onClose }) {
         <div style={{ display:'flex', gap:'4px' }}>
           <button onClick={() => setMessages([{ role:'assistant', content: greeting }])} title="Clear chat"
             style={{ background:'none', border:'none', cursor:'pointer', color: text2, padding:'6px', borderRadius:'8px', lineHeight:0, transition:'all 0.15s' }}
-            onMouseEnter={e=>e.currentTarget.style.background='rgba(108,95,199,0.10)'}
+            onMouseEnter={e=>e.currentTarget.style.background='rgba(150,108,40,0.10)'}
             onMouseLeave={e=>e.currentTarget.style.background='none'}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.67"/></svg>
           </button>
@@ -396,7 +396,7 @@ function ChatPanel({ mode, user, onClose }) {
       </div>
 
       {/* Messages */}
-      <div style={{ flex:1, overflowY:'auto', padding:'16px 14px 8px', scrollbarWidth:'thin', scrollbarColor:'rgba(108,95,199,0.25) transparent' }}>
+      <div style={{ flex:1, overflowY:'auto', padding:'16px 14px 8px', scrollbarWidth:'thin', scrollbarColor:'rgba(150,108,40,0.25) transparent' }}>
         {messages.map((m,i) => <Bubble key={i} msg={m}/>)}
         {loading && <Typing/>}
         <div ref={bottomRef}/>
@@ -407,8 +407,8 @@ function ChatPanel({ mode, user, onClose }) {
         <div style={{ padding:'4px 14px 10px', display:'flex', gap:'6px', flexWrap:'wrap' }}>
           {chips.map(chip => (
             <button key={chip} onClick={() => send(chip.replace(/^[\S]+\s/, ''))}
-              style={{ fontSize:'11.5px', padding:'5px 11px', borderRadius:'20px', border:`1px solid ${borderCol}`, background: chipBg, color: text2, cursor:'pointer', transition:'all 0.15s', fontFamily:"'DM Sans',sans-serif", whiteSpace:'nowrap' }}
-              onMouseEnter={e=>{e.currentTarget.style.background='rgba(108,95,199,0.10)';e.currentTarget.style.borderColor='rgba(108,95,199,0.35)';e.currentTarget.style.color='#7c6fe0';}}
+              style={{ fontSize:'11.5px', padding:'5px 11px', borderRadius:'20px', border:`1px solid ${borderCol}`, background: chipBg, color: text2, cursor:'pointer', transition:'all 0.15s', fontFamily:"'Manrope',sans-serif", whiteSpace:'nowrap' }}
+              onMouseEnter={e=>{e.currentTarget.style.background='rgba(150,108,40,0.10)';e.currentTarget.style.borderColor='rgba(150,108,40,0.35)';e.currentTarget.style.color='#b8863f';}}
               onMouseLeave={e=>{e.currentTarget.style.background=chipBg;e.currentTarget.style.borderColor=borderCol;e.currentTarget.style.color=text2;}}>
               {chip}
             </button>
@@ -421,18 +421,18 @@ function ChatPanel({ mode, user, onClose }) {
         <textarea ref={inputRef} value={input} onChange={e=>setInput(e.target.value)} onKeyDown={handleKey}
           placeholder="Ask Aria anything…"
           rows={1}
-          style={{ flex:1, padding:'10px 14px', borderRadius:'13px', border:`1.5px solid ${borderCol}`, background: inputBg, color: textCol, fontSize:'13.5px', fontFamily:"'DM Sans',sans-serif", resize:'none', outline:'none', maxHeight:'88px', overflowY:'auto', lineHeight:1.45, transition:'border-color 0.2s' }}
-          onFocus={e=>e.target.style.borderColor='#7c6fe0'}
+          style={{ flex:1, padding:'10px 14px', borderRadius:'13px', border:`1.5px solid ${borderCol}`, background: inputBg, color: textCol, fontSize:'13.5px', fontFamily:"'Manrope',sans-serif", resize:'none', outline:'none', maxHeight:'88px', overflowY:'auto', lineHeight:1.45, transition:'border-color 0.2s' }}
+          onFocus={e=>e.target.style.borderColor='#b8863f'}
           onBlur={e=>e.target.style.borderColor=borderCol}
         />
         <button onClick={() => send()} disabled={!input.trim() || loading}
-          style={{ width:'40px', height:'40px', borderRadius:'12px', border:'none', flexShrink:0, cursor: input.trim()&&!loading ? 'pointer' : 'not-allowed', display:'flex', alignItems:'center', justifyContent:'center', transition:'all 0.22s', background: input.trim()&&!loading ? 'linear-gradient(135deg,#7c6fe0,#5448b8)' : 'rgba(108,95,199,0.10)', color: input.trim()&&!loading ? 'white' : 'rgba(108,95,199,0.40)', boxShadow: input.trim()&&!loading ? '0 4px 14px rgba(108,95,199,0.38)' : 'none' }}>
+          style={{ width:'40px', height:'40px', borderRadius:'12px', border:'none', flexShrink:0, cursor: input.trim()&&!loading ? 'pointer' : 'not-allowed', display:'flex', alignItems:'center', justifyContent:'center', transition:'all 0.22s', background: input.trim()&&!loading ? 'linear-gradient(135deg,#b8863f,#96702E)' : 'rgba(150,108,40,0.10)', color: input.trim()&&!loading ? 'white' : 'rgba(150,108,40,0.40)', boxShadow: input.trim()&&!loading ? '0 4px 14px rgba(150,108,40,0.38)' : 'none' }}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
         </button>
       </div>
 
       <div style={{ padding:'5px 0 8px', textAlign:'center' }}>
-        <p style={{ fontSize:'10px', color:'rgba(108,95,199,0.40)', letterSpacing:'0.03em' }}>Powered by Groq · Free API</p>
+        <p style={{ fontSize:'10px', color:'rgba(150,108,40,0.40)', letterSpacing:'0.03em' }}>Powered by Groq · Free API</p>
       </div>
     </div>
   );
@@ -478,9 +478,9 @@ export function PublicChatbot() {
         style={{
           position:'fixed', bottom:'28px', right:'28px', zIndex:1000,
           width:'68px', height:'68px', borderRadius:'50%', border:'none',
-          background: open ? 'linear-gradient(135deg,#e0425a,#b8203c)' : 'linear-gradient(135deg,#7c6fe0,#5448b8)',
+          background: open ? 'linear-gradient(135deg,#e0425a,#b8203c)' : 'linear-gradient(135deg,#b8863f,#96702E)',
           cursor:'pointer', padding:0, overflow:'visible',
-          boxShadow: open ? '0 8px 28px rgba(224,66,90,0.50)' : '0 8px 28px rgba(108,95,199,0.52)',
+          boxShadow: open ? '0 8px 28px rgba(224,66,90,0.50)' : '0 8px 28px rgba(150,108,40,0.52)',
           transition:'all 0.30s cubic-bezier(0.34,1.56,0.64,1)',
           display:'flex', alignItems:'center', justifyContent:'center',
         }}>
@@ -488,8 +488,8 @@ export function PublicChatbot() {
         {/* Pulse rings */}
         {pulse && !open && (
           <>
-            <span style={{ position:'absolute', inset:'-6px', borderRadius:'50%', background:'rgba(124,111,224,0.22)', animation:'ring 2s ease-out 0s infinite', pointerEvents:'none' }}/>
-            <span style={{ position:'absolute', inset:'-6px', borderRadius:'50%', background:'rgba(124,111,224,0.14)', animation:'ring 2s ease-out 0.6s infinite', pointerEvents:'none' }}/>
+            <span style={{ position:'absolute', inset:'-6px', borderRadius:'50%', background:'rgba(183,134,63,0.22)', animation:'ring 2s ease-out 0s infinite', pointerEvents:'none' }}/>
+            <span style={{ position:'absolute', inset:'-6px', borderRadius:'50%', background:'rgba(183,134,63,0.14)', animation:'ring 2s ease-out 0.6s infinite', pointerEvents:'none' }}/>
           </>
         )}
 
@@ -503,15 +503,15 @@ export function PublicChatbot() {
                 {/* Bot head */}
                 <rect x="10" y="9" width="16" height="12" rx="4" fill="white" opacity="0.95"/>
                 {/* Eyes */}
-                <circle cx="14.5" cy="14" r="1.8" fill="#5448b8"/>
-                <circle cx="21.5" cy="14" r="1.8" fill="#5448b8"/>
+                <circle cx="14.5" cy="14" r="1.8" fill="#96702E"/>
+                <circle cx="21.5" cy="14" r="1.8" fill="#96702E"/>
                 <circle cx="15.1" cy="13.4" r="0.65" fill="white"/>
                 <circle cx="22.1" cy="13.4" r="0.65" fill="white"/>
                 {/* Smile */}
-                <path d="M14 18 Q18 20.5 22 18" stroke="#5448b8" strokeWidth="1.3" strokeLinecap="round" fill="none"/>
+                <path d="M14 18 Q18 20.5 22 18" stroke="#96702E" strokeWidth="1.3" strokeLinecap="round" fill="none"/>
                 {/* Antenna */}
                 <line x1="18" y1="9" x2="18" y2="6.5" stroke="white" strokeWidth="1.3" strokeLinecap="round" opacity="0.9"/>
-                <circle cx="18" cy="5.8" r="1.4" fill="#4ecba8"/>
+                <circle cx="18" cy="5.8" r="1.4" fill="#C9A35A"/>
                 {/* Ears */}
                 <rect x="7.5" y="12" width="3" height="5" rx="1.5" fill="white" opacity="0.7"/>
                 <rect x="25.5" y="12" width="3" height="5" rx="1.5" fill="white" opacity="0.7"/>
@@ -532,7 +532,7 @@ export function PublicChatbot() {
 
         {/* "Ask me!" tooltip when pulse */}
         {pulse && !open && (
-          <div style={{ position:'absolute', right:'74px', top:'50%', transform:'translateY(-50%)', background:'white', color:'#5448b8', fontSize:'12px', fontWeight:'700', padding:'7px 14px', borderRadius:'20px', whiteSpace:'nowrap', boxShadow:'0 4px 18px rgba(108,95,199,0.25)', animation:'tooltipFade 3s ease-in-out 0.5s forwards', opacity:0, pointerEvents:'none', fontFamily:"'DM Sans',sans-serif", border:'1px solid rgba(108,95,199,0.15)' }}>
+          <div style={{ position:'absolute', right:'74px', top:'50%', transform:'translateY(-50%)', background:'white', color:'#96702E', fontSize:'12px', fontWeight:'700', padding:'7px 14px', borderRadius:'20px', whiteSpace:'nowrap', boxShadow:'0 4px 18px rgba(150,108,40,0.25)', animation:'tooltipFade 3s ease-in-out 0.5s forwards', opacity:0, pointerEvents:'none', fontFamily:"'Manrope',sans-serif", border:'1px solid rgba(150,108,40,0.15)' }}>
             💬 Ask Aria anything!
           </div>
         )}

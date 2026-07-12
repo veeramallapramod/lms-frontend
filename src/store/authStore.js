@@ -7,7 +7,6 @@ const useAuthStore = create(
     (set, get) => ({
       token: null,
       user: null,
-      theme: 'light',
 
       setToken: (token, userData) => {
         try {
@@ -37,10 +36,6 @@ const useAuthStore = create(
         localStorage.removeItem('lms-auth');
         set({ token: null, user: null });
       },
-
-      toggleTheme: () => set((state) => ({
-        theme: state.theme === 'dark' ? 'light' : 'dark'
-      })),
 
       isAuthenticated: () => !!get().token,
       getRole: () => get().user?.role || null,

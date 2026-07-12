@@ -45,9 +45,9 @@ export default function LibraryIllustration() {
       {/* Book 6 - ornate gold spine */}
       <rect x="140" y="72" width="24" height="70" rx="2" fill="#fef3c7"/>
       <rect x="140" y="72" width="4" height="70" fill="#c8a55a" opacity="0.7"/>
-      <rect x="145" y="85" width="14" height="1.5" fill="rgba(124,111,224,0.55)" rx="1"/>
-      <rect x="145" y="90" width="10" height="1.5" fill="rgba(124,111,224,0.35)" rx="1"/>
-      <rect x="145" y="128" width="14" height="1.5" fill="rgba(124,111,224,0.55)" rx="1"/>
+      <rect x="145" y="85" width="14" height="1.5" fill="rgba(183,134,63,0.55)" rx="1"/>
+      <rect x="145" y="90" width="10" height="1.5" fill="rgba(183,134,63,0.35)" rx="1"/>
+      <rect x="145" y="128" width="14" height="1.5" fill="rgba(183,134,63,0.55)" rx="1"/>
       {/* Book 7 */}
       <rect x="167" y="95" width="14" height="47" rx="1" fill="#bfdbfe"/>
       <rect x="167" y="95" width="3" height="47" fill="#60a5fa" opacity="0.5"/>
@@ -78,7 +78,7 @@ export default function LibraryIllustration() {
       <rect x="384" y="76" width="4" height="66" fill="#38bdf8" opacity="0.5"/>
       <rect x="409" y="88" width="15" height="54" rx="1" fill="#fef9c3"/>
       <rect x="409" y="88" width="3" height="54" fill="#c8a55a" opacity="0.5"/>
-      <rect x="427" y="80" width="18" height="62" rx="2" fill="#f5f3ff"/>
+      <rect x="427" y="80" width="18" height="62" rx="2" fill="#F8F6F2"/>
       <rect x="427" y="80" width="3" height="62" fill="#a16207" opacity="0.6"/>
 
       {/* ========== BOOKSHELF 2 (middle) ========== */}
@@ -164,23 +164,23 @@ export default function LibraryIllustration() {
         <line x1="0" y1="20" x2="-20" y2="5" stroke="#5c52c8" strokeWidth="5" strokeLinecap="round"/>
         {/* Lamp shade */}
         <path d="M-35 5 L-5 5 L-10 -12 L-30 -12 Z" fill="#3e39a0"/>
-        <path d="M-35 5 L-5 5" stroke="#a89cf7" strokeWidth="1.5" opacity="0.6"/>
+        <path d="M-35 5 L-5 5" stroke="#C9A35A" strokeWidth="1.5" opacity="0.6"/>
         {/* Light cone */}
-        <path d="M-20 5 L-50 45 L10 45 Z" fill="rgba(108,95,199,0.10)"/>
+        <path d="M-20 5 L-50 45 L10 45 Z" fill="rgba(150,108,40,0.10)"/>
         {/* Bulb glow */}
         <circle cx="-20" cy="3" r="3" fill="rgba(168,156,247,0.90)"/>
-        <circle cx="-20" cy="3" r="8" fill="rgba(124,111,224,0.20)"/>
+        <circle cx="-20" cy="3" r="8" fill="rgba(183,134,63,0.20)"/>
       </g>
 
       {/* ========== ATMOSPHERIC EFFECTS ========== */}
       {/* Warm glow around lamp area */}
-      <ellipse cx="350" cy="415" rx="80" ry="40" fill="rgba(78,203,168,0.08)"/>
+      <ellipse cx="350" cy="415" rx="80" ry="40" fill="rgba(183,134,63,0.08)"/>
       {/* Cool blue window light from top-right */}
       <rect x="360" y="20" width="80" height="100" fill="rgba(96,165,250,0.08)" rx="4"/>
-      <rect x="362" y="22" width="76" height="96" stroke="rgba(124,111,224,0.20)" strokeWidth="1" fill="none" rx="3"/>
+      <rect x="362" y="22" width="76" height="96" stroke="rgba(183,134,63,0.20)" strokeWidth="1" fill="none" rx="3"/>
       {/* Window cross */}
-      <line x1="400" y1="22" x2="400" y2="118" stroke="rgba(124,111,224,0.14)" strokeWidth="2"/>
-      <line x1="362" y1="70" x2="438" y2="70" stroke="rgba(124,111,224,0.14)" strokeWidth="2"/>
+      <line x1="400" y1="22" x2="400" y2="118" stroke="rgba(183,134,63,0.14)" strokeWidth="2"/>
+      <line x1="362" y1="70" x2="438" y2="70" stroke="rgba(183,134,63,0.14)" strokeWidth="2"/>
 
       {/* Dust particles */}
       {[{x:80,y:180},{x:200,y:60},{x:340,y:200},{x:420,y:120},{x:150,y:380},{x:280,y:340}].map((p,i) => (

@@ -111,9 +111,9 @@ export default function MemberPlans() {
               style={{
                 fontSize:'12px', fontWeight:'700', padding:'7px 18px', borderRadius:'20px',
                 border:'2px solid var(--accent)', cursor:'pointer',
-                background:'linear-gradient(135deg,#7c6fe0,#5448b8)',
-                color:'white', fontFamily:"'DM Sans',sans-serif",
-                boxShadow:'0 3px 12px rgba(108,95,199,0.35)',
+                background:'linear-gradient(135deg,#b8863f,#96702E)',
+                color:'white', fontFamily:"'Manrope',sans-serif",
+                boxShadow:'0 3px 12px rgba(150,108,40,0.35)',
                 transition:'all 0.2s',
               }}
               onMouseEnter={e => e.currentTarget.style.transform='translateY(-2px)'}
@@ -149,7 +149,7 @@ export default function MemberPlans() {
               <div style={{ marginBottom:'16px' }}>
                 <p style={{ fontSize:'11px', fontWeight:'700', color:plan.color, textTransform:'uppercase', letterSpacing:'0.1em', marginBottom:'8px' }}>{plan.name}</p>
                 <div style={{ display:'flex', alignItems:'baseline', gap:'3px', marginBottom:'4px' }}>
-                  <span style={{ fontFamily:"'Playfair Display',serif", fontSize:'32px', color:'var(--text-1)', lineHeight:1 }}>{plan.price}</span>
+                  <span style={{ fontFamily:"'Bodoni Moda',serif", fontSize:'32px', color:'var(--text-1)', lineHeight:1 }}>{plan.price}</span>
                   <span style={{ fontSize:'11px', color:'var(--text-3)' }}>{plan.period}</span>
                 </div>
                 <p style={{ fontSize:'11px', color:'var(--text-3)' }}>{plan.books} books · {plan.duration} days</p>
@@ -176,7 +176,7 @@ export default function MemberPlans() {
                   <button disabled style={{
                     width:'100%', padding:'10px', borderRadius:'8px', fontSize:'12px',
                     fontWeight:'700', background:plan.color, color:'white',
-                    border:'none', cursor:'default', fontFamily:"'DM Sans',sans-serif",
+                    border:'none', cursor:'default', fontFamily:"'Manrope',sans-serif",
                   }}>
                     ✓ Current Plan
                   </button>
@@ -189,7 +189,7 @@ export default function MemberPlans() {
                         width:'100%', padding:'10px', borderRadius:'8px', fontSize:'12px',
                         fontWeight:'700', cursor:'pointer', border:`1.5px solid ${plan.color}`,
                         background:'transparent', color:plan.color,
-                        fontFamily:"'DM Sans',sans-serif", transition:'all 0.15s',
+                        fontFamily:"'Manrope',sans-serif", transition:'all 0.15s',
                         opacity: loading === `renew-${plan.id}` ? 0.6 : 1,
                       }}
                       onMouseEnter={e => { e.currentTarget.style.background = plan.color; e.currentTarget.style.color = 'white'; }}
@@ -205,7 +205,7 @@ export default function MemberPlans() {
                   disabled={loading === plan.id}
                   style={{
                     width:'100%', padding:'10px', borderRadius:'8px', fontSize:'12px',
-                    fontWeight:'700', cursor:'pointer', fontFamily:"'DM Sans',sans-serif",
+                    fontWeight:'700', cursor:'pointer', fontFamily:"'Manrope',sans-serif",
                     background:'var(--bg-2)', color:'var(--text-1)',
                     border:`1px solid var(--border)`,
                     opacity: loading === plan.id ? 0.6 : 1, transition:'all 0.15s',

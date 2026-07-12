@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import LibraryIllustration from './LibraryIllustration';
 import { Link, useNavigate } from 'react-router-dom';
 import API from '../api/axiosInstance';
 import useAuthStore from '../store/authStore';
@@ -26,7 +25,7 @@ const DOODLES = [
   { id:19, type:'sparkle',  x:90,  y:20,  size:18, delay:4.5,  dur:6.0, rot:0   },
 ];
 
-const COLORS = ['#9b8fef','#7c6fe0','#b8b0f8','#60b8e8','#4ecba8','#c4b8f8','#80d0c0','#a0c8f0'];
+const COLORS = ['#9b8fef','#b8863f','#b8b0f8','#60b8e8','#C9A35A','#c4b8f8','#80d0c0','#a0c8f0'];
 
 function Doodle({ type, size, color }) {
   const sw = Math.max(1.4, size * 0.048);
@@ -81,6 +80,10 @@ export default function Login() {
   const [serverMsg, setServerMsg] = useState('');
   const [showPass,  setShowPass]  = useState(false);
 
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', 'light');
+  }, []);
+
   const validate = () => {
     const e = {};
     if (!form.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) e.email = 'Enter a valid email';
@@ -110,10 +113,10 @@ export default function Login() {
   };
 
   return (
-    <div style={{ minHeight:'100vh', display:'grid', gridTemplateColumns:'1fr 1fr', fontFamily:"'DM Sans',sans-serif" }}>
+    <div style={{ minHeight:'100vh', display:'grid', gridTemplateColumns:'1fr 1fr', fontFamily:"'Manrope',sans-serif" }}>
 
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=Manrope:wght@300;400;500;600;700;800&display=swap');
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 
         @keyframes floatA   { 0%,100%{transform:translateY(0px) rotate(var(--r))} 50%{transform:translateY(-16px) rotate(calc(var(--r) + 4deg))} }
@@ -125,102 +128,74 @@ export default function Login() {
         @keyframes popIn    { from{opacity:0;transform:scale(0.90)} to{opacity:1;transform:scale(1)} }
         @keyframes spin     { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
 
-        .doodle { position:absolute; opacity:0.50; filter:drop-shadow(0 2px 8px rgba(108,95,199,0.16)); }
+        .doodle { position:absolute; opacity:0.50; filter:drop-shadow(0 2px 8px rgba(150,108,40,0.16)); }
         .doodle:hover { opacity:0.80; }
 
         .lav-bg {
-          background: linear-gradient(145deg, #ede9ff 0%, #ddd6ff 28%, #cce8ff 58%, #d2f8ee 100%);
+          background: linear-gradient(145deg, #F8F1E0 0%, #F1E4C8 28%, #F5ECDA 58%, #FBF7EE 100%);
           background-size: 240% 240%;
           animation: gradMove 14s ease infinite;
         }
         .form-wrap  { animation: fadeUp 0.60s ease both; }
         .form-card  { animation: popIn 0.50s cubic-bezier(0.34,1.56,0.64,1) 0.12s both; }
 
-        .vi { width:100%;padding:11px 14px;border-radius:10px;border:1.5px solid rgba(108,95,199,0.20);background:#fff;color:#1e1b4b;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:all 0.2s; }
-        .vi:focus { border-color:#7c6fe0;box-shadow:0 0 0 3px rgba(124,111,224,0.13);background:#fdfcff; }
-        .vi::placeholder { color:rgba(30,27,75,0.30); }
-        .lbl { display:block;font-size:11px;font-weight:700;color:rgba(30,27,75,0.50);text-transform:uppercase;letter-spacing:0.09em;margin-bottom:7px; }
+        .vi { width:100%;padding:12px 14px;border-radius:12px;border:1.5px solid rgba(150,108,40,0.20);background:rgba(255,255,255,0.85);color:#1E1A16;font-size:14px;font-family:'Manrope',sans-serif;outline:none;transition:all 0.2s; }
+        .vi:focus { border-color:#b8863f;box-shadow:0 0 0 4px rgba(183,134,63,0.16);background:#fff; }
+        .vi::placeholder { color:rgba(95,91,86,0.30); }
+        .lbl { display:block;font-size:11px;font-weight:700;color:rgba(95,91,86,0.50);text-transform:uppercase;letter-spacing:0.09em;margin-bottom:7px; }
         .err { color:#e0425a;font-size:12px;margin-top:4px; }
 
-        .sbtn { width:100%;padding:13px;border:none;border-radius:11px;background:linear-gradient(135deg,#7c6fe0,#5448b8);color:#fff;font-size:15px;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all 0.28s;letter-spacing:0.02em;box-shadow:0 6px 22px rgba(108,95,199,0.34); }
-        .sbtn:hover:not(:disabled) { transform:translateY(-3px);box-shadow:0 12px 36px rgba(108,95,199,0.46);background:linear-gradient(135deg,#8f84e8,#6458c8); }
+        .sbtn { width:100%;padding:13px;border:none;border-radius:11px;background:linear-gradient(135deg,#b8863f,#96702E);color:#fff;font-size:15px;font-weight:700;font-family:'Manrope',sans-serif;cursor:pointer;transition:all 0.28s;letter-spacing:0.02em;box-shadow:0 6px 22px rgba(150,108,40,0.34); }
+        .sbtn:hover:not(:disabled) { transform:translateY(-3px);box-shadow:0 12px 36px rgba(150,108,40,0.46);background:linear-gradient(135deg,#C9A35A,#7A5A28); }
         .sbtn:disabled { opacity:0.55;cursor:not-allowed; }
         .sbtn:active:not(:disabled) { transform:translateY(-1px); }
       `}</style>
 
-      {/* ══ LEFT — Lavender animated doodle panel ══ */}
-      <div className="lav-bg" style={{ position:'relative', overflow:'hidden', display:'flex', flexDirection:'column', justifyContent:'flex-end', padding:'52px' }}>
-
-        {/* Soft ambient blobs */}
-        <div style={{ position:'absolute', top:'-100px', left:'-100px', width:'380px', height:'380px', borderRadius:'50%', background:'rgba(124,111,224,0.14)', filter:'blur(70px)', pointerEvents:'none' }}/>
-        <div style={{ position:'absolute', bottom:'-80px', right:'-80px', width:'320px', height:'320px', borderRadius:'50%', background:'rgba(78,203,168,0.13)', filter:'blur(60px)', pointerEvents:'none' }}/>
-        <div style={{ position:'absolute', top:'38%', right:'8%', width:'200px', height:'200px', borderRadius:'50%', background:'rgba(96,184,232,0.11)', filter:'blur(50px)', pointerEvents:'none' }}/>
-
-        {/* Library illustration — centred in panel */}
-        <div style={{
-          position:'absolute', top:'50%', left:'50%',
-          transform:'translate(-50%, -54%)',
-          width:'78%', maxWidth:'340px',
-          zIndex:1, opacity:0.82,
-          filter:'drop-shadow(0 8px 32px rgba(108,95,199,0.18))',
-        }}>
-          <LibraryIllustration/>
-        </div>
-
-        {/* Floating doodles */}
-        {DOODLES.map((d, i) => {
-          const anims = ['floatA','floatB','floatC','floatD'];
-          return (
-            <div key={d.id} className="doodle" style={{ zIndex:2,
-              left:`${d.x}%`, top:`${d.y}%`,
-              '--r': `${d.rot}deg`,
-              animation:`${anims[i%4]} ${d.dur}s ease-in-out ${d.delay}s infinite`,
-            }}>
-              <Doodle type={d.type} size={d.size} color={COLORS[i % COLORS.length]}/>
-            </div>
-          );
-        })}
+      {/* ══ LEFT — Library photo panel ══ */}
+      <div style={{ position:'relative', overflow:'hidden', display:'flex', flexDirection:'column', justifyContent:'flex-end', padding:'52px', background:'#1E1A16' }}>
+        <img src="/lib.jpg" alt="" style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center 30%', filter:'brightness(0.62) contrast(1.08) saturate(1.02)' }}/>
+        <div style={{ position:'absolute', inset:0, background:'linear-gradient(180deg, rgba(30,26,22,0.35) 0%, rgba(30,26,22,0.55) 55%, rgba(30,26,22,0.82) 100%)' }}/>
 
         {/* Logo */}
         <div style={{ position:'absolute', top:'40px', left:'48px', display:'flex', alignItems:'center', gap:'11px', zIndex:2 }}>
-          <div style={{ width:'38px', height:'38px', borderRadius:'10px', background:'linear-gradient(135deg,#7c6fe0,#5448b8)', display:'flex', alignItems:'center', justifyContent:'center', boxShadow:'0 4px 16px rgba(108,95,199,0.38)', flexShrink:0 }}>
+          <div style={{ width:'38px', height:'38px', borderRadius:'10px', background:'linear-gradient(135deg,#b8863f,#96702E)', display:'flex', alignItems:'center', justifyContent:'center', boxShadow:'0 4px 16px rgba(150,108,40,0.38)', flexShrink:0 }}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
             </svg>
           </div>
           <div>
-            <p style={{ fontFamily:"'Playfair Display',serif", fontSize:'22px', fontWeight:'700', color:'#2d2080', lineHeight:1 }}>Librario</p>
-            <p style={{ fontSize:'9px', letterSpacing:'0.14em', color:'rgba(45,32,128,0.42)', fontWeight:'600', textTransform:'uppercase', marginTop:'1px' }}>Library System</p>
+            <p style={{ fontFamily:"'Bodoni Moda',serif", fontSize:'22px', fontWeight:'700', color:'#F8F6F2', lineHeight:1 }}>Librario</p>
+            <p style={{ fontSize:'9px', letterSpacing:'0.14em', color:'rgba(248,246,242,0.62)', fontWeight:'600', textTransform:'uppercase', marginTop:'1px' }}>Library System</p>
           </div>
         </div>
 
         {/* Quote */}
         <div style={{ position:'relative', zIndex:2 }}>
-          <div style={{ width:'38px', height:'3px', borderRadius:'2px', background:'linear-gradient(90deg,#7c6fe0,#4ecba8)', marginBottom:'16px' }}/>
-          <p style={{ fontFamily:"'Playfair Display',serif", fontSize:'20px', color:'#2d2080', lineHeight:1.58, fontStyle:'italic', marginBottom:'10px', maxWidth:'340px' }}>
+          <div style={{ width:'38px', height:'3px', borderRadius:'2px', background:'linear-gradient(90deg,#b8863f,#C9A35A)', marginBottom:'16px' }}/>
+          <p style={{ fontFamily:"'Bodoni Moda',serif", fontSize:'20px', color:'#F8F6F2', lineHeight:1.58, fontStyle:'italic', marginBottom:'10px', maxWidth:'340px' }}>
             "A library is not a luxury but one of the necessities of life."
           </p>
-          <p style={{ fontSize:'13px', color:'rgba(45,32,128,0.42)', letterSpacing:'0.04em' }}>— Henry Ward Beecher</p>
+          <p style={{ fontSize:'13px', color:'rgba(248,246,242,0.62)', letterSpacing:'0.04em' }}>— Henry Ward Beecher</p>
           <div style={{ display:'flex', gap:'6px', marginTop:'20px' }}>
             {[1,2,3].map(i => (
-              <div key={i} style={{ width:i===1?'22px':'7px', height:'4px', borderRadius:'2px', background:i===1?'#7c6fe0':'rgba(124,111,224,0.24)' }}/>
+              <div key={i} style={{ width:i===1?'22px':'7px', height:'4px', borderRadius:'2px', background:i===1?'#b8863f':'rgba(248,246,242,0.30)' }}/>
             ))}
           </div>
         </div>
       </div>
 
       {/* ══ RIGHT — Form ══ */}
-      <div style={{ background:'#f8f7ff', display:'flex', alignItems:'center', justifyContent:'center', padding:'48px 40px', position:'relative' }}>
+      <div style={{ background:'var(--bg)', display:'flex', alignItems:'center', justifyContent:'center', padding:'48px 40px', position:'relative' }}>
         {/* Subtle dot texture */}
-        <div style={{ position:'absolute', inset:0, backgroundImage:'radial-gradient(circle, rgba(108,95,199,0.055) 1px, transparent 1px)', backgroundSize:'26px 26px', pointerEvents:'none' }}/>
+        <div style={{ position:'absolute', inset:0, backgroundImage:'radial-gradient(circle, rgba(150,108,40,0.055) 1px, transparent 1px)', backgroundSize:'26px 26px', pointerEvents:'none' }}/>
 
         <div className="form-wrap" style={{ width:'100%', maxWidth:'400px', position:'relative' }}>
           <div style={{ marginBottom:'28px' }}>
-            <h1 style={{ fontSize:'30px', fontWeight:'700', color:'#1e1b4b', marginBottom:'7px', fontFamily:"'Playfair Display',serif" }}>Welcome back</h1>
-            <p style={{ color:'rgba(30,27,75,0.50)', fontSize:'14px' }}>Sign in to your library account</p>
+            <h1 style={{ fontSize:'30px', fontWeight:'700', color:'#1E1A16', marginBottom:'7px', fontFamily:"'Bodoni Moda',serif" }}>Welcome back</h1>
+            <p style={{ color:'rgba(95,91,86,0.50)', fontSize:'14px' }}>Sign in to your library account</p>
           </div>
 
-          <div className="form-card" style={{ background:'#ffffff', borderRadius:'18px', padding:'32px', border:'1px solid rgba(108,95,199,0.12)', boxShadow:'0 8px 40px rgba(108,95,199,0.09), 0 2px 8px rgba(108,95,199,0.05)' }}>
+          <div className="form-card" style={{ background:'rgba(255,255,255,0.72)', backdropFilter:'blur(20px)', borderRadius:'24px', padding:'34px', border:'1px solid rgba(150,108,40,0.14)', boxShadow:'0 20px 60px rgba(30,26,22,0.12), 0 2px 8px rgba(150,108,40,0.05)' }}>
 
             {serverMsg && (
               <div style={{ background:'rgba(224,66,90,0.08)', border:'1px solid rgba(224,66,90,0.22)', borderRadius:'10px', padding:'10px 14px', marginBottom:'16px', fontSize:'13px', color:'#c0324a', fontWeight:'500' }}>
@@ -239,14 +214,14 @@ export default function Login() {
               <div>
                 <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'7px' }}>
                   <label className="lbl" style={{ margin:0 }}>Password</label>
-                  <Link to="/forgot-password" style={{ fontSize:'12px', color:'#7c6fe0', textDecoration:'none', fontWeight:'600' }}>Forgot?</Link>
+                  <Link to="/forgot-password" style={{ fontSize:'12px', color:'#b8863f', textDecoration:'none', fontWeight:'600' }}>Forgot?</Link>
                 </div>
                 <div style={{ position:'relative' }}>
                   <input className="vi" name="password" type={showPass?'text':'password'}
                     placeholder="Your password" value={form.password}
                     onChange={handleChange} style={{ paddingRight:'42px' }} autoComplete="current-password"/>
                   <button type="button" onClick={()=>setShowPass(!showPass)}
-                    style={{ position:'absolute', right:'12px', top:'50%', transform:'translateY(-50%)', background:'none', border:'none', cursor:'pointer', color:'rgba(30,27,75,0.32)', padding:'2px', lineHeight:0 }}>
+                    style={{ position:'absolute', right:'12px', top:'50%', transform:'translateY(-50%)', background:'none', border:'none', cursor:'pointer', color:'rgba(95,91,86,0.32)', padding:'2px', lineHeight:0 }}>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       {showPass
                         ? <><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19M1 1l22 22"/></>
@@ -267,17 +242,17 @@ export default function Login() {
               </button>
             </form>
 
-            <div style={{ textAlign:'center', marginTop:'20px', paddingTop:'18px', borderTop:'1px solid rgba(108,95,199,0.08)' }}>
-              <p style={{ fontSize:'13px', color:'rgba(30,27,75,0.46)' }}>
+            <div style={{ textAlign:'center', marginTop:'20px', paddingTop:'18px', borderTop:'1px solid rgba(150,108,40,0.08)' }}>
+              <p style={{ fontSize:'13px', color:'rgba(95,91,86,0.46)' }}>
                 Don't have an account?{' '}
-                <Link to="/register" style={{ color:'#7c6fe0', fontWeight:'700', textDecoration:'none' }}>Create one</Link>
+                <Link to="/register" style={{ color:'#b8863f', fontWeight:'700', textDecoration:'none' }}>Create one</Link>
               </p>
             </div>
           </div>
 
           {/* Role badges */}
           <div style={{ display:'flex', gap:'8px', justifyContent:'center', marginTop:'20px', flexWrap:'wrap' }}>
-            {[{r:'Admin',c:'#7c6fe0'},{r:'Librarian',c:'#38b2a0'},{r:'Member',c:'#5ba8d4'}].map(({r,c})=>(
+            {[{r:'Admin',c:'#b8863f'},{r:'Librarian',c:'#38b2a0'},{r:'Member',c:'#5ba8d4'}].map(({r,c})=>(
               <span key={r} style={{ fontSize:'11px', padding:'3px 13px', borderRadius:'20px', background:`${c}12`, color:c, border:`1px solid ${c}28`, fontWeight:'600' }}>{r}</span>
             ))}
           </div>

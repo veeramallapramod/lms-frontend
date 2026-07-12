@@ -44,7 +44,7 @@ const CustomTooltip = ({ active, payload, label }) => {
     return (
       <div style={{ background:'var(--bg-card)', border:'1px solid var(--border)', borderRadius:'10px', padding:'10px 14px', boxShadow:'var(--shadow-md)' }}>
         <p style={{ fontSize:'11px', color:'var(--text-3)', marginBottom:'4px', textTransform:'uppercase', letterSpacing:'0.06em' }}>{label}</p>
-        <p style={{ fontSize:'18px', fontWeight:'700', color:'#7c6fe0', fontFamily:"'Playfair Display',serif" }}>
+        <p style={{ fontSize:'18px', fontWeight:'700', color:'#b8863f', fontFamily:"'Bodoni Moda',serif" }}>
           {payload[0].value} borrows
         </p>
       </div>
@@ -85,7 +85,7 @@ function StatCard({ label, value, icon, cfgKey, link, sub, delay }) {
         <div style={{ flex:1 }}>
           <p className="stat-number-animated"
             style={{ fontSize:'32px', fontWeight:'800', color:'var(--text-1)',
-              fontFamily:"'Playfair Display',serif", lineHeight:1,
+              fontFamily:"'Bodoni Moda',serif", lineHeight:1,
               animationDelay:`${(delay-1)*0.08}s` }}>
             {display ?? '—'}
           </p>
@@ -129,7 +129,7 @@ function AvailBar({ label, value, total, color }) {
     <div style={{ padding:'14px 18px', borderRadius:'12px', background:'var(--bg-card)', border:'1px solid var(--border)', borderLeft:`4px solid ${color}`, flex:1, minWidth:'120px' }}>
       <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-end', marginBottom:'8px' }}>
         <span style={{ fontSize:'12px', color, fontWeight:'700' }}>{label}</span>
-        <span style={{ fontSize:'26px', fontWeight:'800', color, fontFamily:"'Playfair Display',serif", lineHeight:1 }}>{value}</span>
+        <span style={{ fontSize:'26px', fontWeight:'800', color, fontFamily:"'Bodoni Moda',serif", lineHeight:1 }}>{value}</span>
       </div>
       <div style={{ height:'5px', background:`${color}20`, borderRadius:'3px', overflow:'hidden' }}>
         <div style={{ height:'100%', width:`${width}%`, background: `linear-gradient(90deg, ${color}, ${color}bb)`, borderRadius:'3px', transition:'width 0.8s cubic-bezier(0.34,1.56,0.64,1)' }}/>
@@ -291,11 +291,11 @@ export default function Dashboard() {
                 </div>
                 <div style={{ display:'flex', gap:'20px' }}>
                   <div style={{ textAlign:'right' }}>
-                    <p style={{ fontSize:'20px', fontWeight:'800', color:'#7c6fe0', fontFamily:"'Playfair Display',serif", lineHeight:1 }}>{chartData[chartData.length-1].borrows}</p>
+                    <p style={{ fontSize:'20px', fontWeight:'800', color:'#b8863f', fontFamily:"'Bodoni Moda',serif", lineHeight:1 }}>{chartData[chartData.length-1].borrows}</p>
                     <p style={{ fontSize:'11px', color:'var(--text-3)' }}>This month</p>
                   </div>
                   <div style={{ textAlign:'right' }}>
-                    <p style={{ fontSize:'20px', fontWeight:'800', color:'var(--green)', fontFamily:"'Playfair Display',serif", lineHeight:1 }}>↑ 12%</p>
+                    <p style={{ fontSize:'20px', fontWeight:'800', color:'var(--green)', fontFamily:"'Bodoni Moda',serif", lineHeight:1 }}>↑ 12%</p>
                     <p style={{ fontSize:'11px', color:'var(--text-3)' }}>vs last month</p>
                   </div>
                 </div>

@@ -7,7 +7,7 @@ import {
 } from 'recharts';
 
 /* ─── constants ─── */
-const COLORS = ['#7c6fe0','#3b82f6','#f97316','#059669','#dc2626','#d97706','#8b5cf6','#0ea5e9','#ec4899','#14b8a6'];
+const COLORS = ['#b8863f','#3b82f6','#f97316','#059669','#dc2626','#d97706','#8b5cf6','#0ea5e9','#ec4899','#14b8a6'];
 const REPORT_TYPES = [
   { id:'inventory',     label:'📚 Book Inventory',   desc:'Stock & availability' },
   { id:'users',         label:'👤 User Activity',     desc:'Engagement tracking' },
@@ -27,7 +27,7 @@ const daysLate  = (d) => Math.max(0, Math.ceil((new Date() - new Date(d)) / 8640
 const calcFine  = (r) => isOverdue(r) ? daysLate(r.dueDate) * 5 : 0;
 
 /* ─── sub-components ─── */
-function Badge({ text, color = '#7c6fe0' }) {
+function Badge({ text, color = '#b8863f' }) {
   return (
     <span style={{
       display:'inline-block', padding:'2px 9px', borderRadius:'99px',
@@ -39,7 +39,7 @@ function Badge({ text, color = '#7c6fe0' }) {
 function KpiGrid({ items }) {
   return (
     <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(150px,1fr))', gap:'14px', marginBottom:'24px' }}>
-      {items.map(({ label, value, color='#7c6fe0', icon }) => (
+      {items.map(({ label, value, color='#b8863f', icon }) => (
         <div key={label} style={{
           background:'var(--bg-card)', border:'1px solid var(--border)',
           borderRadius:'12px', padding:'18px 16px', display:'flex', alignItems:'center', gap:'14px',
@@ -103,7 +103,7 @@ const CustomTooltip = ({ active, payload, label }) => {
   return (
     <div style={{ background:'var(--bg-card)', border:'1px solid var(--border)', borderRadius:'10px', padding:'10px 14px' }}>
       <p style={{ fontSize:'11px', color:'var(--text-3)', marginBottom:'4px', textTransform:'uppercase' }}>{label}</p>
-      {payload.map((p,i) => <p key={i} style={{ fontSize:'15px', fontWeight:'700', color:p.color||'#7c6fe0', margin:'2px 0' }}>{p.name}: {fmt(p.value)}</p>)}
+      {payload.map((p,i) => <p key={i} style={{ fontSize:'15px', fontWeight:'700', color:p.color||'#b8863f', margin:'2px 0' }}>{p.name}: {fmt(p.value)}</p>)}
     </div>
   );
 };
@@ -237,7 +237,7 @@ export default function Reports() {
     const win = window.open('', '_blank');
     if (!win) return;
 
-    const thStyle = `padding:8px 10px;background:#7c6fe0;color:#fff;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:0.05em`;
+    const thStyle = `padding:8px 10px;background:#b8863f;color:#fff;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:0.05em`;
     const tdStyle = `padding:8px 10px;border-bottom:1px solid #e2e8f0;color:#374151;font-size:12px`;
     const trAlt   = `background:#f8f7ff`;
 
@@ -254,15 +254,15 @@ export default function Reports() {
     const kpiBox = (items) => `
       <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:20px">
         ${items.map(it => `
-          <div style="border:2px solid #7c6fe0;border-radius:8px;padding:12px 20px;min-width:130px">
-            <div style="font-size:24px;font-weight:800;color:#1e1b4b">${it.value}</div>
+          <div style="border:2px solid #b8863f;border-radius:8px;padding:12px 20px;min-width:130px">
+            <div style="font-size:24px;font-weight:800;color:#1E1A16">${it.value}</div>
             <div style="font-size:10px;color:#6b7280;text-transform:uppercase;letter-spacing:0.05em;margin-top:2px">${it.label}</div>
           </div>`).join('')}
       </div>`;
 
     const section = (num, title, content) => `
       <div style="page-break-inside:avoid;margin-bottom:36px">
-        <h2 style="font-size:17px;font-weight:700;color:#7c6fe0;border-bottom:2px solid #7c6fe0;padding-bottom:6px;margin-bottom:16px">${num}. ${title}</h2>
+        <h2 style="font-size:17px;font-weight:700;color:#b8863f;border-bottom:2px solid #b8863f;padding-bottom:6px;margin-bottom:16px">${num}. ${title}</h2>
         ${content}
       </div>`;
 
@@ -276,21 +276,21 @@ export default function Reports() {
     </head><body>
 
       <!-- Header -->
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;padding-bottom:20px;border-bottom:3px solid #7c6fe0">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;padding-bottom:20px;border-bottom:3px solid #b8863f">
         <div>
-          <h1 style="font-size:28px;font-weight:800;color:#1e1b4b;margin-bottom:4px">📊 Library Management Full Report</h1>
+          <h1 style="font-size:28px;font-weight:800;color:#1E1A16;margin-bottom:4px">📊 Library Management Full Report</h1>
           <p style="color:#6b7280">Generated: ${today()} &nbsp;|&nbsp; Period: ${dateRange === 'all' ? 'All time' : 'Last ' + dateRange + ' days'}</p>
         </div>
-        <div style="background:#7c6fe0;color:#fff;padding:12px 24px;border-radius:10px;font-weight:700;font-size:14px;text-align:center">
+        <div style="background:#b8863f;color:#fff;padding:12px 24px;border-radius:10px;font-weight:700;font-size:14px;text-align:center">
           LIBRARIO LMS<br><span style="font-size:10px;font-weight:400">Library System</span>
         </div>
       </div>
 
       <!-- Summary row -->
       <div style="background:#f8f7ff;border:1px solid #e0ddff;border-radius:10px;padding:16px 20px;margin-bottom:32px;display:flex;gap:30px;flex-wrap:wrap">
-        <div><span style="font-size:11px;color:#6b7280;text-transform:uppercase">Total Books</span><br><strong style="font-size:18px;color:#1e1b4b">${fmt(totalBooks)}</strong></div>
-        <div><span style="font-size:11px;color:#6b7280;text-transform:uppercase">Total Users</span><br><strong style="font-size:18px;color:#1e1b4b">${fmt(users.length)}</strong></div>
-        <div><span style="font-size:11px;color:#6b7280;text-transform:uppercase">Transactions</span><br><strong style="font-size:18px;color:#1e1b4b">${fmt(filteredBorrows.length)}</strong></div>
+        <div><span style="font-size:11px;color:#6b7280;text-transform:uppercase">Total Books</span><br><strong style="font-size:18px;color:#1E1A16">${fmt(totalBooks)}</strong></div>
+        <div><span style="font-size:11px;color:#6b7280;text-transform:uppercase">Total Users</span><br><strong style="font-size:18px;color:#1E1A16">${fmt(users.length)}</strong></div>
+        <div><span style="font-size:11px;color:#6b7280;text-transform:uppercase">Transactions</span><br><strong style="font-size:18px;color:#1E1A16">${fmt(filteredBorrows.length)}</strong></div>
         <div><span style="font-size:11px;color:#6b7280;text-transform:uppercase">Overdue</span><br><strong style="font-size:18px;color:#dc2626">${fmt(overdueRows.length)}</strong></div>
         <div><span style="font-size:11px;color:#6b7280;text-transform:uppercase">Total Fine Due</span><br><strong style="font-size:18px;color:#d97706">${fmtRs(totalFine)}</strong></div>
       </div>
@@ -447,7 +447,7 @@ export default function Reports() {
   const renderInventory = () => (
     <>
       <KpiGrid items={[
-        { label:'Total Titles',  value:fmt(totalBooks),      icon:'📚', color:'#7c6fe0' },
+        { label:'Total Titles',  value:fmt(totalBooks),      icon:'📚', color:'#b8863f' },
         { label:'Total Copies',  value:fmt(totalCopies),     icon:'📖', color:'#3b82f6' },
         { label:'Available',     value:fmt(availableCopies), icon:'✅', color:'#059669' },
         { label:'Issued Out',    value:fmt(issuedCopies),    icon:'🔖', color:'#f97316' },
@@ -478,7 +478,7 @@ export default function Reports() {
   const renderUsers = () => (
     <>
       <KpiGrid items={[
-        { label:'Total Users',      value:fmt(users.length),                                        icon:'👥', color:'#7c6fe0' },
+        { label:'Total Users',      value:fmt(users.length),                                        icon:'👥', color:'#b8863f' },
         { label:'Admins',           value:fmt(users.filter(u=>u.role==='ADMIN').length),             icon:'👑', color:'#dc2626' },
         { label:'Librarians',       value:fmt(users.filter(u=>u.role==='LIBRARIAN').length),         icon:'📋', color:'#3b82f6' },
         { label:'Members',          value:fmt(users.filter(u=>u.role==='MEMBER').length),            icon:'👤', color:'#059669' },
@@ -490,8 +490,8 @@ export default function Reports() {
             { key:'name',             label:'Name',     style:{ fontWeight:'600', color:'var(--text-1)' } },
             { key:'email',            label:'Email' },
             { key:'role',             label:'Role',     render: v => <Badge text={v} color={v==='ADMIN'?'#dc2626':v==='LIBRARIAN'?'#3b82f6':'#059669'} /> },
-            { key:'subscriptionPlan', label:'Plan',     render: v => <Badge text={v||'FREE'} color={v==='PREMIUM'?'#7c6fe0':v==='STANDARD'?'#8b5cf6':v==='BASIC'?'#3b82f6':'#94a3b8'} /> },
-            { key:'borrowCount',      label:'Borrows',  render: v => <span style={{ fontWeight:'700', color: v>0?'#7c6fe0':'var(--text-3)' }}>{v}</span> },
+            { key:'subscriptionPlan', label:'Plan',     render: v => <Badge text={v||'FREE'} color={v==='PREMIUM'?'#b8863f':v==='STANDARD'?'#8b5cf6':v==='BASIC'?'#3b82f6':'#94a3b8'} /> },
+            { key:'borrowCount',      label:'Borrows',  render: v => <span style={{ fontWeight:'700', color: v>0?'#b8863f':'var(--text-3)' }}>{v}</span> },
             { key:'lastActivity',     label:'Last Activity' },
           ]}
           rows={usersWithActivity.map(u => ({
@@ -509,7 +509,7 @@ export default function Reports() {
   const renderTransactions = () => (
     <>
       <KpiGrid items={[
-        { label:'Total',    value:fmt(txRows.length),                                   icon:'🔄', color:'#7c6fe0' },
+        { label:'Total',    value:fmt(txRows.length),                                   icon:'🔄', color:'#b8863f' },
         { label:'Active',   value:fmt(txRows.filter(r=>r.status==='ACTIVE').length),    icon:'🔖', color:'#3b82f6' },
         { label:'Returned', value:fmt(txRows.filter(r=>r.status==='RETURNED').length),  icon:'✅', color:'#059669' },
         { label:'Overdue',  value:fmt(txRows.filter(r=>r.status==='OVERDUE').length),   icon:'⚠️', color:'#dc2626' },
@@ -573,7 +573,7 @@ export default function Reports() {
     return (
       <>
         <KpiGrid items={[
-          { label:'Unique Books Borrowed', value:fmt(Object.keys(popularMap).length), icon:'📚', color:'#7c6fe0' },
+          { label:'Unique Books Borrowed', value:fmt(Object.keys(popularMap).length), icon:'📚', color:'#b8863f' },
           { label:'Total Transactions',    value:fmt(filteredBorrows.length),          icon:'🔄', color:'#3b82f6' },
           { label:'Most Popular',          value: popularRows[0]?.title?.slice(0,18)||'—', icon:'🏆', color:'#d97706' },
         ]} />
@@ -598,7 +598,7 @@ export default function Reports() {
               { key:'rank',     label:'Rank' },
               { key:'title',    label:'Title',     style:{ fontWeight:'600', color:'var(--text-1)' } },
               { key:'category', label:'Category',  render: v => <Badge text={v} /> },
-              { key:'count',    label:'Times Issued', render: v => <span style={{fontWeight:'800',color:'#7c6fe0'}}>{v}</span> },
+              { key:'count',    label:'Times Issued', render: v => <span style={{fontWeight:'800',color:'#b8863f'}}>{v}</span> },
             ]}
             rows={popularRows.map((r,i) => ({ rank:`#${i+1}`, ...r }))}
             emptyMsg="No borrow data yet."
@@ -613,7 +613,7 @@ export default function Reports() {
     return (
       <>
         <KpiGrid items={[
-          { label:'Total Categories', value:fmt(catRows.length),                     icon:'🏷️', color:'#7c6fe0' },
+          { label:'Total Categories', value:fmt(catRows.length),                     icon:'🏷️', color:'#b8863f' },
           { label:'Total Books',      value:fmt(totalBooks),                         icon:'📚', color:'#3b82f6' },
           { label:'Most Issued',      value: catRows[0]?.category?.slice(0,16)||'—', icon:'🔥', color:'#f97316' },
         ]} />
@@ -653,7 +653,7 @@ export default function Reports() {
               { key:'category',    label:'Category',     style:{ fontWeight:'600', color:'var(--text-1)' } },
               { key:'totalBooks',  label:'Titles' },
               { key:'totalCopies', label:'Total Copies' },
-              { key:'issuedCount', label:'Times Issued', render: v => <span style={{fontWeight:'700',color:'#7c6fe0'}}>{v}</span> },
+              { key:'issuedCount', label:'Times Issued', render: v => <span style={{fontWeight:'700',color:'#b8863f'}}>{v}</span> },
             ]}
             rows={catRows}
             emptyMsg="No category data."
@@ -672,7 +672,7 @@ export default function Reports() {
           { label:'FREE',     value:fmt(planCounts['FREE']||0),     icon:'🆓', color:'#94a3b8' },
           { label:'BASIC',    value:fmt(planCounts['BASIC']||0),    icon:'⭐', color:'#3b82f6' },
           { label:'STANDARD', value:fmt(planCounts['STANDARD']||0), icon:'⭐⭐', color:'#8b5cf6' },
-          { label:'PREMIUM',  value:fmt(planCounts['PREMIUM']||0),  icon:'👑', color:'#7c6fe0' },
+          { label:'PREMIUM',  value:fmt(planCounts['PREMIUM']||0),  icon:'👑', color:'#b8863f' },
         ]} />
         <SectionCard title="Subscription & Payment Records">
           {subRows.length === 0 ? (
@@ -682,7 +682,7 @@ export default function Reports() {
               cols={[
                 { key:'name',   label:'Member',  style:{ fontWeight:'600', color:'var(--text-1)' } },
                 { key:'email',  label:'Email' },
-                { key:'plan',   label:'Plan',    render: v => <Badge text={v} color={v==='PREMIUM'?'#7c6fe0':v==='STANDARD'?'#8b5cf6':'#3b82f6'} /> },
+                { key:'plan',   label:'Plan',    render: v => <Badge text={v} color={v==='PREMIUM'?'#b8863f':v==='STANDARD'?'#8b5cf6':'#3b82f6'} /> },
                 { key:'status', label:'Status',  render: v => <Badge text={v||'ACTIVE'} color={v==='ACTIVE'?'#059669':'#dc2626'} /> },
                 { key:'amount', label:'Amount',  render: v => v&&v!=='—' ? <span style={{fontWeight:'700',color:'#059669'}}>{fmtRs(v)}</span> : '—' },
                 { key:'date',   label:'Date' },
@@ -734,7 +734,7 @@ export default function Reports() {
               ⬇ Export CSV
             </button>
             <button onClick={exportPDF}
-              style={{ padding:'8px 18px', borderRadius:'8px', border:'none', background:'#7c6fe0', color:'#fff', cursor:'pointer', fontSize:'13px', fontWeight:'700', boxShadow:'0 4px 12px #7c6fe044' }}>
+              style={{ padding:'8px 18px', borderRadius:'8px', border:'none', background:'#b8863f', color:'#fff', cursor:'pointer', fontSize:'13px', fontWeight:'700', boxShadow:'0 4px 12px #b8863f44' }}>
               🖨 Full PDF Report
             </button>
           </div>
@@ -760,9 +760,9 @@ export default function Reports() {
                   style={{
                     padding:'10px 16px', borderRadius:'10px', cursor:'pointer',
                     fontSize:'13px', fontWeight:'600', transition:'all 0.15s',
-                    background: active===rt.id ? '#7c6fe0' : 'var(--bg-card)',
+                    background: active===rt.id ? '#b8863f' : 'var(--bg-card)',
                     color: active===rt.id ? '#fff' : 'var(--text-2)',
-                    boxShadow: active===rt.id ? '0 4px 12px #7c6fe044' : 'var(--shadow-sm)',
+                    boxShadow: active===rt.id ? '0 4px 12px #b8863f44' : 'var(--shadow-sm)',
                     border: active===rt.id ? '1px solid transparent' : '1px solid var(--border)',
                   }}>
                   {rt.label}
